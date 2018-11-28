@@ -1,22 +1,25 @@
 {
   "name": "circuitbreaker",
-  "version": "1.0.0",
-  "description": "This is a transreality, mobile-first game where players capture and verify benchmarked tasks. Using mobile devices, individuals and/or teams compete to be the first to complete a randomized list of activities, which may include one, or a mixture of the following tasks: taking a selfie with a certain object; checking-in within a radius of a specified geolocation; or photographing an object at a given location.",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KristinJoy/circuitbreaker.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "keywords": [
-    "selfie"
-  ],
-  "author": "CircuitBreakerCrew",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KristinJoy/circuitbreaker/issues"
-  },
-  "homepage": "https://github.com/KristinJoy/circuitbreaker#readme"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
