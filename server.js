@@ -1,7 +1,7 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var path = require('path');
+//var path = require('path');
 var addUser = require('./routes/add-user');
 
 var app = express();
@@ -9,7 +9,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/addUser', addUser);
 
@@ -30,5 +30,5 @@ app.use('/addUser', addUser);
 //     res.status(err.status || 500);
 //     res.render('error');
 // });
-
-app.listen(3000);
+var port = 3000;
+app.listen(port);

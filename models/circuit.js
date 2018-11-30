@@ -7,7 +7,7 @@ CircuitSchema  = mongoose.Schema(
         object_gate: [String],
         location_gate: [String],
         id_users_completed: [Number]
-      }
+      },
       time_started: Date,
       time_completed: Date,
       date_created: Date,
@@ -19,6 +19,6 @@ CircuitSchema  = mongoose.Schema(
         }
     },
     { collection: 'circuits' });
-Circuit = mongoose.model('Circuit', CircuitSchema);
+var Circuit = mongoose.model('Circuit', CircuitSchema);
 
 module.exports = Circuit;
