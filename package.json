@@ -6,11 +6,8 @@
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
     "debug": "^4.1.0",
-<<<<<<< HEAD
     "google-maps-react": "^2.0.2",
-=======
     "dotenv": "^6.1.0",
->>>>>>> 9e412ce7dc3a4a5b291790c3d76b11849c0e7f1a
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
