@@ -4,13 +4,14 @@ var User = require('../models/user');
 
 /* This adds user to the database as soon as they sign up */
 router.post('/', function (req, res) {
+    console.log('add user accessed');
     process_request(req);
     res.sendStatus(200);
 });
 
-function process_request(req) { //gathers events data we scraped from users' Facebook info into our database.
+function process_request(req) {
     var data = req.body;
-    console.log("added: " + data.name);
+    console.log("added: " + data.first_name);
     new User({
       first_name:data.first_name,
       last_name:data.last_name,

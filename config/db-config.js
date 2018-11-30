@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://circuitbreaker:Thisisagoodpassword!1@ds137530.mlab.com:37530/heroku_76gt05rt");
+
+mongoose.connect("mongodb://circuitbreaker:Thisisagoodpassword!1@ds119164.mlab.com:19164/circuitbreaker");
+
 
 module.exports = mongoose;

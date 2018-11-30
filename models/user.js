@@ -9,6 +9,6 @@ UserSchema = mongoose.Schema(
         circuits_participated:[Number] //id's of circuits a user was in
     },
     { collection: 'users' });
-User = mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
 
 module.exports = User;
