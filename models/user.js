@@ -9,7 +9,7 @@ UserSchema = mongoose.Schema(
         current_user_location: {
           type: "Point",
           coordinates: [Number, Number]
-        }//can update as user moves around and front end makes more POST calls
+        },//can update as user moves around and front end makes more POST calls
         circuits_participated:[Number] //id's of circuits a user was in
     },
     { collection: 'users' });
