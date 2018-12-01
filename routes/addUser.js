@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-/* This adds user to the database as soon as they sign up */
+/* This adds user object to database when sent over route 'addUser'*/
 router.post('/', function (req, res) {
     console.log('add user accessed');
     process_request(req);
