@@ -17,6 +17,10 @@ function process_request(req) {
       last_name:data.last_name,
       username:data.user_name,
       avatar:data.avatar_link, //string to image location in server / public
+      current_user_location: {
+        type: "Point",
+        coordinates: [data.position.coords.longitude, data.position.coords.longitude]
+      }
       circuits_participated:[] //id's of circuits a user was in
     }).save(function (err) {
         if (err) {
