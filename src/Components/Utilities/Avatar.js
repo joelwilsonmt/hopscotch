@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = {
   avatar: {
-    margin: 5
   }
 };
 
