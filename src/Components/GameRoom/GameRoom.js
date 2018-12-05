@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -15,21 +15,43 @@ const styles = theme => ({
   }
 });
 
-function PaperSheet(props) {
-  const { classes } = props;
 
-  return (
-    <div>
-      <AppBar />
-      <Paper className={classes.root} elevation={1}>
-        <Typography variant="h5" component="h3" align="center">
-          GAME ROOM
-        </Typography>
-        <br />
-        <GameRoomCard />
-      </Paper>
-    </div>
-  );
+
+class PaperSheet extends Component {
+  constructor(props) {
+    super();
+      const { classes } = props;
+      this.state={
+        location: {}
+      }
+}
+
+  componentWillMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        //this.setState({location:position})
+        console.log(position);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
+  }
+
+  render() {
+
+    return (
+      <div>
+        <AppBar />
+        <Paper elevation={1}>
+          <Typography variant="h5" component="h3" align="center">
+            GAME ROOM
+          </Typography>
+          <br />
+          <GameRoomCard />
+        </Paper>
+      </div>
+    );
+  }
 }
 
 PaperSheet.propTypes = {
