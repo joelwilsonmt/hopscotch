@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -8,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Button from "@material-ui/core/Button";
+import Camera from "../Camera/Camera";
 
 const styles = theme => ({
   root: {
@@ -31,9 +33,11 @@ function SimpleExpansionPanel(props) {
           <Typography>Detailed information on what to do.</Typography>
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <Link to="/Camera/">
+            <Button size="small" color="primary">
+              Proof
+            </Button>
+          </Link>
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>

@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ExpansionPanels from "./ExpansionPanels";
+import GameRoomCard from "./GameRoomCard";
+import AppBar from "../Utilities/AppBar";
+import Background from "../Utilities/Background"
 
 const styles = theme => ({
   root: {
@@ -18,13 +20,13 @@ function PaperSheet(props) {
 
   return (
     <div>
+      <AppBar />
       <Paper className={classes.root} elevation={1}>
-        <Typography variant="h4" component="h3" align="center">
-          CHALLENGE LIST
+        <Typography variant="h5" component="h3" align="center">
+          GAME ROOM
         </Typography>
         <br />
-        <br />
-        <ExpansionPanels />
+        <GameRoomCard />
       </Paper>
     </div>
   );

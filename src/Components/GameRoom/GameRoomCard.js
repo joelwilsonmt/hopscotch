@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -6,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import CountDown from "../CountDown";
+import CountDown from "../Utilities/CountDown";
 
 const styles = {
   card: {
@@ -35,15 +36,19 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
+        <Typography>
+        Circuit starts in <CountDown />
+        </Typography>
+        <br />
         <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
           align="center"
         >
-          Location of Circuit
+          Location
         </Typography>
-        <Typography variant="h5" component="h2" align="center">
+        <Typography variant="h6" component="h2" align="center">
           Missoula
         </Typography>
         <Typography
@@ -51,18 +56,19 @@ function SimpleCard(props) {
           color="textSecondary"
           align="center"
         >
-          Number of Players in Lobby
+          Players in Lobby
           <br />7 of 8
         </Typography>
         <Typography component="p" align="center">
-          Ten Challenges to be Completed
+          10 Challenges to be completed
         </Typography>
-        Circuit will Start in <CountDown />
       </CardContent>
       <CardActions>
-        <Button size="small" justify="center">
-          Join Circuit
-        </Button>
+        <Link to="/Lobby/">
+          <Button size="small" justify="center">
+            Join Circuit
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

@@ -7,6 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
+import AppBar from "../Utilities/AppBar";
+import CircuitReviewButtons from "./CircuitReviewButtons";
 
 const styles = theme => ({
   root: {
@@ -40,9 +43,12 @@ function SimpleTable(props) {
   const { classes } = props;
 
   return (
+    <div>
+    <AppBar />
     <Paper className={classes.root}>
+      <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
       <Table className={classes.table}>
-        <TableHead>CIRCUIT REVIEW
+        <TableHead>
           <TableRow>
             <TableCell>USER</TableCell>
             <TableCell numeric>COMPLETED</TableCell>
@@ -61,7 +67,9 @@ function SimpleTable(props) {
           })}
         </TableBody>
       </Table>
+      <CircuitReviewButtons />
     </Paper>
+    </div>
   );
 }
 
