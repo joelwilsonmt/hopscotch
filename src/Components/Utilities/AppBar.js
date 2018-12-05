@@ -30,8 +30,8 @@ function ButtonAppBar(props) {
       <AppBar position="static">
         <Toolbar>
           <MenuButton />
-          <Typography variant="body1" color="inherit" className={classes.grow}>
-            Circuit Breaker
+          <Typography variant="h6" color="inherit" className={classes.grow}>
+            CIRCUITBREAKER
           </Typography>
           <Avatar />
         </Toolbar>

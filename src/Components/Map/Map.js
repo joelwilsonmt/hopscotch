@@ -1,29 +1,35 @@
 import React from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import AppBar from "../Utilities/AppBar";
+import MapContainer from "./MapContainer";
+import BottomNav from "../Utilities/BottomNav";
 
 
-export class MapContainer extends React.Component {
-  render() {
-    const style = {
-      width: '100%',
-      height: '100%'
-    }
-    return (
-      <Map
-        google={this.props.google}
-        style={style}
-        initialCenter={{
-            lat: 46.86028,
-            lng: -113.98278
-          }}
-        zoom={13}>
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
-      </Map>
-    );
-  }
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+});
+
+function PaperSheet(props) {
+  const { classes } = props;
+
+  return (
+    <div>
+      <AppBar />
+      <MapContainer />
+      <BottomNav />
+    </div>
+  );
 }
 
-export default GoogleApiWrapper({
-  apiKey: ('AIzaSyD81lHDGkpb3CORrbtfarHe44zpXnKtJu8')
-})(MapContainer)
+PaperSheet.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PaperSheet);
