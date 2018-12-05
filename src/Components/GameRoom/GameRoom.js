@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
 import AppBar from "../Utilities/AppBar";
-import Background from "../Utilities/Background"
+
 
 const styles = theme => ({
   root: {
