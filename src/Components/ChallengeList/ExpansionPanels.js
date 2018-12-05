@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Button from "@material-ui/core/Button";
+import ProofButton from './ProofButton';
 
 const styles = theme => ({
   root: {
@@ -31,9 +32,7 @@ function SimpleExpansionPanel(props) {
           <Typography>Detailed information on what to do.</Typography>
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -44,9 +43,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -57,9 +54,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -70,9 +65,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -83,9 +76,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -96,9 +87,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -109,9 +98,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -122,9 +109,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -135,9 +120,7 @@ function SimpleExpansionPanel(props) {
           <Typography />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
 
@@ -146,9 +129,7 @@ function SimpleExpansionPanel(props) {
           <Typography className={classes.heading}>Challenge Ten</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelActions>
-          <Button size="small" color="primary">
-            Proof
-          </Button>
+          <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
     </div>
