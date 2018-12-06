@@ -20,7 +20,7 @@ function process_request(req) {
       current_user_location: {
         type: "Point",
         coordinates: [data.position.coords.longitude, data.position.coords.longitude]
-      }
+      },
       circuits_participated:[] //id's of circuits a user was in
     }).save(function (err) {
         if (err) {
