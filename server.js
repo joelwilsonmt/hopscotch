@@ -1,8 +1,10 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//const cors = require('cors');
 //var path = require('path');
-var addUser = require('./routes/add-user');
+var addUser = require('./routes/addUser');
+var getUser = require('./routes/getUser');
 
 var app = express();
 
@@ -12,6 +14,7 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/addUser', addUser);
+app.use('/getUser', getUser);
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
