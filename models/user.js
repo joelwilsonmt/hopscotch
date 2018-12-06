@@ -2,6 +2,7 @@ var mongoose = require('./../config/db-config');
 
 UserSchema = mongoose.Schema(
     {
+        _id: String,
         first_name:String,
         last_name:String,
         username:String,
