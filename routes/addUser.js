@@ -19,7 +19,7 @@ function process_request(req) {
       avatar:data.avatar_link, //string to image location in server / public
       current_user_location: {
         type: "Point",
-        coordinates: [1,2]//[data.position.coords.longitude, data.position.coords.longitude]
+        coordinates: [data.longitude, data.latitude] //[-113.98274, 46.87278]
       },
       circuits_participated:[] //id's of circuits a user was in
     }).save(function (err) {
