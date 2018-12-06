@@ -19,7 +19,7 @@ function process_request(req) {
       avatar:data.avatar_link, //string to image location in server / public
       current_user_location: {
         type: "Point",
-        coordinates: [data.position.coords.longitude, data.position.coords.longitude]
+        coordinates: [1,2]//[data.position.coords.longitude, data.position.coords.longitude]
       },
       circuits_participated:[] //id's of circuits a user was in
     }).save(function (err) {
@@ -27,6 +27,9 @@ function process_request(req) {
             if (err.code === 11000) {
                 // 11000 : Error code for duplicate entry with same primary key. Even though we will update the table to fill different events users attended.
                 console.log("Duplicate entry for user collection. Skipping entry.")
+            }
+            else {
+              console.log(err);
             }
         } else {
             console.log("done");

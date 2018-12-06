@@ -7,7 +7,7 @@ UserSchema = mongoose.Schema(
         username:String,
         avatar:String, //string to image location in server / public
         current_user_location: {
-          type: String,
+          type: {type: String}, //note: Type is a reserved Object keyword
           coordinates: [Number, Number]
         }//,//can update as user moves around and front end makes more POST calls
         //circuits_participated:[String] //id's of circuits a user was in
