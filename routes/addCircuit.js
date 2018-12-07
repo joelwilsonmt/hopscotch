@@ -41,7 +41,10 @@ function process_request(req) {
     }).then(function(){
       console.log("findbyId finished, Here API call starting...");
       //Here api: west longitude, south latitude, east longitude, north latitude
-      var api = ''+ west+','+south+','+east+','+north+'&cat=natural-geographical';
+      var api = 'API'+ west+','+south+','+east+','+north+'&cat=wine-and-liquor';
+      //leisure-outdoor
+      //landmark-attraction
+      //going-out, wine-and-liquor; maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses?), drink it and move on to the next bar
       //eat-drink
       //natural-geographical
       //sights-museums
@@ -52,6 +55,7 @@ function process_request(req) {
           console.log("Places found: " + places.length);
           for(var i = 0; i < places.length; i++) {
             sets_location_gate[i] = {
+              position: places[i].position,
               name: places[i].title,
               address: places[i].vicinity
             };
