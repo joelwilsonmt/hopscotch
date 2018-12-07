@@ -3,6 +3,33 @@ var router = express.Router();
 const axios = require('axios');
 var Circuit = require('../models/circuit');
 var User = require('../models/user'); //included to be able to search users
+const haversine = require('haversine'); //easier than mongodb queries I think
+function userDistanceFromPOI(poiCoords,userCoords, unit, challengeTest, winDistance){
+  var start = {};
+  start.latitude = userCoords[1];
+  start.longitude = userCoords[0];
+  var end = {};
+  end.latitude = poiCoords[0];
+  end.longitude = poiCoords[1];
+  var distance = haversine(start, end, {unit: unit});
+  if(challengeTest){
+    if(distance < winDistance) {
+      return true; //user is verified at the location!
+      /*
+      code elsewhere:
+      if(userDistanceFromPOI && amazonRekognition){
+        challengeComplete = true;
+      }
+      */
+    }
+    else {
+      return false; //user is not within .05 miles of poi
+    }
+  }
+  //this distance is returned as the crow flies:
+  return distance + " " + unit +"s";
+}
+
 /*
 on Client side:
 check to see if there are available circuits in the area,
@@ -30,10 +57,10 @@ function process_request(req) {
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
     var north, south, east, west;
+    var userPosition = [];
     User.findById(data._id, function (err, user) {
       var polyCoords = user.user_session_boundary.coordinates;
-      console.log("searching user for polygon data in the following: ");
-      console.log(polyCoords[0]);
+      userPosition = user.current_user_location.coordinates;
       west = polyCoords[0][1][0];
       south = polyCoords[0][0][1];
       east = polyCoords[0][0][0];
@@ -41,7 +68,7 @@ function process_request(req) {
     }).then(function(){
       console.log("findbyId finished, Here API call starting...");
       //Here api: west longitude, south latitude, east longitude, north latitude
-      var api = 'API'+ west+','+south+','+east+','+north+'&cat=wine-and-liquor';
+      var api = 'https://places.api.here.com/places/v1/discover/explore?app_id=AZK6Ofyze1cJzt7DfyoL&app_code=pMyoWdS4w9j1Oijt0RJC2A&in='+ west+','+south+','+east+','+north+'&cat=natural-geographical';
       //leisure-outdoor
       //landmark-attraction
       //going-out, wine-and-liquor; maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses?), drink it and move on to the next bar
@@ -54,10 +81,18 @@ function process_request(req) {
           sets_location_gate = {};
           console.log("Places found: " + places.length);
           for(var i = 0; i < places.length; i++) {
+            var distanceFromUser
+            = userDistanceFromPOI(places[i].position, userPosition, 'mile');
+            const winRadius = 1;
+            var isUserWithinWinRadius
+            = userDistanceFromPOI(places[i].position, userPosition, 'mile', true, winRadius);
             sets_location_gate[i] = {
-              position: places[i].position,
               name: places[i].title,
-              address: places[i].vicinity
+              address: places[i].vicinity,
+              position: places[i].position,
+              user_position: userPosition,
+              distance_from_user: distanceFromUser,
+              user_is_in_win_radius: isUserWithinWinRadius
             };
           }
           console.log(sets_location_gate);

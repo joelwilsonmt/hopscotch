@@ -9,6 +9,7 @@ UserSchema = mongoose.Schema(
         avatar:String, //string to image location in server / public
         current_user_location: mongoose.Schema.Types.Point,
         user_session_boundary: mongoose.Schema.Types.Polygon,
+        challenges_completed: [String],
         circuits_participated:[String] //id's of circuits a user was in
     },
     { collection: 'users' });
