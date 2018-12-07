@@ -12,6 +12,7 @@ router.post('/', function (req, res) {
 function process_request(req) {
     var data = req.body;
     console.log("added: " + data.first_name);
+    console.log([data.longitude, data.latitude]);
     new User({
       first_name:data.first_name,
       last_name:data.last_name,
@@ -19,7 +20,7 @@ function process_request(req) {
       avatar:data.avatar_link, //string to image location in server / public
       current_user_location: {
         type: "Point",
-        coordinates: [data.longitude, data.latitude] //[-113.98274, 46.87278]
+        coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)] //[-113.98274, 46.87278]
       },
       circuits_participated:[] //id's of circuits a user was in
     }).save(function (err) {
