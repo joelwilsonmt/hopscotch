@@ -15,25 +15,20 @@ router.put('/', function(req, res){
   var data = req.body;
   var query = data._id;
   var update = {
-      /*current_user_location: {
-        coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)],
-        updatedAt: Date.now()
-      }*/
       current_user_location: {
         type: "Point",
         coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)], //[-113.98274, 46.87278]
         updatedAt: new Date()
-      },
-      first_name: data.name
+      }
     };
   var options = {new: true};
   console.log(data);
   //User.findOneAndUpdate() also works in this situation
   User.findByIdAndUpdate(
-    query,
-    update,
-    options,
-    function(err, documents){//reach into our database and if error log error else send info
+    query, //_id
+    update, // new long and lat
+    options, //add if doesn't exist
+    function(err, documents){
     if(err){
       console.log(err);
     } else{
