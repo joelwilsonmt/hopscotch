@@ -33,7 +33,6 @@ function process_request(req) {
     //here requires a north, south, east, west boundary
     var north, south, east, west;
     User.findById(data._id, function (err, user) {
-      //code goes here
       var polyCoords = user.user_session_boundary.coordinates;
       console.log("searching user for polygon data");
       console.log(polyCoords[0]);
@@ -48,17 +47,22 @@ function process_request(req) {
       console.log("findbyId finished");
       console.log(west+','+south+','+east+','+north);
       //fuuuuck it
-      
-      var api = 'API HERE'+ west+','+south+','+east+','+north+'&cat=sights-museums';
+
+      var api = 'API'+ west+','+south+','+east+','+north+'&cat=natural-geographical';
+      //natural-geographical
+      //sights-museums
       axios.get(api)
         .then(response => {
           var places = response.data.results.items;
-          placeArray = [];
+          sets_location_gate = {};
           console.log("Places found: " + places.length);
           for(var i = 0; i < places.length; i++) {
-            placeArray.push(places[i].title);
+            sets_location_gate[i] = {
+              name: places[i].title,
+              address: places[i].vicinity
+            };
           }
-          console.log(placeArray);
+          console.log(sets_location_gate);
 
         })
         .catch(error => {
