@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const axios = require('axios');
 var Circuit = require('../models/circuit');
 var User = require('../models/user'); //included to be able to search users
 /*
@@ -41,8 +42,31 @@ function process_request(req) {
       west = polyCoords[0][1][0];
       east = polyCoords[0][0][0];
       //Here api: west longitude, south latitude, east longitude, north latitude
+      //console.log(west+','+south+','+east+','+north);
+
+    }).then(function(){
+      console.log("findbyId finished");
       console.log(west+','+south+','+east+','+north);
-    } );
+      //fuuuuck it
+      
+      var api = 'API HERE'+ west+','+south+','+east+','+north+'&cat=sights-museums';
+      axios.get(api)
+        .then(response => {
+          var places = response.data.results.items;
+          placeArray = [];
+          console.log("Places found: " + places.length);
+          for(var i = 0; i < places.length; i++) {
+            placeArray.push(places[i].title);
+          }
+          console.log(placeArray);
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    );
 
     //
 
