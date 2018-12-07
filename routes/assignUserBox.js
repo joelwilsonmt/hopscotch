@@ -12,11 +12,8 @@ var longitudeArray = [-180,-179.87,-179.74,-179.61,-179.48000000000002,-179.3500
 function returnBox(longitude, latitude) {
     var lat = latitude;
     var long = longitude;
-    console.log(lat);
-    console.log(long);
     var latBounds = [];
-    var longBounds = [];
-    console.log(lat, long);
+    var longBounds = []
     //go through and find high and low bounds, push them to lat/long bounds.
     //first value in each array is upper bound, second value is lower
     if (latitudeArray.indexOf(lat) == true) {
@@ -66,22 +63,21 @@ I think later this can become a login screen of sorts
 
 */
 router.put('/', function(req, res){
+  console.log("start... " + new Date());
   var data = req.body;
   var query = data._id;
   var userBox = returnBox(data.longitude,data.latitude);
-  console.log(userBox);
+  console.log("user box returned... " + new Date());
   var update = {
       user_session_boundary: {
         type: "Polygon",
         coordinates: [
           userBox
-        ], //[-113.98274, 46.87278]
+        ],
         updatedAt: new Date()
       }
     };
   var options = {new: true};
-  console.log(data);
-  //User.findOneAndUpdate() also works in this situation
   User.findByIdAndUpdate(
     query, //_id
     update, // new long and lat
@@ -94,6 +90,7 @@ router.put('/', function(req, res){
      console.log(data);
     }
   });
+  console.log("complete... " + new Date());
 });
 
 module.exports = router;
