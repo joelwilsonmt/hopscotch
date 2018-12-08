@@ -3,6 +3,7 @@ var router = express.Router();
 const axios = require('axios');
 var Circuit = require('../models/circuit');
 var User = require('../models/user'); //included to be able to search users
+const haversine = require('haversine');
 /*
 on Client side:
 check to see if there are available circuits in the area,
@@ -29,76 +30,73 @@ function process_request(req) {
     //access user's user_session_boundary and create an API call to Here
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
-    var north, south, east, west;
+    var north, south, east, west, apiBoundingBox;
+    var circuitBoundaries;
+
     User.findById(data._id, function (err, user) {
-      var polyCoords = user.user_session_boundary.coordinates;
-      console.log("searching user for polygon data in the following: ");
-      console.log(polyCoords[0]);
-      west = polyCoords[0][1][0];
-      south = polyCoords[0][0][1];
-      east = polyCoords[0][0][0];
-      north = polyCoords[0][2][1];
+      var bounds = user.user_session_boundary.here_api_format;
+      apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
+      circuitBoundaries = bounds;
+      console.log(apiBoundingBox);
     }).then(function(){
+      //INSERT API KEY FROM GOOGLE DOCS HERE, REMEMBER TO DELETE BEFORE COMMITS
+      var apiCategories = [
+                            'leisure-outdoor','landmark-attraction','going-out',
+                            'eat-drink', 'natural-geographical', 'sights-museums'
+                          ];
+      var cat = apiCategories[Math.floor(Math.random()*apiCategories.length)];
+      var api = 'https://places.api.here.com/places/v1/discover/explore?app_id=AZK6Ofyze1cJzt7DfyoL&app_code=pMyoWdS4w9j1Oijt0RJC2A&in='+ apiBoundingBox +'&cat='+cat;
+      //maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses? yes), drink it and move on to the next bar
+
       console.log("findbyId finished, Here API call starting...");
-      //Here api: west longitude, south latitude, east longitude, north latitude
-      var api = 'API'+ west+','+south+','+east+','+north+'&cat=wine-and-liquor';
-      //leisure-outdoor
-      //landmark-attraction
-      //going-out, wine-and-liquor; maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses?), drink it and move on to the next bar
-      //eat-drink
-      //natural-geographical
-      //sights-museums
       axios.get(api)
-        .then(response => {
+        .then(response => { //keep in mind, we're still in the UserfindbyId promise
           var places = response.data.results.items;
-          sets_location_gate = {};
+          //push POIs and random objects to list challenges
+          var sets_challenges = [];
           console.log("Places found: " + places.length);
-          for(var i = 0; i < places.length; i++) {
-            sets_location_gate[i] = {
-              position: places[i].position,
-              name: places[i].title,
-              address: places[i].vicinity
+          for(var i = 0; i < /*places.length*/10; i++) {
+            var words = ['keys', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'milk', 'watch', 'magnet', 'CD', 'shoe','flag'];
+            var objectGate = words[Math.floor(Math.random()*words.length)];
+            sets_challenges[i] = {
+              location_gate:{
+                position: places[i].position,
+                name: places[i].title,
+                address: places[i].vicinity,
+                category: places[i].category.id
+                },
+              object_gate: objectGate
             };
           }
-          console.log(sets_location_gate);
+          console.log(sets_challenges);
+          //create the new circuit
+          new Circuit({
+            circuit_boundaries: circuitBoundaries,
+            challenges: sets_challenges,
+            date_created: new Date(),
+          }).save(function (err) {
+              if (err) {
+                  if (err.code === 11000) {
+                      // 11000 : Error code for duplicate entry with same primary key. Even though we will update the table to fill different events users attended.
+                      console.log("Duplicate circuit for collection. Skipping entry.")
+                  }
+                  else {
+                    console.log(err);
+                  }
+              } else {
+                  console.log("New Circuit Saved to Database");
+              }
+          });
+
+          //route is only accessed if
+          //someone is not already hosting a circuit. But the 2:00 counter is
+          //only triggered when this user (or another user, just as long as the
+          //room size > 0) joins a room with the same name/id as the circuit
         })
         .catch(error => {
           console.log(error);
         });
-      });//closes axios call
-
-    //
-
-    /*new Circuit({
-      users:[data.users],
-      challenges:{
-        object_gate: [String],
-        location_gate: [String],
-        id_users_completed: [Number]
-      },
-      time_started: Date,
-      time_completed: Date,
-      date_created: Date,
-      date_deleted: Date,
-      archived: Boolean,
-      delete_in_ten_days: {
-        delete: Boolean,
-        start_delete: Date
-        }
-    }
-    }).save(function (err) {
-        if (err) {
-            if (err.code === 11000) {
-                // 11000 : Error code for duplicate entry with same primary key. Even though we will update the table to fill different events users attended.
-                console.log("Duplicate entry for user collection. Skipping entry.")
-            }
-            else {
-              console.log(err);
-            }
-        } else {
-            console.log("done");
-        }
-    });*/
+      });
 }
 
 module.exports = router;

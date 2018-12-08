@@ -57,8 +57,12 @@ function pictureIsValid(pictureFile, objectGateWord) {
     console.log(synonyms(objectGateWord));
   }*///closes .then() promise
 }
+
+
+//---------------this function should be put in its own file,
+//available to all routes - make it a method to User? ------------------------------------
+//returns current_user_location for a given userId (._id)
 function getUserLocation(userId) {
-  var location = [];
   User.findOne(
     {
       _id: userId
@@ -68,6 +72,7 @@ function getUserLocation(userId) {
         if(err) {
           console.log(err);
         }
+        console.log(user.current_user_location.coordinates);
         return user.current_user_location.coordinates;
     });
 }
@@ -81,6 +86,7 @@ router.put('/', function (req, res) {
   var userId = data._id;
   var picture = data.picture_url; //not sure here
   var userLocation = getUserLocation(userId);
+  console.log("user location: " + userLocation);
   var challenge = data.challenge;
   //rewrite this after testing to accept challenge object, and not individual
   //challenge lat/long / objectGate data

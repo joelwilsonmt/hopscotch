@@ -9,6 +9,7 @@ var updateUserLocation = require('./routes/updateUserLocation');
 var addCircuit = require('./routes/addCircuit');
 var assignUserBox = require('./routes/assignUserBox');
 var submitChallenge = require('./routes/submitChallenge');
+var getCircuits = require('./routes/getCircuits');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use('/updateUserLocation', updateUserLocation);
 app.use('/addCircuit', addCircuit);
 app.use('/assignUserBox', assignUserBox);
 app.use('/submitChallenge', submitChallenge);
+app.use('/getCircuits', getCircuits);
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
