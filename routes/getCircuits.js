@@ -9,13 +9,8 @@ getCircuits takes a GET request that specifies a request body with the following
 req{ user._id }
 
 it searches current circuits by cicuit_boundaries to find a
-user_session_boundary object that matches the req._id and returns a circuit object with the following:
-
-circuit {
-  circuit_boundaries: [Here bbounds],
-  challenges: sets_challenges,
-  date_created: new Date()
-}
+user_session_boundary object that matches the req._id and returns a matching
+circuit object
 
 later on, socket.on('disconnect') {
  //move challenges_completed to past_challenges_completed
@@ -25,7 +20,8 @@ router.get('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
   var userId = data._id;
-  var hereBoundary; //= getUserHereBoundary(userId);
+  var hereBoundary;
+  //search the user by provided id, then use the boundary to search circuits
   User.findById(userId, function (err, user) {
     console.log(user.user_session_boundary.here_api_format);
     hereBoundary = user.user_session_boundary.here_api_format;

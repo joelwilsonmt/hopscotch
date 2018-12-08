@@ -45,7 +45,7 @@ function process_request(req) {
                             'eat-drink', 'natural-geographical', 'sights-museums'
                           ];
       var cat = apiCategories[Math.floor(Math.random()*apiCategories.length)];
-      var api = 'API'+ apiBoundingBox +'&cat='+cat;
+      var api = 'https://places.api.here.com/places/v1/discover/explore?app_id=AZK6Ofyze1cJzt7DfyoL&app_code=pMyoWdS4w9j1Oijt0RJC2A&in='+ apiBoundingBox +'&cat='+cat;
       //maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses? yes), drink it and move on to the next bar
 
       console.log("findbyId finished, Here API call starting...");
