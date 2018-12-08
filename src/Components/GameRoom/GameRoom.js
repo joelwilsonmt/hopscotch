@@ -19,32 +19,36 @@ class PaperSheet extends Component {
      const { classes } = props;
       this.state= {
         location: {}
+
+      }
+  }
+
+  componentWillMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        //this.setState({location:position})
+        console.log(position);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
     }
   }
 
-  componentWillMount(){
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position)=>{
-        this.setState({location:postion})
-        console.log(postion);
-      });
-    }else{
-      console.error("This browser does not support geolocation");
-    }
-  })
+  render() {
 
-render () {
-  return (
-    <div>
-      <Paper className={classes.root} elevation={1}>
-        <Typography variant="h3" component="h3" align="center">
-          Game Room
-        </Typography>
-        <Cards />
-      </Paper>
-    </div>
-  );
-}
+    return (
+      <div>
+        <AppBar />
+        <Paper elevation={1}>
+          <br />
+          <Typography variant="h5" component="h3" align="center">
+            GAME ROOM
+          </Typography>
+          <GameRoomCard />
+        </Paper>
+      </div>
+    );
+  }
 }
 
 PaperSheet.propTypes = {
