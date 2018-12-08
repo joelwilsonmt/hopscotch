@@ -21,24 +21,6 @@ later on, socket.on('disconnect') {
  //move challenges_completed to past_challenges_completed
 }
 */
-
-//gonne need this
-// function getUserHereBoundary(userId) {
-//   User.findOne(
-//     {
-//       _id: userId
-//     })//closes findOne
-//     .exec(
-//       function (err, user) {
-//         if(err) {
-//           console.log(err);
-//         }
-//         console.log(user.user_session_boundary.here_api_format);
-//         return user.user_session_boundary.here_api_format;
-//     });
-// }
-
-
 router.get('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
