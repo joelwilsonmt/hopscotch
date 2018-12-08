@@ -4,8 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
-import AppBar from "../Utilities/AppBar";
-
 
 const styles = theme => ({
   root: {
@@ -15,14 +13,13 @@ const styles = theme => ({
   }
 });
 
-
-
 class PaperSheet extends Component {
-  constructor(props) {
+  constructor() {
     super();
-      const { classes } = props;
-      this.state={
+     const { classes } = props;
+      this.state= {
         location: {}
+
       }
   }
 
