@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
-import HomeScreen from "./HomeScreen/HomeScreen";
+import OpeningScreen from "./OpeningScreen/OpeningScreen";
 
 function App() {
   return (
