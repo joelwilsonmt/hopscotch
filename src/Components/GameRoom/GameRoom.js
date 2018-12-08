@@ -36,13 +36,16 @@ class PaperSheet extends Component {
       console.error("Browser does not support Geolocation");
     }
     //axios.get('http://localhost:3001/getCircuits/').then(if response is false);
-    axios.post('http://localhost:3001/addCircuit/', {_id: '5c0c34cffd35592351467554'}).then(
-    function(res){
-      console.log(res);
+    const TESTING = false;
+    if(TESTING){
+      axios.post('http://localhost:3001/addCircuit/', {_id: '5c0c34cffd35592351467554'}).then(
+      function(res){
+        console.log(res);
 
-    }).catch(function(err){
-      console.error(err);
-    });
+      }).catch(function(err){
+        console.error(err);
+      });
+    }
   }
 
 
