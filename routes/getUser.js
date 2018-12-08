@@ -7,7 +7,6 @@ var User = require('../models/user');
 * The /getUser route is defined in server.js
 */
 router.get('/', function (req, res) {
-  console.log('add user accessed');
   console.log("getting user");
   var data = req.body;
   //setting it to first name last name for now

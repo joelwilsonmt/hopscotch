@@ -1,7 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+/*
+on Client side:
 
+addUser takes a POST request specifying a new user's req.body to add a new user
+to the database - will likely have to change this to support passport
+req.body{ first_name,last_name,user_name,
+          avatar_link,current_user_location,
+          circuits_participated }
+
+
+*/
 /* This adds user object to database when sent over route 'addUser'*/
 router.post('/', function (req, res) {
     console.log('add user accessed');
