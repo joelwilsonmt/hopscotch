@@ -11,7 +11,8 @@ import {
   Link,
   BrowserRouter as Router,
 } from 'react-router-dom';
-import Paper from '../GameRoom/Paper';
+import GameRoom from '../GameRoom/GameRoom';
+import Camera from '../Camera/Camera'
 
 
 
@@ -28,9 +29,11 @@ function TextButtons(props) {
   const { classes } = props;
   return (
     <div>
+    <Link to='/Camera'>
       <Button size="small" color="primary">
         Proof
       </Button>
+      </Link>
     </div>
   );
 }
