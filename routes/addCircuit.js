@@ -4,6 +4,7 @@ const axios = require('axios');
 var Circuit = require('../models/circuit');
 var User = require('../models/user'); //included to be able to search users
 const haversine = require('haversine');
+var dotenv = require('dotenv').config();
 /*
 on Client side:
 check to see if there are available circuits in the area,
@@ -45,7 +46,7 @@ function process_request(req) {
                             'eat-drink', 'natural-geographical', 'sights-museums'
                           ];
       var cat = apiCategories[Math.floor(Math.random()*apiCategories.length)];
-      var api = 'API'+ apiBoundingBox +'&cat='+cat;
+      var api = process.env.HERE_API+ apiBoundingBox +'&cat='+cat;
       //maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses? yes), drink it and move on to the next bar
 
       console.log("findbyId finished, Here API call starting...");
@@ -55,7 +56,7 @@ function process_request(req) {
           //push POIs and random objects to list challenges
           var sets_challenges = [];
           console.log("Places found: " + places.length);
-          for(var i = 0; i < /*places.length*/10; i++) {
+          for(var i = 0; i < places.length; i++) {
             var words = ['keys', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'milk', 'watch', 'magnet', 'CD', 'shoe','flag'];
             var objectGate = words[Math.floor(Math.random()*words.length)];
             sets_challenges[i] = {
