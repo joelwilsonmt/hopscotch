@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Camera from 'react-camera';
+import 'react-html5-camera-photo/build/css/index.css'
 
-export default class App extends Component {
+
+
+export default class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -43,7 +46,6 @@ export default class App extends Component {
 const style = {
 
   preview: {
-    display: 'flex',
     position: 'relative',
   },
   captureContainer: {
@@ -57,9 +59,9 @@ const style = {
   captureButton: {
     backgroundColor: '#fff',
     borderRadius: '50%',
-    height: 50,
-    width: 50,
-    color: '#000',
+    height: 30,
+    width: 30,
+    color: '#aaa',
     margin: 20
   },
   captureImage: {
