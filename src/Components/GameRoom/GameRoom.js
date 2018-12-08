@@ -14,7 +14,7 @@ const styles = theme => ({
 });
 
 class PaperSheet extends Component {
-  constructor() {
+  constructor(props) {
     super();
      const { classes } = props;
       this.state= {
@@ -23,24 +23,24 @@ class PaperSheet extends Component {
   }
 
   componentWillMount(){
-    if ("geolocation" in navigator) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position)=>{
-        this.setState({location:postion})
-        console.log(postion);
+        //this.setState({location:postion})
+        console.log(position);
       });
     }else{
       console.error("This browser does not support geolocation");
     }
-  })
+  }
 
 render () {
   return (
     <div>
-      <Paper className={classes.root} elevation={1}>
+      <Paper elevation={1}>
         <Typography variant="h3" component="h3" align="center">
           Game Room
         </Typography>
-        <Cards />
+        <GameRoomCard />
       </Paper>
     </div>
   );
