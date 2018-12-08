@@ -9,6 +9,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
+import socketIOClient from 'socket.io-client';
+
 
 
 const styles = theme => ({
@@ -22,7 +24,7 @@ const styles = theme => ({
 
 function PaperSheet(props) {
   const { classes } = props;
-
+  const socket = socketIOClient('localhost:3001/');
   return (
     <div>
       <AppBar />
