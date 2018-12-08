@@ -4,7 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
-import AppBar from "../Utilities/AppBar"
+import AppBar from "../Utilities/AppBar";
+import axios from "axios";
 
 const styles = theme => ({
   root: {
@@ -24,38 +25,27 @@ class PaperSheet extends Component {
       }
   }
 
-<<<<<<< HEAD
-  componentWillMount(){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position)=>{
-        //this.setState({location:postion})
-=======
+
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         //this.setState({location:position})
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
         console.log(position);
       });
     } else {
       console.error("Browser does not support Geolocation");
     }
+    //axios.get('http://localhost:3001/getCircuits/').then(if response is false);
+    axios.post('http://localhost:3001/addCircuit/', {_id: '5c0c34cffd35592351467554'}).then(
+    function(res){
+      console.log(res);
+
+    }).catch(function(err){
+      console.error(err);
+    });
   }
 
-<<<<<<< HEAD
-render () {
-  return (
-    <div>
-      <Paper elevation={1}>
-        <Typography variant="h3" component="h3" align="center">
-          Game Room
-        </Typography>
-        <GameRoomCard />
-      </Paper>
-    </div>
-  );
-}
-=======
+
   render() {
 
     return (
@@ -71,7 +61,6 @@ render () {
       </div>
     );
   }
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
 }
 
 PaperSheet.propTypes = {

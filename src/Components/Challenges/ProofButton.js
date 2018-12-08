@@ -13,11 +13,6 @@ import {
 } from 'react-router-dom';
 import GameRoom from '../GameRoom/GameRoom';
 import Camera from '../Camera/Camera'
-<<<<<<< HEAD
-=======
-
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
-
 
 const styles = theme => ({
   button: {
@@ -32,11 +27,7 @@ function TextButtons(props) {
   const { classes } = props;
   return (
     <div>
-<<<<<<< HEAD
-    <Link to='../Camera/Camera'>
-=======
     <Link to='/Camera'>
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
       <Button size="small" color="primary">
         Proof
       </Button>
