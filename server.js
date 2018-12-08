@@ -3,6 +3,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //const cors = require('cors');
 //var path = require('path');
+
 var addUser = require('./routes/addUser');
 var getUser = require('./routes/getUser');
 var updateUserLocation = require('./routes/updateUserLocation');
@@ -12,7 +13,8 @@ var submitChallenge = require('./routes/submitChallenge');
 var getCircuits = require('./routes/getCircuits');
 
 var app = express();
-
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -26,6 +28,14 @@ app.use('/assignUserBox', assignUserBox);
 app.use('/submitChallenge', submitChallenge);
 app.use('/getCircuits', getCircuits);
 
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(3001, function(){
+  console.log('listening on *:3001');
+});
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
 //     var err = new Error('Not Found');
@@ -43,5 +53,5 @@ app.use('/getCircuits', getCircuits);
 //     res.status(err.status || 500);
 //     res.render('error');
 // });
-var port = 3000;
-app.listen(port);
+/*var port = 3001;
+app.listen(port);*/

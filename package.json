@@ -5,22 +5,16 @@
   "dependencies": {
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
-
     "axios": "^0.18.0",
-    "debug": "^4.1.0",
-    "dotenv": "^6.1.0",
-
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-
     "google-maps-react": "^2.0.2",
     "haversine": "^1.1.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
-
     "mongod": "^2.0.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.3.14",
@@ -35,6 +29,7 @@
     "react-native-camera": "^1.5.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
+    "socket.io": "^2.2.0",
     "synonyms": "^1.0.1"
   },
   "scripts": {
