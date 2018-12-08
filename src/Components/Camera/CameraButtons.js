@@ -22,7 +22,7 @@ function ButtonSizes(props) {
         <Button variant="outlined" size="small" color="primary" className={classes.margin}>
           RETAKE
         </Button>
-        <Link to="/ChallengePaper/">
+        <Link to="/Challenges/">
           <Button variant="outlined" size="small" color="primary" className={classes.margin}>
             CHALLENGES
           </Button>

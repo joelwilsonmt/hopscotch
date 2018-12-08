@@ -24,7 +24,7 @@ class PaperSheet extends Component {
       this.state={
         location: {}
       }
-}
+  }
 
   componentWillMount() {
     if (navigator.geolocation) {
@@ -43,10 +43,10 @@ class PaperSheet extends Component {
       <div>
         <AppBar />
         <Paper elevation={1}>
+          <br />
           <Typography variant="h5" component="h3" align="center">
             GAME ROOM
           </Typography>
-          <br />
           <GameRoomCard />
         </Paper>
       </div>
