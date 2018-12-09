@@ -38,6 +38,7 @@ class PaperSheet extends Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
+    //var userId = this.props.userId;
     var userId = '5c096fa025531e2d29ed67c8';
     var roomName = '';
     //get a list of circuits that match a user's boundary:

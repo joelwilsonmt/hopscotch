@@ -71,6 +71,8 @@ export default class FormDialog extends React.Component {
     }).then(function(){
     console.log("this should contain a value: " + userId);
 
+    //TODO set user id state here and pass up to toppest parent
+
     });
     this.setState({
       _id : userId
@@ -116,7 +118,7 @@ export default class FormDialog extends React.Component {
               color="primary">
               Submit
             </Button>
-            {/*</Link>*/}
+          {/*</Link>*/}
           </DialogActions>
         </Dialog>
       </div>
