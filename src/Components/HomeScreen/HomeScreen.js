@@ -3,13 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import DialogBox from "./DialogBox"
-import {
-  Route,
-  Link,
-  BrowserRouter as Router,
-} from 'react-router-dom';
-
+import Button from "./Button";
 
 const styles = theme => ({
   root: {
@@ -24,20 +18,10 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <Paper elevation={1}>
-      <body background="https://spectrum.ieee.org/image/MzEwMTk5OA.jpeg">
-        <h1>Circuit Breaker</h1>
-        <img src="http://www.practicalphysics.org/images/PP_Electric_circuits.jpg" />
-        <Typography variant="h5" component="h3">
-          Circuit Breaker
-        </Typography>
-        <Typography component="p">
-
-        </Typography>
-
-        <DialogBox />
-        </body>
-
+      <Paper className={classes.root} elevation={1}>
+        <Typography variant="h5" component="h3" />
+        <Typography component="p" />
+        <Button />
       </Paper>
     </div>
   );
@@ -47,6 +31,4 @@ PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-
 export default withStyles(styles)(PaperSheet);
-
