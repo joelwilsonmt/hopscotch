@@ -21,12 +21,10 @@ router.post('/', function (req, res) {
 
 function process_request(req) {
     var data = req.body;
-    console.log("added: " + data.first_name);
+    console.log("added: " + data.username;
     console.log([data.longitude, data.latitude]);
     new User({
-      first_name:data.first_name,
-      last_name:data.last_name,
-      username:data.user_name,
+      username:data.username,
       avatar:data.avatar_link, //string to image location in server / public
       current_user_location: {
         type: "Point",

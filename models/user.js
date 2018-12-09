@@ -3,8 +3,6 @@ var GeoJSON = require('mongoose-geojson-schema');
 
 UserSchema = mongoose.Schema(
     {
-        first_name:String,
-        last_name:String,
         username:String,
         avatar:String, //string to image location in server / public
         current_user_location: mongoose.Schema.Types.Point,

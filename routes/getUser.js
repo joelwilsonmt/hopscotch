@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 
 
-/*when accessing getUser, take username and password then return _id:
+/*when accessing getUser, take username then return _id:
 * The /getUser route is defined in server.js
 */
 router.get('/', function (req, res) {
@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
   //passport should take care of this later for us
   User.findOne(
     {
+
       username:data.username
     })//closes findOne
     .exec(
@@ -22,6 +23,7 @@ router.get('/', function (req, res) {
           res.status(404);
           console.log(err);
         }
+
         console.log(JSON.stringify(user.username) + "'s ID = " + JSON.stringify(user._id));
         res.status(200).send(JSON.stringify(user._id));
     }); //closes exec

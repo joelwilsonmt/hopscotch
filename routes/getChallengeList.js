@@ -30,7 +30,8 @@ router.get('/', function (req, res) {
       if(err) {
         console.log(err);
       }
-      console.log(JSON.stringify(user._id) + "'s ID = " + JSON.stringify(user._id));
+
+      console.log(JSON.stringify(user.username) + "'s ID = " + JSON.stringify(user._id));
       res.status(200).send(JSON.stringify(user._id));
   }); //closes exec)
 });
