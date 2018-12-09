@@ -14,8 +14,6 @@ import {
 import GameRoom from '../GameRoom/GameRoom';
 import Camera from '../Camera/Camera'
 
-
-
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
