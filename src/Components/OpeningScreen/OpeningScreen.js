@@ -17,7 +17,11 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <Paper className={classes.root} elevation={1}>
+      <Paper elevation={1}>
+      <body background="https://spectrum.ieee.org/image/MzEwMTk5OA.jpeg">
+        <h1>Circuit Breaker</h1>
+        <img src="http://www.practicalphysics.org/images/PP_Electric_circuits.jpg" />
+
         <Typography variant="h5" component="h3">
           Circuit Breaker
         </Typography>
@@ -25,6 +29,7 @@ function PaperSheet(props) {
 
         </Typography>
         <Button />
+        </body>
       </Paper>
     </div>
   );
@@ -33,3 +38,5 @@ function PaperSheet(props) {
 PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+export default withStyles(styles)(PaperSheet);

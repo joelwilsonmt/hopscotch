@@ -19,9 +19,13 @@ function PaperSheet(props) {
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
+      <body background="http://circuits-central.com/wp-content/uploads/2015/09/home-2.jpg">
+      <img src="http://www.practicalphysics.org/images/PP_Electric_circuits.jpg" />
+        <h1>Circuit Breaker</h1>
         <Typography variant="h5" component="h3" />
         <Typography component="p" />
         <Button />
+        </body>
       </Paper>
     </div>
   );

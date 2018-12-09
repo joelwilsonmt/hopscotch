@@ -7,6 +7,8 @@ import Challenges from "./Challenges/Challenges";
 import Map from "./Map/Map";
 import Camera from "./Camera/Camera";
 import CircuitReview from "./CircuitReview/CircuitReview";
+import HomeScreen from "./HomeScreen/HomeScreen";
+import OpeningScreen from "./OpeningScreen/OpeningScreen";
 
 
 let imgUrl = './Images/circuit1.jpg'
@@ -46,6 +48,12 @@ const AppRouter = () => (
           <li>
             <Link to="/CircuitReview/">Circuit Review</Link>
           </li>
+          <li>
+            <Link to="/HomeScreen/">Home Screen</Link>
+          </li>
+          <li>
+            <Link to="/OpeningScreen/">Opening Screen</Link>
+          </li>
         </ul>
       </nav>
 
@@ -56,6 +64,8 @@ const AppRouter = () => (
       <Route path="/Map/" component={Map} />
       <Route path="/Camera/" component={Camera} />
       <Route path="/CircuitReview/" component={CircuitReview} />
+      <Route path="/HomeScreen/" component={HomeScreen} />
+      <Route path="/OpeningScreen/" component={OpeningScreen} />
     </div>
   </Router>
 );

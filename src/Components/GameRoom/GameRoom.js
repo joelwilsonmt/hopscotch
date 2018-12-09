@@ -24,17 +24,12 @@ class PaperSheet extends Component {
       }
   }
 
-<<<<<<< HEAD
-  componentWillMount(){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position)=>{
-        //this.setState({location:postion})
-=======
+
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         //this.setState({location:position})
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
+
         console.log(position);
       });
     } else {
@@ -42,20 +37,7 @@ class PaperSheet extends Component {
     }
   }
 
-<<<<<<< HEAD
-render () {
-  return (
-    <div>
-      <Paper elevation={1}>
-        <Typography variant="h3" component="h3" align="center">
-          Game Room
-        </Typography>
-        <GameRoomCard />
-      </Paper>
-    </div>
-  );
-}
-=======
+
   render() {
 
     return (
@@ -71,7 +53,7 @@ render () {
       </div>
     );
   }
->>>>>>> 5243485c9bf9375646d353cc754ae4ea25202095
+
 }
 
 PaperSheet.propTypes = {
