@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Button from "./Button";
+import DialogBox from "./DialogBox"
 import {
   Route,
   Link,
   BrowserRouter as Router,
 } from 'react-router-dom';
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -33,7 +34,7 @@ function PaperSheet(props) {
         <Typography component="p">
 
         </Typography>
-        <Button />
+        <DialogBox />
         </body>
       </Paper>
     </div>

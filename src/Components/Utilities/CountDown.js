@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Countdown from "react-countdown-now";
+import {
+  Route,
+  Link,
+  BrowserRouter as Router,
+} from 'react-router-dom';
 
 // Random component
 const Completionist = () => <span>You are good to go!</span>;
