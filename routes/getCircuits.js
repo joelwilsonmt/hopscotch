@@ -34,13 +34,14 @@ router.post('/', function (req, res) {
       }
     }).then(function(circuit){
       if(!circuit.length){
-        console.log(req.body);
-        console.log("no circuits found");
+        console.log("no circuits found for " + hereBoundary);
         res.status(404).send(null);
         return;
       }
       console.log("Circuit Found!");
       res.status(200).send(circuit);
+    }).catch(function(err){
+      console.error(err);
     });
   });
   res.status(404);
