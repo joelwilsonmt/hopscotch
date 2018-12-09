@@ -4,7 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
-import AppBar from "../Utilities/AppBar"
+import AppBar from "../Utilities/AppBar";
+import axios from "axios";
 
 const styles = theme => ({
   root: {
@@ -24,6 +25,7 @@ class PaperSheet extends Component {
       }
   }
 
+
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -33,7 +35,32 @@ class PaperSheet extends Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
+    var userId = '5c096fa025531e2d29ed67c8';
+    var server = 'http://localhost:3001/';
+    var roomName = '';
+    //get a list of circuits that match a user's boundary:
+    axios.post(server + 'getCircuits/', {_id: userId}).then(
+      function(res) {
+        console.log("response here:");
+        console.log(res);
+        roomName = res.data[0]._id;
+        console.log("room name: " + roomName);
+      }).catch(function(err){
+        console.error(err);
+        if(err.response.status == 404){
+          axios.post(server + 'addCircuit/', {_id: userId}).then(
+          function(res){
+            console.log(res);
+            roomName = res.data[0]._id;
+
+          }).catch(function(err){
+            console.error(err);
+          });
+        }
+      });
+
   }
+
 
   render() {
 

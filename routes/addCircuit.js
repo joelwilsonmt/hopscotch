@@ -33,12 +33,14 @@ function process_request(req) {
     //here requires a west, south, east, north boundary
     var north, south, east, west, apiBoundingBox;
     var circuitBoundaries;
-
     User.findById(data._id, function (err, user) {
+      if(err){
+        console.error(err);
+        return;
+      }
       var bounds = user.user_session_boundary.here_api_format;
       apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
       circuitBoundaries = bounds;
-      console.log(apiBoundingBox);
     }).then(function(){
       //INSERT API KEY FROM GOOGLE DOCS HERE, REMEMBER TO DELETE BEFORE COMMITS
       var apiCategories = [
@@ -69,7 +71,6 @@ function process_request(req) {
               object_gate: objectGate
             };
           }
-          console.log(sets_challenges);
           //create the new circuit
           new Circuit({
             circuit_boundaries: circuitBoundaries,
