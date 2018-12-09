@@ -23,14 +23,15 @@ later on, socket.on('disconnect') {
 //gonne need this
 function getUserLocation(userId) {}
 router.get('/', function (req, res) {
-  console.log("getting user");
+  console.log("getting challenges");
   var data = req.body;
   Circuit.findOne(_id, exec(
     function (err, user) {
       if(err) {
         console.log(err);
       }
-      console.log(JSON.stringify(user.username) + " " + JSON.stringify(user.username) + "'s ID = " + JSON.stringify(user._id));
+
+      console.log(JSON.stringify(user.username) + "'s ID = " + JSON.stringify(user._id));
       res.status(200).send(JSON.stringify(user._id));
   }); //closes exec)
 });
