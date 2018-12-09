@@ -21,7 +21,7 @@ router.post('/', function (req, res) {
 
 function process_request(req) {
     var data = req.body;
-    console.log("added: " + data.username;
+    console.log("added: " + data.username);
     console.log([data.longitude, data.latitude]);
     new User({
       username:data.username,
