@@ -23,10 +23,24 @@ export default class FormDialog extends React.Component {
     super(props);
     this.state = {
       open: false,
-      userNameInputValue: ''
+      userNameInputValue: '',
+      _id: ''
     };
   }
+  // getUserLocation = () => {
+  //
+  // }
+  componentWillMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position})
 
+        console.log(this.state.location);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
+  }
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -40,19 +54,28 @@ export default class FormDialog extends React.Component {
         });
   }
   submitUserToServer = () => {
+    console.log("this at begining of server submit: " + this);
     var userObject = {};
     userObject.username = this.state.userNameInputValue;
-    userObject.longitude = -122.3321;
-    userObject.latitude = 47.6062;
+    userObject.longitude = this.state.location.coords.longitude;
+    userObject.latitude = this.state.location.coords.latitude;
     console.log(userObject);
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
     console.log(addUser);
-    axios.post(addUser, userObject, function(res, err){
+    var userId = '';
+    axios.post(addUser, userObject).then(function(res, err){
       if(err) {console.error(err);}
-      else {
-        console.log(res);
-      }
+        console.log("Add user server response:");
+        console.log(res.data);
+        userId = res.data;
+    }).then(function(){
+    console.log("this should contain a value: " + userId);
+
     });
+    this.setState({
+      _id : userId
+    });
+    console.log("this is the user id in state: " + this.state._id);
   }
 
   render() {
@@ -84,7 +107,7 @@ export default class FormDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Link to="/GameRoom">
+            {/*<Link to="/GameRoom">*/}
             <Button onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
@@ -93,7 +116,7 @@ export default class FormDialog extends React.Component {
               color="primary">
               Submit
             </Button>
-            </Link>
+            {/*</Link>*/}
           </DialogActions>
         </Dialog>
       </div>

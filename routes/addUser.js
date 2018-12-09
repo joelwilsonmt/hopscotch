@@ -15,11 +15,6 @@ req.body{ first_name,last_name,user_name,
 /* This adds user object to database when sent over route 'addUser'*/
 router.post('/', function (req, res) {
     console.log('add user accessed');
-    process_request(req);
-    res.sendStatus(200);
-});
-
-function process_request(req) {
     var data = req.body;
     console.log("added: " + data.username);
     console.log([data.longitude, data.latitude]);
@@ -29,21 +24,16 @@ function process_request(req) {
       current_user_location: {
         type: "Point",
         coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)] //[-113.98274, 46.87278]
-      },
-      circuits_participated:[] //id's of circuits a user was in
-    }).save(function (err) {
+      }
+    }).save(function (err, user) {
         if (err) {
-            if (err.code === 11000) {
-                // 11000 : Error code for duplicate entry with same primary key. Even though we will update the table to fill different events users attended.
-                console.log("Duplicate entry for user collection. Skipping entry.")
-            }
-            else {
               console.log(err);
+              res.sendStatus(400);
             }
-        } else {
-            console.log("done");
-        }
+        console.log("Sending user id back to client");
+        res.send(user._id);
     });
-}
+    //res.sendStatus(200);
+});
 
 module.exports = router;
