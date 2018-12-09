@@ -30,6 +30,7 @@ class PaperSheet extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         //this.setState({location:position})
+
         console.log(position);
       });
     } else {
@@ -77,6 +78,7 @@ class PaperSheet extends Component {
       </div>
     );
   }
+
 }
 
 PaperSheet.propTypes = {

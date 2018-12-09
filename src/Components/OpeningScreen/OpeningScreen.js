@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Button from "./Button";
+import DialogBox from "./DialogBox"
+import {
+  Route,
+  Link,
+  BrowserRouter as Router,
+} from 'react-router-dom';
+
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -17,14 +24,20 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <Paper className={classes.root} elevation={1}>
+      <Paper elevation={1}>
+      <body background="https://spectrum.ieee.org/image/MzEwMTk5OA.jpeg">
+        <h1>Circuit Breaker</h1>
+        <img src="http://www.practicalphysics.org/images/PP_Electric_circuits.jpg" />
         <Typography variant="h5" component="h3">
           Circuit Breaker
         </Typography>
         <Typography component="p">
 
         </Typography>
-        <Button />
+
+        <DialogBox />
+        </body>
+
       </Paper>
     </div>
   );
@@ -33,3 +46,7 @@ function PaperSheet(props) {
 PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+
+export default withStyles(styles)(PaperSheet);
+

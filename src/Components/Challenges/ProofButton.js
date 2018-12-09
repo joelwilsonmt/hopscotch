@@ -14,6 +14,7 @@ import {
 import GameRoom from '../GameRoom/GameRoom';
 import Camera from '../Camera/Camera'
 
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -27,6 +28,7 @@ function TextButtons(props) {
   const { classes } = props;
   return (
     <div>
+
     <Link to='/Camera'>
       <Button size="small" color="primary">
         Proof
