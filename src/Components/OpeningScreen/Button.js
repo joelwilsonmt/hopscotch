@@ -2,6 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import {
+  Route,
+  Link,
+  BrowserRouter as Router,
+} from 'react-router-dom';
+import HomeScreen from "../HomeScreen/HomeScreen";
 
 const styles = theme => ({
   button: {
@@ -16,9 +22,11 @@ function ContainedButtons(props) {
   const { classes } = props;
   return (
     <div>
+    <Link to='/HomeScreen'>
       <Button variant="contained" color="primary" className={classes.button}>
         Get Started!
       </Button>
+      </Link>
     </div>
   );
 }
