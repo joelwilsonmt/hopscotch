@@ -63,21 +63,22 @@ export default class FormDialog extends React.Component {
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
     console.log(addUser);
     var userId = '';
-    axios.post(addUser, userObject).then(function(res, err){
+    //must use fat arrow function in callback to bind FormDialog's this
+    //to inside the function itself:
+    axios.post(addUser, userObject).then((res, err) => {
       if(err) {console.error(err);}
         console.log("Add user server response:");
         console.log(res.data);
         userId = res.data;
-    }).then(function(){
-    console.log("this should contain a value: " + userId);
+    }).then(() => {
+      console.log("this should contain a value: " + userId);
 
-    //TODO set user id state here and pass up to toppest parent
-
+      //TODO set user id state here and pass up to toppest parent
+      this.setState({
+        _id : userId
+      });
+      console.log("this is the user id in state: " + this.state._id);
     });
-    this.setState({
-      _id : userId
-    });
-    console.log("this is the user id in state: " + this.state._id);
   }
 
   render() {
