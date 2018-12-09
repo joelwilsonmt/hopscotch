@@ -7,7 +7,6 @@ UserSchema = mongoose.Schema(
         avatar:String, //string to image location in server / public
         current_user_location: mongoose.Schema.Types.Point,
         user_session_boundary: {
-          poly: mongoose.Schema.Types.Polygon,
           here_api_format: [Number]
         },
         challenges_completed: [String],
