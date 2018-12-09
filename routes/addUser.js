@@ -25,7 +25,7 @@ function process_request(req) {
     console.log([data.longitude, data.latitude]);
     new User({
       username:data.username,
-      avatar:data.avatar_link, //string to image location in server / public
+      //avatar:data.avatar_link, //string to image location in server / public
       current_user_location: {
         type: "Point",
         coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)] //[-113.98274, 46.87278]

@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
 import AppBar from "../Utilities/AppBar";
 import axios from "axios";
+var dotenv = require('dotenv').config();
+
 
 const styles = theme => ({
   root: {
@@ -37,10 +39,9 @@ class PaperSheet extends Component {
       console.error("Browser does not support Geolocation");
     }
     var userId = '5c096fa025531e2d29ed67c8';
-    var server = 'http://localhost:3001/';
     var roomName = '';
     //get a list of circuits that match a user's boundary:
-    axios.post(server + 'getCircuits/', {_id: userId}).then(
+    axios.post(process.env.BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
       function(res) {
         console.log("response here:");
         console.log(res);
@@ -49,7 +50,7 @@ class PaperSheet extends Component {
       }).catch(function(err){
         console.error(err);
         if(err.response.status == 404){
-          axios.post(server + 'addCircuit/', {_id: userId}).then(
+          axios.post(process.env.BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
           function(res){
             console.log(res);
             roomName = res.data[0]._id;

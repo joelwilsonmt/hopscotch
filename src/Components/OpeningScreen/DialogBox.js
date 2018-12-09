@@ -7,17 +7,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+import axios from "axios";
 import {
   Route,
   Link,
   BrowserRouter as Router,
 } from 'react-router-dom';
 import GameRoom from "../GameRoom/GameRoom";
+var dotenv = require('dotenv');
+const BACK_END_SERVER = 'http://localhost:3001/';
 
 export default class FormDialog extends React.Component {
-  state = {
-    open: false,
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      open: false,
+      userNameInputValue: ''
+    };
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -26,6 +34,26 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  updateUserNameInputValue = (e) => {
+    this.setState({
+            userNameInputValue: e.target.value
+        });
+  }
+  submitUserToServer = () => {
+    var userObject = {};
+    userObject.username = this.state.userNameInputValue;
+    userObject.longitude = -122.3321;
+    userObject.latitude = 47.6062;
+    console.log(userObject);
+    const addUser = BACK_END_SERVER + 'addUser';
+    console.log(addUser);
+    axios.post(addUser, userObject, function(res, err){
+      if(err) {console.error(err);}
+      else {
+        console.log(res);
+      }
+    });
+  }
 
   render() {
     return (
@@ -43,6 +71,8 @@ export default class FormDialog extends React.Component {
               Please give us a user name!
             </DialogContentText>
             <TextField
+              value={this.state.userNameInputValue}
+              onChange={this.updateUserNameInputValue}
               autoFocus
               margin="dense"
               id="name"
@@ -55,7 +85,12 @@ export default class FormDialog extends React.Component {
               Cancel
             </Button>
             <Link to="/GameRoom">
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={() => {
+                this.handleClose()
+                this.submitUserToServer()
+                }
+              }
+              color="primary">
               Submit
             </Button>
             </Link>
