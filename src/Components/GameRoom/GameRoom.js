@@ -35,17 +35,26 @@ class PaperSheet extends Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
-    //axios.get('http://localhost:3001/getCircuits/').then(if response is false);
-    const TESTING = false;
-    if(TESTING){
-      axios.post('http://localhost:3001/addCircuit/', {_id: '5c0c34cffd35592351467554'}).then(
-      function(res){
+    var userId = '5c096fa025531e2d29ed67c8';
+    var server = 'http://localhost:3001/';
+    //get a list of circuits that match a user's boundary:
+    axios.post(server + 'getCircuits/', {_id: userId}).then(
+      function(res) {
+        console.log("response here:");
         console.log(res);
-
       }).catch(function(err){
         console.error(err);
+        if(err.response.status == 404){
+          axios.post(server + 'addCircuit/', {_id: userId}).then(
+          function(res){
+            console.log(res);
+
+          }).catch(function(err){
+            console.error(err);
+          });
+        }
       });
-    }
+
   }
 
 

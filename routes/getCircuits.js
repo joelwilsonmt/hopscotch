@@ -16,24 +16,34 @@ later on, socket.on('disconnect') {
  //move challenges_completed to past_challenges_completed
 }
 */
-router.get('/', function (req, res) {
+router.post('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
   var userId = data._id;
   var hereBoundary;
   //search the user by provided id, then use the boundary to search circuits
   User.findById(userId, function (err, user) {
-    console.log(user.user_session_boundary.here_api_format);
     hereBoundary = user.user_session_boundary.here_api_format;
   })
   .then(function(){
-    console.log(hereBoundary);
+    console.log("getCircuit User ID Located... " + userId)
     //then search circuits by here boundary
     Circuit.find({circuit_boundaries: hereBoundary}, function(err, circuit) {
-      console.log(circuit);
+      if(err){
+        console.error(err);
+      }
+    }).then(function(circuit){
+      if(!circuit.length){
+        console.log(req.body);
+        console.log("no circuits found");
+        res.status(404).send(null);
+        return;
+      }
+      console.log("Circuit Found!");
       res.status(200).send(circuit);
     });
   });
+  res.status(404);
 });
 
 module.exports = router;

@@ -27,24 +27,20 @@ router.post('/', function (req, res) {
 });
 
 function process_request(req) {
-  console.log(req);
     var data = req.body;
     //access user's user_session_boundary and create an API call to Here
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
     var north, south, east, west, apiBoundingBox;
     var circuitBoundaries;
-    console.log(data._id);
     User.findById(data._id, function (err, user) {
       if(err){
         console.error(err);
         return;
       }
-      console.log("user is " + user);
       var bounds = user.user_session_boundary.here_api_format;
       apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
       circuitBoundaries = bounds;
-      console.log(apiBoundingBox);
     }).then(function(){
       //INSERT API KEY FROM GOOGLE DOCS HERE, REMEMBER TO DELETE BEFORE COMMITS
       var apiCategories = [
@@ -75,7 +71,6 @@ function process_request(req) {
               object_gate: objectGate
             };
           }
-          console.log(sets_challenges);
           //create the new circuit
           new Circuit({
             circuit_boundaries: circuitBoundaries,
