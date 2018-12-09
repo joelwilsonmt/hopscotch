@@ -33,7 +33,9 @@ router.post('/', function (req, res) {
         console.error(err);
       }
     }).then(function(circuit){
-      if(!circuit.length){
+      //check if there are circuits in user boundary
+      //that have not started more than 2 minutes ago
+      if(!circuit.length /*&& (circuit.time_started + 120000) < new Date()*/){
         console.log("no circuits found for " + hereBoundary);
         res.status(404).send(null);
         return;
