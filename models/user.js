@@ -3,13 +3,12 @@ var GeoJSON = require('mongoose-geojson-schema');
 
 UserSchema = mongoose.Schema(
     {
-        username:String,
-        avatar:String, //string to image location in server / public
-        current_user_location: mongoose.Schema.Types.Point,
+        username:String, //set in addUser.js
+        current_user_location: mongoose.Schema.Types.Point, //set in addUser and updateUserLocation
         user_session_boundary: {
-          here_api_format: [Number]
+          here_api_format: [Number] //only need one format of bounding box for Here API and matchmaking
         },
-        challenges_completed: [String],
+        challenges_completed: [String], //id's of challenges completed, I don't think we need this
         circuits_participated:[String] //id's of circuits a user was in
     },
     { collection: 'users' });

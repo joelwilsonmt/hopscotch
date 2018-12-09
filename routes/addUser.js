@@ -54,17 +54,18 @@ function returnBB(longitude, latitude) {
     return [west,south,east,north];
 }
 /*
-on Client side:
 
 addUser takes a POST request specifying a new user's req.body to add a new user
-to the database - will likely have to change this to support passport
-req.body{ first_name,last_name,user_name,
-          avatar_link,current_user_location,
-          circuits_participated }
-
+to the database and calculates the user's boundary box for Here/matchmaking
+here is how the request should look:
+req = { username: 'username',
+        latitude: number,
+        longitude: number
+      }
+latitude and longitude are automatically collected by the browser in DialogBox.js
 
 */
-/* This adds user object to database when sent over route 'addUser'*/
+
 router.post('/', function (req, res) {
     console.log('add user accessed');
     var data = req.body;
