@@ -15,7 +15,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import GameRoom from "../GameRoom/GameRoom";
-var dotenv = require('dotenv');
+var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
 
 export default class FormDialog extends React.Component {
@@ -45,7 +45,7 @@ export default class FormDialog extends React.Component {
     userObject.longitude = -122.3321;
     userObject.latitude = 47.6062;
     console.log(userObject);
-    const addUser = BACK_END_SERVER + 'addUser';
+    const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
     console.log(addUser);
     axios.post(addUser, userObject, function(res, err){
       if(err) {console.error(err);}

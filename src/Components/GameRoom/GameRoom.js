@@ -41,7 +41,7 @@ class PaperSheet extends Component {
     var userId = '5c096fa025531e2d29ed67c8';
     var roomName = '';
     //get a list of circuits that match a user's boundary:
-    axios.post(process.env.BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
       function(res) {
         console.log("response here:");
         console.log(res);
@@ -50,7 +50,7 @@ class PaperSheet extends Component {
       }).catch(function(err){
         console.error(err);
         if(err.response.status == 404){
-          axios.post(process.env.BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
+          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
           function(res){
             console.log(res);
             roomName = res.data[0]._id;
