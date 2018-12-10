@@ -11,25 +11,29 @@ const styles = theme => ({
   },
 });
 
-function ButtonSizes(props) {
-  const { classes } = props;
-  return (
-    <div>
-      <div align="center">
-        <Button variant="outlined" size="small" color="primary" className={classes.margin}>
-          SUBMIT
-        </Button>
-        <Button variant="outlined" size="small" color="primary" className={classes.margin}>
-          RETAKE
-        </Button>
-        <Link to="/Challenges/">
-          <Button variant="outlined" size="small" color="primary" className={classes.margin}>
-            CHALLENGES
+class ButtonSizes extends React.Component {
+  constructor () {
+    super()
+  }
+  render () {
+    return(
+      <div>
+        <div align="center">
+          <Button variant="outlined" size="small" color="primary" onClick={this.props.confirmphoto}>
+            SUBMIT
           </Button>
-        </Link>
+          <Button variant="outlined" size="small" color="primary">
+            RETAKE
+          </Button>
+          <Link to="/Challenges/">
+            <Button variant="outlined" size="small" color="primary">
+              CHALLENGES
+            </Button>
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 ButtonSizes.propTypes = {
