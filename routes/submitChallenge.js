@@ -102,7 +102,7 @@ function pictureIsValid(pictureFile, objectGateWord) {
   ----------------------------------------------*/
 
   // Try creating a new buffer, in case AWS likes it like that
-  const buffer = Buffer.from(newObj, 'binary');
+  const buffer = Buffer.from(newObj, 'base64');
   console.log(buffer);
 
   // DetectLabels operation using Bytes
