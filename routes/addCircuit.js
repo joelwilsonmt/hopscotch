@@ -31,8 +31,7 @@ function process_request(req) {
     //access user's user_session_boundary and create an API call to Here
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
-    var north, south, east, west, apiBoundingBox;
-    var circuitBoundaries;
+    var apiBoundingBox, circuitBoundaries;
     User.findById(data._id, function (err, user) {
       if(err){
         console.error(err);
