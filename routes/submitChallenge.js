@@ -37,23 +37,42 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
   //this distance is returned as the crow flies:
   //return distance + " " + unit +"s";
 }
-// function getBinary(encodedFile) {
-//         var base64Image = encodedFile.split("data:image/jpeg;base64,")[1];
-//         var binaryImg = atob(base64Image);
-//         var length = binaryImg.length;
-//         var ab = new ArrayBuffer(length);
-//         var ua = new Uint8Array(ab);
-//         for (var i = 0; i < length; i++) {
-//           ua[i] = binaryImg.charCodeAt(i);
-//         }
-//
-//         var blob = new Blob([ab], {
-//           type: "image/jpeg"
-//         });
-//
-//         return ab;
-//       }
+
 function pictureIsValid(pictureFile, objectGateWord) {
+
+  /*
+  AWS documentation says: "You pass image bytes to an Amazon Rekognition API operation by using the Bytes property. For example, you would use the Bytes property to pass an image loaded from a local file system. Image bytes passed by using the Bytes property must be base64-encoded. Your code may not need to encode image bytes if you are using an AWS SDK to call Amazon Rekognition API operations." https://docs.aws.amazon.com/es_es/rekognition/latest/dg/API_Image.html
+
+  Similar problem: https://stackoverflow.com/questions/37326065/convert-binary-form-to-base64-string-in-javascript
+  https://stackoverflow.com/questions/23223718/failed-to-execute-btoa-on-window-the-string-to-be-encoded-contains-characte
+
+  Latest error log:
+  { InvalidImageFormatException: Request has invalid image format
+    at Request.extractError (/Users/jamie/code/node_modules/aws-sdk/lib/protocol/json.js:51:27)
+    at Request.callListeners (/Users/jamie/code/node_modules/aws-sdk/lib/sequential_executor.js:106:20)
+    at Request.emit (/Users/jamie/code/node_modules/aws-sdk/lib/sequential_executor.js:78:10)
+    at Request.emit (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:683:14)
+    at Request.transition (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:22:10)
+    at AcceptorStateMachine.runTo (/Users/jamie/code/node_modules/aws-sdk/lib/state_machine.js:14:12)
+    at /Users/jamie/code/node_modules/aws-sdk/lib/state_machine.js:26:10
+    at Request.<anonymous> (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:38:9)
+    at Request.<anonymous> (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:685:12)
+    at Request.callListeners (/Users/jamie/code/node_modules/aws-sdk/lib/sequential_executor.js:116:18)
+    at Request.emit (/Users/jamie/code/node_modules/aws-sdk/lib/sequential_executor.js:78:10)
+    at Request.emit (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:683:14)
+    at Request.transition (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:22:10)
+    at AcceptorStateMachine.runTo (/Users/jamie/code/node_modules/aws-sdk/lib/state_machine.js:14:12)
+    at /Users/jamie/code/node_modules/aws-sdk/lib/state_machine.js:26:10
+    at Request.<anonymous> (/Users/jamie/code/node_modules/aws-sdk/lib/request.js:38:9)
+  message: 'Request has invalid image format',
+  code: 'InvalidImageFormatException',
+  time: 2018-12-10T20:10:56.095Z,
+  requestId: 'b342e3a6-fcb7-11e8-828a-696569ca59a9',
+  statusCode: 400,
+  retryable: false,
+  retryDelay: 95.18204571511495 }
+
+  */
 
   AWS.config.update({
     accessKeyId: process.env.ACCESS_KEY,
@@ -62,43 +81,45 @@ function pictureIsValid(pictureFile, objectGateWord) {
   });
 
   let rekognition = new AWS.Rekognition();
-  // JSON.stringify(pictureFile);
-  // var newObj = JSON.stringify(pictureFile);
-  console.log(pictureFile);
 
-  //pictureFile[0].toString('binary');
-  //const buffer = Buffer.from(newObj, 'base64');
+  JSON.stringify(pictureFile);
+  var newObj = JSON.stringify(pictureFile);
+
+  console.log(newObj);
+
+  /*----------------------------------------------
+  Here is where we need to convert newObj to base64
+
+
+
+
+
+
+
+
+
+
+  ----------------------------------------------*/
+
+  // Try creating a new buffer, in case AWS likes it like that
+  const buffer = Buffer.from(newObj, 'binary');
+  console.log(buffer);
+
+  // DetectLabels operation using Bytes
   rekognition.detectLabels({
     Image: {
-      Bytes: pictureFile
+      Bytes: buffer
     }
-  }).promise().then(function(res){
+  })
+
+  .promise().then(function(res){
     console.log("result: ", res);
-  }).catch(function(err){
+  })
+
+  .catch(function(err){
     console.error(err);
   });
 
-
-    // rekognition.detectLabels({
-    //     Image: {
-    //       Bytes: buffer
-    //     }
-    //   }).promise().then(function(res){
-    //     console.log(res);
-    //     var results = res.Labels;
-    //     //add all names with confidence over 90
-    //     var rekognitionObjects = [];
-    //     for (var i = 0; i < results.length; i++){
-    //       if (rekognitionObjects.length >= 10){break;} //more than 10 is generous
-    //       else if (results[i].Confidence > 90){
-    //         rekognitionObjects.push(results[i].Name);
-    //       }
-    //   }).catch(function(err){
-    //     console.error(err);
-    //   });
-
-    //let's get synonyms for our objectGateWord
-  //closes .then() promise
 }
 
 //---------------this function should be put in its own file,
