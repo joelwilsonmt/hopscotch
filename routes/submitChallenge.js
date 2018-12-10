@@ -7,6 +7,7 @@ var synonyms = require("synonyms");
 var AWS = require('aws-sdk');
 var dotenv = require('dotenv').config();
 var fs = require('fs');
+var atob = require('atob');
 
 /*
 submitChallenge takes a PUT request that specifies a request body with the following:
@@ -36,6 +37,22 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
   //this distance is returned as the crow flies:
   //return distance + " " + unit +"s";
 }
+// function getBinary(encodedFile) {
+//         var base64Image = encodedFile.split("data:image/jpeg;base64,")[1];
+//         var binaryImg = atob(base64Image);
+//         var length = binaryImg.length;
+//         var ab = new ArrayBuffer(length);
+//         var ua = new Uint8Array(ab);
+//         for (var i = 0; i < length; i++) {
+//           ua[i] = binaryImg.charCodeAt(i);
+//         }
+//
+//         var blob = new Blob([ab], {
+//           type: "image/jpeg"
+//         });
+//
+//         return ab;
+//       }
 function pictureIsValid(pictureFile, objectGateWord) {
 
   AWS.config.update({
@@ -45,15 +62,18 @@ function pictureIsValid(pictureFile, objectGateWord) {
   });
 
   let rekognition = new AWS.Rekognition();
+  // JSON.stringify(pictureFile);
+  // var newObj = JSON.stringify(pictureFile);
+  console.log(pictureFile);
 
-  // const buffer = new Buffer(pictureFile, 'base64');
-
+  //pictureFile[0].toString('binary');
+  //const buffer = Buffer.from(newObj, 'base64');
   rekognition.detectLabels({
     Image: {
       Bytes: pictureFile
     }
   }).promise().then(function(res){
-    console.log(res);
+    console.log("result: ", res);
   }).catch(function(err){
     console.error(err);
   });
@@ -78,7 +98,6 @@ function pictureIsValid(pictureFile, objectGateWord) {
     //   });
 
     //let's get synonyms for our objectGateWord
-    console.log(synonyms(objectGateWord));
   //closes .then() promise
 }
 
@@ -103,6 +122,8 @@ function pictureIsValid(pictureFile, objectGateWord) {
 router.post('/', function (req, res) {
   console.log("submitting challenge at " +new Date());
   var data = req.body;
+  console.log("data passed type:", typeof data);
+  console.log(data);
   var test = pictureIsValid(data);
   //strip necessary vars from request body:
   // var userId = data._id;

@@ -52,12 +52,14 @@ export default class App extends Component {
   }
 
   confirmphoto() {
-    console.log(this.state.blob);
+    console.log("blob contents:", this.state.blob);
     axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.blob)
-
-    .then((res)=>{console.log(res)})
-
-    .catch((err)=>{console.log(err)});
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });//end axios call
   }
 
   render() {

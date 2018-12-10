@@ -31,8 +31,7 @@ function process_request(req) {
     //access user's user_session_boundary and create an API call to Here
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
-    var north, south, east, west, apiBoundingBox;
-    var circuitBoundaries;
+    var apiBoundingBox, circuitBoundaries;
     User.findById(data._id, function (err, user) {
       if(err){
         console.error(err);
@@ -42,7 +41,6 @@ function process_request(req) {
       apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
       circuitBoundaries = bounds;
     }).then(function(){
-      //INSERT API KEY FROM GOOGLE DOCS HERE, REMEMBER TO DELETE BEFORE COMMITS
       var apiCategories = [
                             'leisure-outdoor','landmark-attraction','going-out',
                             'eat-drink', 'natural-geographical', 'sights-museums'
