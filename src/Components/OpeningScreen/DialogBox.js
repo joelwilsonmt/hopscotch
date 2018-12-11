@@ -102,17 +102,17 @@ export default class FormDialog extends React.Component {
           fullWidth
         />
         <UserContext.Consumer>{
-            (userobj) => (
+            (session) => (
               <div>
               <Button
                 variant="contained" color="primary"
                 Button onClick={() => {
-                  userobj.updateUser(this.state.idSearch)
+                  session.updateUser(this.state.idSearch)
                 }}>
                 Update User Id
               </Button>
-              <p>User Name: {userobj.session.user.username}</p>
-              <p>User west bound: {userobj.session.user.user_session_boundary.here_api_format[0]}</p>
+              <p>User Name: {session.user.username}</p>
+              <p>User west bound: {session.user.user_session_boundary.here_api_format[0]}</p>
               <p>User ID: {userId}</p>
               </div>
             )

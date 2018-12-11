@@ -18,15 +18,21 @@ const styles = theme => ({
 });
 
 
-function PaperSheet(props) {
-  const { classes } = props;
-
+class PaperSheet extends React.Component  {
+  constructor(props){
+    console.log(props);
+    super(props);
+    this.state = {
+      _id: this.props.id
+    };
+  }
+  render(){
   return (
     <UserProvider>
       <AppBar />
-      <Paper className={classes.root} elevation={1}>
+      <Paper  elevation={1}>
         <Typography variant="h5" component="h3" align="center">
-          CHALLENGES: {/*this.props*/}
+          CHALLENGES: {this.state._id}
         </Typography>
         <br />
         <br />
@@ -35,6 +41,7 @@ function PaperSheet(props) {
       <BottomNav />
     </UserProvider>
   );
+  }
 }
 
 PaperSheet.propTypes = {

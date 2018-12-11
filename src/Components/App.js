@@ -25,9 +25,9 @@ const AppRouter = () => (
   <Router>
     <div>
       <UserContext.Consumer>{
-          (userobj) => (
+          (session) => (
             <div>
-            <Route path="/Challenges/" id={userobj.session.user._id} component={Challenges} />
+            <Route path="/Challenges/" id={session.user._id} component={Challenges} />
             </div>
           )
         }</UserContext.Consumer>

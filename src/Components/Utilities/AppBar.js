@@ -34,12 +34,12 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CIRCUITBREAKER
           </Typography>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography color="inherit" className={classes.grow}>
             <UserContext.Consumer>{
-                (userobj) => (
-                  <div>
-                  User Name: {userobj.session.user.username}
-                  </div>
+                (session) => (
+                  <h2>
+                  {session.user.username}
+                </h2>
                 )
               }</UserContext.Consumer>
           </Typography>

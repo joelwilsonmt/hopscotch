@@ -15,12 +15,10 @@ class UserProvider extends React.Component {
         if(err){console.log(err);}
         this.setState(
           {
-            session: {
               user: res.data,
               circut: res.circuit
-            }
           });//closes set state
-          console.log("set state complete, user: ", this.state.session.user.username);
+          console.log("set state complete, user: ", this.state.user.username);
         });//closes .then()
       };//closes updateUser
 
@@ -28,7 +26,6 @@ class UserProvider extends React.Component {
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
     //these placeholders are overwritten with the updateUser Server call
     this.state = {
-      session: {
         //this user object is the copy of what is in the server every time
         //the Provider's passed value={this.state} .updateUser(userId) method
         //is accessed
@@ -43,8 +40,7 @@ class UserProvider extends React.Component {
           },
           challenges_completed: [], //id's of challenges completed, I don't think we need this
           circuits_participated:[]
-        }
-      },
+        },
       updateUser: this.updateUser
     };
   }
