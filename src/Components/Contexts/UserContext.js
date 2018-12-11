@@ -25,12 +25,15 @@ class UserProvider extends React.Component {
       };//closes updateUser
 
 
-    //filling in the constructor with dummy data so testing doesn't fail:
-    //this dummy data is overwritten with the updateUser Server call
+    //filling in the constructor with placeholders so react doesn't crash trying to render null data:
+    //these placeholders are overwritten with the updateUser Server call
     this.state = {
       session: {
+        //this user object is the copy of what is in the server every time
+        //the Provider's passed value={this.state} .updateUser(userId) method
+        //is accessed
         user: {
-          username: 'Not logged in', //set in updateUser method
+          username: 'Not logged in',
           current_user_location: {
             type: "",
             coordinates: []
@@ -42,8 +45,6 @@ class UserProvider extends React.Component {
           circuits_participated:[]
         }
       },
-      username: 'StateJoel',
-      circuitname: 'Circuit Name',
       updateUser: this.updateUser
     };
   }

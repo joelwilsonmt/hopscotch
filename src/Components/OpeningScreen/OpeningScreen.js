@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import Grid from '@material-ui/core/Grid';
-import {UserContext} from "../Contexts/UserContext";
+
 import {
   Route,
   Link,
@@ -38,7 +38,7 @@ function PaperSheet(props) {
         <DialogBox />
 
       </Paper>
-      
+
     </div>
   );
 }

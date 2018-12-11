@@ -25,6 +25,7 @@ export default class FormDialog extends React.Component {
     this.state = {
       open: false,
       userNameInputValue: '',
+      idSearch: '',
       _id: ''
     };
   }
@@ -52,6 +53,11 @@ export default class FormDialog extends React.Component {
   updateUserNameInputValue = (e) => {
     this.setState({
             userNameInputValue: e.target.value
+        });
+  }
+  updateIdSearchValue = (e) => {
+    this.setState({
+            idSearch: e.target.value
         });
   }
   submitUserToServer = () => {
@@ -83,16 +89,25 @@ export default class FormDialog extends React.Component {
   }
 
   render() {
-    var userId = "5c0daaa10dff590d6fea9a9c";
+    var userId = "5c0f6b4fc2f3025f3a8aa33a";
     return (
       <div>
+        <TextField
+          value={this.state.idSearch}
+          onChange={this.updateIdSearchValue}
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Name"
+          fullWidth
+        />
         <UserContext.Consumer>{
             (userobj) => (
               <div>
               <Button
                 variant="contained" color="primary"
                 Button onClick={() => {
-                  userobj.updateUser(userId)
+                  userobj.updateUser(this.state.idSearch)
                 }}>
                 Update User Id
               </Button>
