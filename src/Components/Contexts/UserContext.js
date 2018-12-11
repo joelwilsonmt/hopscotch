@@ -48,7 +48,7 @@ class UserProvider extends React.Component {
         this.setState(
           {
               user: res.data,
-              circut: res.circuit
+              circuit: res.circuit
           });//closes set state
           console.log("set state complete, user: ", this.state.user.username);
         });//closes .then()
@@ -73,11 +73,14 @@ class UserProvider extends React.Component {
           challenges_completed: [], //id's of challenges completed, I don't think we need this
           circuits_participated:[]
         },
-      updateUser: this.updateUser
+      updateUser: this.updateUser //make it so updateUser method is available in state
     };
   }
 
   render() {
+    //<UserProvider> component returns the <UserContext.Provider> object
+    //with the value passing to anything inside of it the state contained
+    //in the initial and subsequent setting of this Component's state
     return (
       <UserContext.Provider value={this.state}>
         {this.props.children}

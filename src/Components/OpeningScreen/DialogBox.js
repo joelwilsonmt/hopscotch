@@ -95,7 +95,6 @@ export default class FormDialog extends React.Component {
         <TextField
           value={this.state.idSearch}
           onChange={this.updateIdSearchValue}
-          autoFocus
           margin="dense"
           id="name"
           label="Name"
