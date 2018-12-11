@@ -8,6 +8,7 @@ import Map from "./Map/Map";
 import Camera from "./Camera/Camera";
 import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
+import AppBar from "./Utilities/AppBar";
 
 
 let imgUrl = './Images/circuit1.jpg'
@@ -19,40 +20,11 @@ let styles = {
   }
 }
 
-const App = () => <h2>Home</h2>;
+const App = () => <div><AppBar /><OpeningScreen/></div>;
 
 const AppRouter = () => (
   <Router>
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/GameRoom/">Game Room</Link>
-          </li>
-          <li>
-            <Link to="/Lobby/">Lobby</Link>
-          </li>
-          <li>
-            <Link to="/Challenges/">Challenges</Link>
-          </li>
-          <li>
-            <Link to="/Map/">Map</Link>
-          </li>
-          <li>
-            <Link to="/Camera/">Camera</Link>
-          </li>
-          <li>
-            <Link to="/CircuitReview/">Circuit Review</Link>
-          </li>
-          <li>
-            <Link to="/OpeningScreen/">Opening Screen</Link>
-          </li>
-        </ul>
-      </nav>
-
       <Route path="/" exact component={App} />
       <Route path="/GameRoom/" component={GameRoom} />
       <Route path="/Lobby/" component={Lobby} />

@@ -38,11 +38,30 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Sign Out</MenuItem>
-          <Link to="/GameRoom/">
-          <MenuItem onClick={this.handleClose}>Leave Game</MenuItem>
+          <Link to="/">
+          <MenuItem onClick={this.handleClose}>Home</MenuItem>
           </Link>
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+          <Link to="/GameRoom/">
+          <MenuItem onClick={this.handleClose}>Game Room</MenuItem>
+          </Link>
+          <Link to="/Lobby/">
+          <MenuItem onClick={this.handleClose}>Lobby</MenuItem>
+          </Link>
+          <Link to="/Challenges/">
+          <MenuItem onClick={this.handleClose}>Challenges</MenuItem>
+          </Link>
+          <Link to="/Map/">
+          <MenuItem onClick={this.handleClose}>Map</MenuItem>
+          </Link>
+          <Link to="/Camera/">
+          <MenuItem onClick={this.handleClose}>Camera</MenuItem>
+          </Link>
+          <Link to="/CircuitReview/">
+          <MenuItem onClick={this.handleClose}>CircuitReview</MenuItem>
+          </Link>
+          <Link to="/OpeningScreen/">
+          <MenuItem onClick={this.handleClose}>OpeningScreen</MenuItem>
+          </Link>
         </Menu>
       </div>
     );
