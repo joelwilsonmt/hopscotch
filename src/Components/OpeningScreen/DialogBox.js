@@ -119,7 +119,7 @@ export default class FormDialog extends React.Component {
           }</UserContext.Consumer>
       <Button variant="contained" color="primary"
         Button onClick={this.handleClickOpen}>
-        Other Button
+        Add User to Database
         </Button>
         <Dialog
           open={this.state.open}
@@ -146,12 +146,12 @@ export default class FormDialog extends React.Component {
               Cancel
             </Button>
             {/*<Link to="/GameRoom">*/}
-            <Button onClick={() => {
+            <Button
+              color="primary"
+              onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
-                }
-              }
-              color="primary">
+                }}>
               Submit
             </Button>
           {/*</Link>*/}

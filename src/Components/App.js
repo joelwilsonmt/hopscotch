@@ -21,9 +21,10 @@ const App = () =>
 </div>;
 
 const AppRouter = () => (
-    <UserProvider>
+<UserProvider>
   <Router>
     <div>
+      {/*attempting to pass session id through routes:*/}
       <UserContext.Consumer>{
           (session) => (
             <div>
@@ -41,7 +42,7 @@ const AppRouter = () => (
       <Route path="/OpeningScreen/" component={OpeningScreen} />
     </div>
   </Router>
-    </UserProvider>
+</UserProvider>
 );
 
 export default AppRouter;
