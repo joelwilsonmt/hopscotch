@@ -85,7 +85,7 @@ export default class FormDialog extends React.Component {
     return (
       <div>
       <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}>Get Started</Button>
+        Button onClick={this.handleClickOpen}>Create User</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

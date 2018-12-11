@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
+import Grid from '@material-ui/core/Grid';
 import {
   Route,
   Link,
@@ -16,6 +17,11 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   }
 });
 
@@ -24,20 +30,11 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <Paper elevation={1}>
-      <body background="https://spectrum.ieee.org/image/MzEwMTk5OA.jpeg">
+      <Paper className={classes.paper}
+        elevation={1}>
         <h1>Circuit Breaker</h1>
-        <img src="http://www.practicalphysics.org/images/PP_Electric_circuits.jpg" />
-        <Typography variant="h5" component="h3">
-          Circuit Breaker
-        </Typography>
-        <Typography component="p">
-
-        </Typography>
-
+        <h2>Click the button below to log in</h2>
         <DialogBox />
-        </body>
-
       </Paper>
     </div>
   );
@@ -49,4 +46,3 @@ PaperSheet.propTypes = {
 
 
 export default withStyles(styles)(PaperSheet);
-
