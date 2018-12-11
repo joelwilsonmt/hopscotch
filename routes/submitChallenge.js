@@ -82,40 +82,30 @@ function pictureIsValid(pictureFile, objectGateWord) {
 
   let rekognition = new AWS.Rekognition();
 
+
+  // Stringify raw blob data
   JSON.stringify(pictureFile);
   var newObj = JSON.stringify(pictureFile);
-
   console.log(newObj);
 
-  /*----------------------------------------------
-  Here is where we need to convert newObj to base64
+  // Convert blob to base64
+  var newObj = Buffer.from(newObj).toString('base64');
+  console.log(newObj);
+
+  // Convert base64 jibberish into ASCII characters
+  var newObj = JSON.stringify(Buffer.from(newObj).toString('ascii'));
+  console.log(newObj);
 
 
-
-
-
-
-
-
-
-
-  ----------------------------------------------*/
-
-  // Try creating a new buffer, in case AWS likes it like that
-  const buffer = Buffer.from(newObj, 'base64');
-  console.log(buffer);
-
-  // DetectLabels operation using Bytes
+  // Send base64 data to AWS to perform DetectLabels operation
   rekognition.detectLabels({
     Image: {
-      Bytes: buffer
+      Bytes: newObj
     }
   })
-
   .promise().then(function(res){
     console.log("result: ", res);
   })
-
   .catch(function(err){
     console.error(err);
   });
