@@ -38,30 +38,30 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <Link to="/">
-          <MenuItem onClick={this.handleClose}>Home</MenuItem>
-          </Link>
-          <Link to="/GameRoom/">
-          <MenuItem onClick={this.handleClose}>Game Room</MenuItem>
-          </Link>
-          <Link to="/Lobby/">
-          <MenuItem onClick={this.handleClose}>Lobby</MenuItem>
-          </Link>
-          <Link to="/Challenges/">
-          <MenuItem onClick={this.handleClose}>Challenges</MenuItem>
-          </Link>
-          <Link to="/Map/">
-          <MenuItem onClick={this.handleClose}>Map</MenuItem>
-          </Link>
-          <Link to="/Camera/">
-          <MenuItem onClick={this.handleClose}>Camera</MenuItem>
-          </Link>
-          <Link to="/CircuitReview/">
-          <MenuItem onClick={this.handleClose}>CircuitReview</MenuItem>
-          </Link>
-          <Link to="/OpeningScreen/">
-          <MenuItem onClick={this.handleClose}>OpeningScreen</MenuItem>
-          </Link>
+        <Link to="/">
+        <MenuItem onClick={this.handleClose}>Home</MenuItem>
+        </Link>
+        <Link to="/OpeningScreen/">
+        <MenuItem onClick={this.handleClose}>Opening Screen</MenuItem>
+        </Link>
+        <Link to="/GameRoom/">
+        <MenuItem onClick={this.handleClose}>Game Room</MenuItem>
+        </Link>
+        <Link to="/Lobby/">
+        <MenuItem onClick={this.handleClose}>Lobby</MenuItem>
+        </Link>
+        <Link to="/Challenges/">
+        <MenuItem onClick={this.handleClose}>Challenges</MenuItem>
+        </Link>
+        <Link to="/Map/">
+        <MenuItem onClick={this.handleClose}>Map</MenuItem>
+        </Link>
+        <Link to="/Camera/">
+        <MenuItem onClick={this.handleClose}>Camera</MenuItem>
+        </Link>
+        <Link to="/CircuitReview/">
+        <MenuItem onClick={this.handleClose}>Circuit Review</MenuItem>
+        </Link>
         </Menu>
       </div>
     );
