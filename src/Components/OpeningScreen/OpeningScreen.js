@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import Grid from '@material-ui/core/Grid';
+
 import {
   Route,
   Link,
@@ -35,7 +36,9 @@ function PaperSheet(props) {
         <h1>Circuit Breaker</h1>
         <h2>Click the button below to log in</h2>
         <DialogBox />
+
       </Paper>
+
     </div>
   );
 }

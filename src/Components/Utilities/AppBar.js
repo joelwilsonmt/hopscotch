@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuButton from "./MenuButton";
 import Avatar from "./Avatar";
+import {UserContext} from "../Contexts/UserContext";
 
 const styles = {
   root: {
@@ -33,6 +34,16 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CIRCUITBREAKER
           </Typography>
+          <Typography color="inherit" className={classes.grow}>
+            <UserContext.Consumer>{
+                (session) => (
+                  <h2>
+                  {session.user.username}
+                </h2>
+                )
+              }</UserContext.Consumer>
+          </Typography>
+
           <Avatar />
         </Toolbar>
       </AppBar>

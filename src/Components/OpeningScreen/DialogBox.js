@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {UserContext} from "../Contexts/UserContext";
 
 import axios from "axios";
 import {
@@ -24,6 +25,7 @@ export default class FormDialog extends React.Component {
     this.state = {
       open: false,
       userNameInputValue: '',
+      idSearch: '',
       _id: ''
     };
   }
@@ -51,6 +53,11 @@ export default class FormDialog extends React.Component {
   updateUserNameInputValue = (e) => {
     this.setState({
             userNameInputValue: e.target.value
+        });
+  }
+  updateIdSearchValue = (e) => {
+    this.setState({
+            idSearch: e.target.value
         });
   }
   submitUserToServer = () => {
@@ -82,10 +89,38 @@ export default class FormDialog extends React.Component {
   }
 
   render() {
+    var userId = "5c0f6b4fc2f3025f3a8aa33a";
     return (
       <div>
+        <TextField
+          value={this.state.idSearch}
+          onChange={this.updateIdSearchValue}
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Name"
+          fullWidth
+        />
+        <UserContext.Consumer>{
+            (session) => (
+              <div>
+              <Button
+                variant="contained" color="primary"
+                Button onClick={() => {
+                  session.updateUser(this.state.idSearch)
+                }}>
+                Update User Id
+              </Button>
+              <p>User Name: {session.user.username}</p>
+              <p>User west bound: {session.user.user_session_boundary.here_api_format[0]}</p>
+              <p>User ID: {userId}</p>
+              </div>
+            )
+          }</UserContext.Consumer>
       <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}>Create User</Button>
+        Button onClick={this.handleClickOpen}>
+        Other Button
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
