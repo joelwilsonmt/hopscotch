@@ -83,14 +83,25 @@ export default class FormDialog extends React.Component {
   }
 
   render() {
+    var userId = "5c0daaa10dff590d6fea9a9c";
     return (
       <div>
-      <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}><UserContext.Consumer>{
+        <UserContext.Consumer>{
             (userobj) => (
-              <p>User name: {userobj.username}</p>
+              <div>
+              <Button
+                variant="contained" color="primary"
+                Button onClick={userobj.updateUser(userId)}
+                >
+                User name: {userobj.username}</Button>
+              <p>User ID: {userId}</p>
+              </div>
             )
-          }</UserContext.Consumer></Button>
+          }</UserContext.Consumer>
+      <Button variant="contained" color="primary"
+        Button onClick={this.handleClickOpen}>
+        Other Button
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
