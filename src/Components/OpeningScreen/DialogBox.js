@@ -91,9 +91,13 @@ export default class FormDialog extends React.Component {
               <div>
               <Button
                 variant="contained" color="primary"
-                Button onClick={userobj.updateUser(userId)}
-                >
-                User name: {userobj.username}</Button>
+                Button onClick={() => {
+                  userobj.updateUser(userId)
+                }}>
+                Update User Id
+              </Button>
+              <p>User Name: {userobj.session.user.username}</p>
+              <p>User west bound: {userobj.session.user.user_session_boundary.here_api_format[0]}</p>
               <p>User ID: {userId}</p>
               </div>
             )

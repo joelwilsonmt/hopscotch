@@ -11,20 +11,37 @@ class UserProvider extends React.Component {
       console.log("updateUser accessed w/ uid: ", userId);
       const getUser = process.env.REACT_APP_BACK_END_SERVER + 'getUser';
       axios.put(getUser, {userId}).then((res,err) => {
-        console.log("get user handled");
+        console.log("get user handled", res.data.username);
         if(err){console.log(err);}
-        /*this.setState(
+        this.setState(
           {
             session: {
-              user: res.user,
+              user: res.data,
               circut: res.circuit
             }
-          });*///closes set state
-          console.log("set state complete, user: ", res);
+          });//closes set state
+          console.log("set state complete, user: ", this.state.session.user.username);
         });//closes .then()
       };//closes updateUser
 
+
+    //filling in the constructor with dummy data so testing doesn't fail:
+    //this dummy data is overwritten with the updateUser Server call
     this.state = {
+      session: {
+        user: {
+          username: 'Not logged in', //set in updateUser method
+          current_user_location: {
+            type: "",
+            coordinates: []
+          }, //set in addUser and updateUserLocation
+          user_session_boundary: {
+            here_api_format: [] //only need one format of bounding box for Here API and matchmaking
+          },
+          challenges_completed: [], //id's of challenges completed, I don't think we need this
+          circuits_participated:[]
+        }
+      },
       username: 'StateJoel',
       circuitname: 'Circuit Name',
       updateUser: this.updateUser
