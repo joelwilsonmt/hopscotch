@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {UserContext} from "../Contexts/UserContext";
 
 import axios from "axios";
 import {
@@ -85,7 +86,11 @@ export default class FormDialog extends React.Component {
     return (
       <div>
       <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}>Create User</Button>
+        Button onClick={this.handleClickOpen}><UserContext.Consumer>{
+            (userobj) => (
+              <p>User name: {userobj.username}</p>
+            )
+          }</UserContext.Consumer></Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

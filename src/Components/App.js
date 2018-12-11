@@ -9,6 +9,7 @@ import Camera from "./Camera/Camera";
 import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
 import AppBar from "./Utilities/AppBar";
+import UserProvider from "./Contexts/UserContext";
 
 
 let imgUrl = './Images/circuit1.jpg'
@@ -20,7 +21,13 @@ let styles = {
   }
 }
 
-const App = () => <div><AppBar /><OpeningScreen/></div>;
+const App = () =>
+<div>
+<AppBar />
+<UserProvider>
+  <OpeningScreen/>
+</UserProvider>
+</div>;
 
 const AppRouter = () => (
   <Router>

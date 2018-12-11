@@ -2,6 +2,15 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
+//hoping to code this so that when the getUser route is called from the
+//user Provider in React that it takes the userId, returns the user's
+//current user object as well as a current circuit object for the user
+//if it exists
+
+//so the data will be set in state on the client site by
+//this.state.user: res.user,
+//this.state.currentCircuit: res.circuit
+
 
 /*when accessing getUser, take username then return _id:
 * The /getUser route is defined in server.js
