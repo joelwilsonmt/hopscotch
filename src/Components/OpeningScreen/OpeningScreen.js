@@ -50,6 +50,9 @@ function PaperSheet(props) {
                   <Typography variant="h5" gutterBottom>
                     User west bound: {session.user.user_session_boundary.here_api_format[0]}
                   </Typography>
+                  <Typography variant="h5" gutterBottom>
+                    Current User Circuit ID: {session.user.current_circuit_id}
+                  </Typography>
                   <p>User ID: 5c0ff7bc64e17777e313ac23</p>
                   <p>User ID: 5c0ff7c864e17777e313ac24</p>
                   <p>User ID: 5c0ff7cf64e17777e313ac25</p>

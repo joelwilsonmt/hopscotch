@@ -11,6 +11,7 @@ var addCircuit = require('./routes/addCircuit');
 var assignUserBox = require('./routes/assignUserBox');
 var submitChallenge = require('./routes/submitChallenge');
 var getCircuits = require('./routes/getCircuits');
+var assignUserToCircuit = require('./routes/assignUserToCircuit');
 
 var app = express();
 var http = require('http').Server(app);
@@ -28,6 +29,7 @@ app.use('/addCircuit', addCircuit);
 app.use('/assignUserBox', assignUserBox);
 app.use('/submitChallenge', submitChallenge);
 app.use('/getCircuits', getCircuits);
+app.use('/assignUserToCircuit', assignUserToCircuit);
 
 
 io.on('connection', function(socket){
