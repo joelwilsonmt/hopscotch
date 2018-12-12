@@ -97,12 +97,12 @@ export default class FormDialog extends React.Component {
           fullWidth
         />
         <UserContext.Consumer>{
-            (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
+            (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
               <div>
                 <Button
                   variant="contained" color="secondary"
                   Button onClick={() => {
-                    session.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
+                    game.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
                   }}>
                   Update User Id
                 </Button>

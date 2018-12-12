@@ -10,8 +10,8 @@ is wrapped in it access to its state, which contains two important properties
 
 When a Consumer component accesses
 <UserContext.Consumer>
-  {(session) => (
-    //the user session object is available here
+  {(game) => (
+    //the user game object is available here
   )}
 </UserContext.Consumer>
 

@@ -84,10 +84,10 @@ class PaperSheet extends Component {
             GAME ROOM
           </Typography>
           <UserContext.Consumer>{
-              (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
+              (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
                 <div>
                   <Typography variant="h4" gutterBottom>
-                    User Name: {session.user.username}
+                    User Name: {game.user.username}
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     Circuit: {this.state.circuit._id}

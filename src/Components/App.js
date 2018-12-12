@@ -35,7 +35,6 @@ const AppRouter = () => (
       <Route path="/" exact component={App} />
       <Route path="/GameRoom/" component={GameRoom} />
       <Route path="/Lobby/" component={Lobby} />
-
       <Route path="/Map/" component={Map} />
       <Route path="/Camera/" component={Camera} />
       <Route path="/CircuitReview/" component={CircuitReview} />
