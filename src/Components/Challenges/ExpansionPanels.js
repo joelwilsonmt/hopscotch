@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -8,9 +7,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
-import Button from "@material-ui/core/Button";
 import ProofButton from './ProofButton';
-import Camera from "../Camera/Camera";
 
 
 const styles = theme => ({

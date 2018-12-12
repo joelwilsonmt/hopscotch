@@ -6,7 +6,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ExpansionPanels from "./ExpansionPanels";
 import BottomNav from "../Utilities/BottomNav";
-
+import {UserContext} from "../Contexts/UserContext";
+import UserProvider from "../Contexts/UserContext";
 
 const styles = theme => ({
   root: {
@@ -17,23 +18,30 @@ const styles = theme => ({
 });
 
 
-function PaperSheet(props) {
-  const { classes } = props;
-
+class PaperSheet extends React.Component  {
+  constructor(props){
+    console.log(props);
+    super(props);
+    this.state = {
+      _id: this.props.id
+    };
+  }
+  render(){
   return (
-    <div>
+    <UserProvider>
       <AppBar />
-      <Paper className={classes.root} elevation={1}>
+      <Paper  elevation={1}>
         <Typography variant="h5" component="h3" align="center">
-          CHALLENGES
+          CHALLENGES: {this.state._id}
         </Typography>
         <br />
         <br />
         <ExpansionPanels />
       </Paper>
       <BottomNav />
-    </div>
+    </UserProvider>
   );
+  }
 }
 
 PaperSheet.propTypes = {
