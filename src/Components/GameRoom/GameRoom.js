@@ -99,9 +99,7 @@ class PaperSheet extends Component {
             <Typography variant="h6" gutterBottom>
               First Challenge: {this.state.circuit.challenges[0].location_gate.name}
             </Typography>
-            <UserContext.Consumer>{
-                (game) => ( <GameRoomCard value={game}/> )
-            }</UserContext.Consumer>
+             <GameRoomCard />
         </Paper>
       </div>
     );

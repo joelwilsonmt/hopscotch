@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import {UserContext} from "../Contexts/UserContext";
 
 
 
@@ -35,15 +36,13 @@ const styles = {
 
 class SimpleCard extends React.Component {
   constructor(props) {
-    super()
-    this.State={
-
-    }
+    super();
+    this.state = props.value; //assigns value passed to this as value props
   }
-  handleJoin() {
-    console.log("user object: ", this.props.value.user);
-    console.log("circuit object: ", this.props.value.user.current_circuit_id);
-    /*axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', {_id: userId}).then(
+  handleJoin(game) {
+    console.log("user object: ", game.user);
+    //console.log("circuit object: ", this.props.value.user.current_circuit_id);
+    /*axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', {_id: this.props.value.user}).then(
       (res) => {
         var circuit = res.data;
         console.log("server returned circuit info: ", circuit);
@@ -90,11 +89,14 @@ class SimpleCard extends React.Component {
         </CardContent>
         <CardActions>
           <Link to="/Lobby/">
+            <UserContext.Consumer>{
+                (game) => (
             <Button size="small" justify="center"
-              onClick={() => this.handleJoin()}
+              onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
+          )}</UserContext.Consumer>
           </Link>
         </CardActions>
       </Card>
