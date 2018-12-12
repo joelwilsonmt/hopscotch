@@ -16,6 +16,8 @@ later on, socket.on('disconnect') {
  //move challenges_completed to past_challenges_completed
 }
 */
+//this function must be a POST because the promise callback on the client side
+//returns a POST call to create a circuit if this route returns 404
 router.post('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
@@ -33,15 +35,19 @@ router.post('/', function (req, res) {
         console.error(err);
       }
     }).then(function(circuit){
+      console.log("circuit exists: " + JSON.stringify(circuit[0].challenges[3]));
       //check if there are circuits in user boundary
       //that have not started more than 2 minutes ago
-      if(!circuit.length /*&& (circuit.time_started + 120000) < new Date()*/){
+      /*&& (circuit.time_started + 120000) < new Date()*/
+
+      if(!circuit.length){
         console.log("no circuits found for " + hereBoundary);
-        res.status(404).send(null);
+        console.log(circuit.length);
+        //res.status(404).send(null);
         return;
       }
       console.log("Circuit Found!");
-      res.status(200).send(circuit);
+      res.status(200).send(circuit[0]);
     }).catch(function(err){
       console.error(err);
     });

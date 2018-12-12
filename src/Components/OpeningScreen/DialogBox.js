@@ -7,13 +7,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {UserContext} from "../Contexts/UserContext";
 
 import axios from "axios";
-import {
-  Route,
-  Link,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
 import GameRoom from "../GameRoom/GameRoom";
 var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
@@ -24,6 +21,7 @@ export default class FormDialog extends React.Component {
     this.state = {
       open: false,
       userNameInputValue: '',
+      idSearch: '',
       _id: ''
     };
   }
@@ -51,6 +49,11 @@ export default class FormDialog extends React.Component {
   updateUserNameInputValue = (e) => {
     this.setState({
             userNameInputValue: e.target.value
+        });
+  }
+  updateIdSearchValue = (e) => {
+    this.setState({
+            idSearch: e.target.value
         });
   }
   submitUserToServer = () => {
@@ -82,10 +85,34 @@ export default class FormDialog extends React.Component {
   }
 
   render() {
+    var userId = "5c0f6b4fc2f3025f3a8aa33a";
     return (
       <div>
+        <TextField
+          value={this.state.idSearch}
+          onChange={this.updateIdSearchValue}
+          margin="dense"
+          id="name"
+          label="Name"
+          fullWidth
+        />
+        <UserContext.Consumer>{
+            (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
+              <div>
+                <Button
+                  variant="contained" color="secondary"
+                  Button onClick={() => {
+                    game.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update User Id
+                </Button>
+              </div>
+            )
+          }</UserContext.Consumer>
       <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}>Get Started</Button>
+        Button onClick={this.handleClickOpen}>
+        Add User to Database
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -111,12 +138,12 @@ export default class FormDialog extends React.Component {
               Cancel
             </Button>
             {/*<Link to="/GameRoom">*/}
-            <Button onClick={() => {
+            <Button
+              color="primary"
+              onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
-                }
-              }
-              color="primary">
+                }}>
               Submit
             </Button>
           {/*</Link>*/}
