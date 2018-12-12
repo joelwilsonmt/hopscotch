@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-//hoping to code this so that when the getUser route is called from the
-//user Provider in React that it takes the userId, returns the user's
+//hoping to code this so that when the updateGameObject route is called from the
+//GameProvider in React that it takes the userId, returns the user's
 //current user object as well as a current circuit object for the user
 //if it exists
 
@@ -12,9 +12,6 @@ var User = require('../models/user');
 //this.state.currentCircuit: res.circuit
 
 
-/*when accessing getUser, take username then return _id:
-* The /getUser route is defined in server.js
-*/
 router.put('/', function (req, res) {
   console.log("getting user");
   console.log("req body " + JSON.stringify(req.body) + " @ " + new Date());
