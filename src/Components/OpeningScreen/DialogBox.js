@@ -10,11 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {UserContext} from "../Contexts/UserContext";
 
 import axios from "axios";
-import {
-  Route,
-  Link,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
 import GameRoom from "../GameRoom/GameRoom";
 var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
@@ -101,18 +97,15 @@ export default class FormDialog extends React.Component {
           fullWidth
         />
         <UserContext.Consumer>{
-            (session) => (
+            (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
               <div>
-              <Button
-                variant="contained" color="primary"
-                Button onClick={() => {
-                  session.updateUser(this.state.idSearch)
-                }}>
-                Update User Id
-              </Button>
-              <p>User Name: {session.user.username}</p>
-              <p>User west bound: {session.user.user_session_boundary.here_api_format[0]}</p>
-              <p>User ID: {userId}</p>
+                <Button
+                  variant="contained" color="secondary"
+                  Button onClick={() => {
+                    session.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update User Id
+                </Button>
               </div>
             )
           }</UserContext.Consumer>

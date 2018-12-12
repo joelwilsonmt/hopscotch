@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import Grid from '@material-ui/core/Grid';
+import {UserContext} from "../Contexts/UserContext";
 
 import {
   Route,
@@ -33,10 +34,29 @@ function PaperSheet(props) {
     <div>
       <Paper className={classes.paper}
         elevation={1}>
-        <h1>Circuit Breaker</h1>
-        <h2>Click the button below to log in</h2>
+        <Typography variant="h1" gutterBottom>
+          Circuit Breaker
+        </Typography>
+        <Typography variant="h3" gutterBottom>
+          Click the button below to log in
+        </Typography>
         <DialogBox />
-
+          <UserContext.Consumer>{
+              (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
+                <div>
+                  <Typography variant="h4" gutterBottom>
+                    User Name: {session.user.username}
+                  </Typography>
+                  <Typography variant="h5" gutterBottom>
+                    User west bound: {session.user.user_session_boundary.here_api_format[0]}
+                  </Typography>
+                  <p>User ID: 5c0ff7bc64e17777e313ac23</p>
+                  <p>User ID: 5c0ff7c864e17777e313ac24</p>
+                  <p>User ID: 5c0ff7cf64e17777e313ac25</p>
+                  <p>User ID: 5c0ff80e64e17777e313ac27</p>
+                </div>
+              )
+            }</UserContext.Consumer>
       </Paper>
 
     </div>

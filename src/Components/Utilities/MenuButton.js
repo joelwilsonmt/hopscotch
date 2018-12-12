@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import GameRoom from "../GameRoom/GameRoom";
+import {UserContext} from "../Contexts/UserContext";
 
 class SimpleMenu extends React.Component {
   state = {
@@ -38,11 +39,34 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
+        <UserContext.Consumer>{
+            (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
+              <div>
+                <Button
+                  variant="contained" color="secondary"
+                  Button onClick={() => {
+                    session.updateUser('5c0ff7bc64e17777e313ac23') /*fill in this value with session._id somehow*/
+                  }}>
+                  New User
+                </Button>
+              </div>
+            )
+          }</UserContext.Consumer>
+        <UserContext.Consumer>{
+            (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
+              <div>
+                <Button
+                  variant="contained" color="secondary"
+                  Button onClick={() => {
+                    session.updateUser('5c0ff7c864e17777e313ac24') /*fill in this value with session._id somehow*/
+                  }}>
+                  Crentist
+                </Button>
+              </div>
+            )
+          }</UserContext.Consumer>
         <Link to="/">
         <MenuItem onClick={this.handleClose}>Home</MenuItem>
-        </Link>
-        <Link to="/OpeningScreen/">
-        <MenuItem onClick={this.handleClose}>Opening Screen</MenuItem>
         </Link>
         <Link to="/GameRoom/">
         <MenuItem onClick={this.handleClose}>Game Room</MenuItem>

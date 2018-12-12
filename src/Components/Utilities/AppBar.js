@@ -31,15 +31,13 @@ function ButtonAppBar(props) {
       <AppBar position="static">
         <Toolbar>
           <MenuButton />
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            CIRCUITBREAKER
+          <Typography variant="h4" color="inherit" className={classes.grow}>
+            CIRCUIT BREAKER
           </Typography>
-          <Typography color="inherit" className={classes.grow}>
+          <Typography variant="h5" color="inherit">
             <UserContext.Consumer>{
-                (session) => (
-                  <h2>
-                  {session.user.username}
-                </h2>
+                (session) => ( //can be rewreitten as (userProviderState)
+                    <span>{session.user.username}</span>
                 )
               }</UserContext.Consumer>
           </Typography>

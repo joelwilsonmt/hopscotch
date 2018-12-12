@@ -1,9 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import axios from 'axios';
-
+import { BrowserRouter as  Link } from "react-router-dom";
 import CountDown from "../Utilities/CountDown";
-
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
