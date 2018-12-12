@@ -41,7 +41,6 @@ function process_request(req) {
       apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
       circuitBoundaries = bounds;
     }).then(function(){
-      //INSERT API KEY FROM GOOGLE DOCS HERE, REMEMBER TO DELETE BEFORE COMMITS
       var apiCategories = [
                             'leisure-outdoor','landmark-attraction','going-out',
                             'eat-drink', 'natural-geographical', 'sights-museums'
