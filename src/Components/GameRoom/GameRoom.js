@@ -35,12 +35,11 @@ class PaperSheet extends Component {
           }
       }
   }
-
-
   componentWillMount() {
     //var userId = this.props.context.userId;
     var userId = '5c0ff7bc64e17777e313ac23';
     var roomName = '';
+    console.log("props at component will mount: ", this.props);
     //get a list of circuits that match a user's boundary:
     axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
       (res) => {
@@ -50,10 +49,8 @@ class PaperSheet extends Component {
         console.log("number of people who have completed challenge 1: ", circuit.challenges[0].id_users_completed.length);
         roomName = circuit._id;
         console.log("room name / circuit id: " + roomName);
-        console.log("this inside post call ", this);
-        this.setState({
-          circuit: circuit
-        });
+        console.log("this value inside post call ", this.props.value);
+        //this.props.value.updateCircuit(circuit);
         //TODO set corresponding game circuit object through GameProvider
 
       }).catch(function(err){

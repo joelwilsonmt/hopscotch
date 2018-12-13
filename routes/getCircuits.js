@@ -51,7 +51,6 @@ router.post('/', function (req, res) {
       console.error(err);
     });
   });
-  res.status(404).send();
 });
 
 module.exports = router;

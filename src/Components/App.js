@@ -28,14 +28,18 @@ const AppRouter = () => (
     <div>
       {/*attempting to pass session id through routes:*/}
       <GameContext.Consumer>{
-          (session) => (
+          (game) => (
             <div>
-            <Route path="/Challenges/" id={session.user._id} component={Challenges} />
+            <Route path="/Challenges/" id={game.user._id} component={Challenges} />
             </div>
           )
         }</GameContext.Consumer>
       <Route path="/" exact component={App} />
-      <Route path="/GameRoom/" component={GameRoom} />
+      <GameContext.Consumer>{
+      (game) => (
+        <Route path="/GameRoom/" value={{game}} component={GameRoom} />
+      )
+      }</GameContext.Consumer>
       <Route path="/Lobby/" component={Lobby} />
       <Route path="/Map/" component={Map} />
       <Route path="/Camera/" component={Camera} />
