@@ -22,11 +22,6 @@ generate a list of challenges bound within the user polygon
 */
 router.post('/', function (req, res) {
     console.log('==========================new add circuit accessed '+new Date()+' ==============================================');
-    process_request(req);
-    res.sendStatus(200);
-});
-
-function process_request(req) {
     var data = req.body;
     //access user's user_session_boundary and create an API call to Here
     //so use findbyId() for data._id
@@ -59,6 +54,7 @@ function process_request(req) {
           for(var i = 0; i < places.length; i++) {
             var words = ['keys', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'milk', 'watch', 'magnet', 'CD', 'shoe','flag'];
             var objectGate = words[Math.floor(Math.random()*words.length)];
+            var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';
             sets_challenges[i] = {
               location_gate:{
                 position: places[i].position,
@@ -66,7 +62,8 @@ function process_request(req) {
                 address: places[i].vicinity,
                 category: places[i].category.id
                 },
-              object_gate: objectGate
+              object_gate: objectGate,
+              full_challenge_text: fullText
             };
           }
           //create the new circuit
@@ -74,19 +71,12 @@ function process_request(req) {
             circuit_boundaries: circuitBoundaries,
             challenges: sets_challenges,
             date_created: new Date(),
-          }).save(function (err) {
-              if (err) {
-                  if (err.code === 11000) {
-                      // 11000 : Error code for duplicate entry with same primary key. Even though we will update the table to fill different events users attended.
-                      console.log("Duplicate circuit for collection. Skipping entry.")
-                  }
-                  else {
-                    console.log(err);
-                  }
-              } else {
-                  console.log("New Circuit Saved to Database");
-              }
-          });
+          }).save(function (err, circuit) {
+            if(err){console.log(err);}
+            console.log("New Circuit Saved to Database");
+                  //TODO: make it so that this route returns the circuit information
+                  res.status(200).send(circuit);
+          });//write catch block
 
           //route is only accessed if
           //someone is not already hosting a circuit. But the 2:00 counter is
@@ -97,6 +87,7 @@ function process_request(req) {
           console.log(error);
         });
       });
-}
+});
+
 
 module.exports = router;

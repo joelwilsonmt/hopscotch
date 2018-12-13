@@ -8,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {UserContext} from "../Contexts/UserContext";
+import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
 import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
@@ -57,25 +58,27 @@ export default class FormDialog extends React.Component {
         });
   }
   submitUserToServer = () => {
-    console.log("this at begining of server submit: " + this);
-    var userObject = {};
-    userObject.username = this.state.userNameInputValue;
-    userObject.longitude = this.state.location.coords.longitude;
-    userObject.latitude = this.state.location.coords.latitude;
-    console.log(userObject);
+    console.log("add user accessed for " + this.state.userNameInputValue);
+    var userObject = {
+      username: this.state.userNameInputValue,
+      longitude: this.state.location.coords.longitude,
+      latitude: this.state.location.coords.latitude
+    };
+    // userObject.username = ;
+    // userObject.longitude = this.state.location.coords.longitude;
+    // userObject.latitude = this.state.location.coords.latitude;
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
-    console.log(addUser);
     var userId = '';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
     axios.post(addUser, userObject).then((res, err) => {
       if(err) {console.error(err);}
+        console.log("passed value prop: ", this.props.value);
         console.log("Add user server response:");
         console.log(res.data);
+        this.props.value.updateUser(res.data);
         userId = res.data;
     }).then(() => {
-      console.log("this should contain a value: " + userId);
-
       //TODO set user id state here and pass up to toppest parent
       this.setState({
         _id : userId
@@ -96,7 +99,7 @@ export default class FormDialog extends React.Component {
           label="Name"
           fullWidth
         />
-        <UserContext.Consumer>{
+      <GameContext.Consumer>{
             (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
               <div>
                 <Button
@@ -106,9 +109,23 @@ export default class FormDialog extends React.Component {
                   }}>
                   Update User Id
                 </Button>
+                <Button
+                  variant="contained" color="primary"
+                  Button onClick={() => {
+                    game.updateCircuit(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update Circuit Object Via User ID
+                </Button>
+                <Button
+                  variant="contained" color="primary"
+                  Button onClick={() => {
+                    game.updateGame(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update Game Object
+                </Button>
               </div>
             )
-          }</UserContext.Consumer>
+          }</GameContext.Consumer>
       <Button variant="contained" color="primary"
         Button onClick={this.handleClickOpen}>
         Add User to Database
