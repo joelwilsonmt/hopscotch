@@ -54,7 +54,7 @@ const style = {
     justifyContent: 'center',
     zIndex: 1,
     bottom: 0,
-    width: '100%'
+    width: '50%'
   },
   captureButton: {
     backgroundColor: '#fff',
@@ -65,6 +65,6 @@ const style = {
     margin: 20
   },
   captureImage: {
-    width: '100%',
+    width: '50%'
   }
 };
