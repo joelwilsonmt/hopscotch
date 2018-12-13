@@ -29,16 +29,45 @@ TODO is to make it so the axios call contained in the updateUser() method also
 returns the current circuit object of the user
 
 
+look at conditional rendering: https://reactjs.org/docs/conditional-rendering.html
+
+basically, when rendering Consumers, we should check if the value exists first, then render if it does
+in an inline verification. So for example, to render the 2nd challenge's full text you would
+do this within a GameContext.Consumer function:
+game.circuit.challenges[1] ? 'Second Challenge: '+ game.circuit.challenges[1].full_challenge_text : ''
+
+The syntax is (condition to test) ? <span>Render if true</span> : <span>Render if not true</span>
+  --> the above will make displaying information and our lives much easier
+
 
 */
 
 
-export var UserContext = React.createContext();
+export var GameContext = React.createContext();
 
-class UserProvider extends React.Component {
+class GameProvider extends React.Component {
   constructor(props) {
     super(props);
-    //TODO: add updateuser method:
+    //updateGame method takes a user id, and uses the /update Express route
+    //to reset the GameProvider state w/ new user and current circuit data from the server
+    this.updateGame = (userId) => {
+      console.log("updateGame accessed w/ uid: ", userId);
+      const updateRoute = process.env.REACT_APP_BACK_END_SERVER + 'update';
+      //must be a put request because passing a value to be searched by
+      axios.put(updateRoute, {userId}).then((res,err) => {
+        console.log("get game data handled", res.data);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              user: res.data.user,
+              circuit: res.data.circuit
+          });//closes set state
+          console.log("set state of user and game complete, user: ", this.state.user.username);
+          console.log("set state of circuit complete: ", this.state.circuit);
+        });//closes .then()
+    };//closes updateGame
+
+
     this.updateUser = (userId) => {
       console.log("updateUser accessed w/ uid: ", userId);
       const getUser = process.env.REACT_APP_BACK_END_SERVER + 'getUser';
@@ -47,28 +76,11 @@ class UserProvider extends React.Component {
         if(err){console.log(err);}
         this.setState(
           {
-              user: res.data,
-              circuit: res.circuit
+              user: res.data
           });//closes set state
-          console.log("set state complete, user: ", this.state.user.username);
+          console.log("set user state complete, user: ", this.state.user.username);
         });//closes .then()
-      };//closes updateUser
-      this.updateGame = (userId) => {
-        console.log("updateGame accessed w/ uid: ", userId);
-        const updateGameObject = process.env.REACT_APP_BACK_END_SERVER + 'updateGameObject';
-        axios.put(updateGameObject, {userId}).then((res,err) => {
-          console.log("get game data handled", res.data);
-          if(err){console.log(err);}
-          this.setState(
-            {
-                user: res.data.user,
-                circuit: res.data.circuit
-            });//closes set state
-            console.log("set state of user and game complete, user: ", this.state.user.username);
-            console.log("set state of circuit complete: ", this.state.circuit);
-          });//closes .then()
-        };//closes updateUser
-
+    };//closes updateUser
 
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
     //these placeholders are overwritten with the updateUser Server call
@@ -88,7 +100,23 @@ class UserProvider extends React.Component {
           challenges_completed: [], //id's of challenges completed, I don't think we need this
           circuits_participated:[]
         },
-      updateUser: this.updateUser //make it so updateUser method is available in state
+        circuit: {
+            circuit_boundaries: [],
+            challenges:[{
+              //order challenges by distance in getChallengeList?
+              object_gate: '', //word of object we want to confirm
+              location_gate: {
+                position: [], //array of lat/long coords
+                name: '', //name of location
+                address: '', //address in plain text
+                category: '' //whatever category the location belongs to
+              },
+              id_users_completed: [], //ids of users that have completed this challenge
+              full_challenge_text: ''
+            }]
+        },
+        updateUser: this.updateUser, //make it so updateUser method is available in state
+        updateGame: this.updateGame
     };
   }
 
@@ -97,11 +125,11 @@ class UserProvider extends React.Component {
     //with the value passing to anything inside of it the state contained
     //in the initial and subsequent setting of this Component's state
     return (
-      <UserContext.Provider value={this.state}>
+      <GameContext.Provider value={this.state}>
         {this.props.children}
-      </UserContext.Provider>
+      </GameContext.Provider>
     );
   }
 }
 
-export default UserProvider;
+export default GameProvider;
