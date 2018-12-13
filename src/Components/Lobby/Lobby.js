@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 
 import AppBar from "../Utilities/AppBar";
-import CountDown from "../Utilities/CountDown";
+
 
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -31,10 +31,6 @@ function PaperSheet(props) {
       <Paper className={classes.root} elevation={1}>
         <Typography variant="h5" component="h3" align="center">
           LOBBY
-        </Typography>
-        <br />
-        <Typography>
-          Circuit starts in <CountDown />
         </Typography>
 
         <br />
