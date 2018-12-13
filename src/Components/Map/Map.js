@@ -23,7 +23,6 @@ function PaperSheet(props) {
     <div>
       <AppBar />
       <MapContainer />
-      <BottomNav />
     </div>
   );
 }

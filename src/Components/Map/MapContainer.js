@@ -20,7 +20,7 @@ export class MapContainer extends React.Component {
     var marker, i;
 
     var challengeMarkers = new this.props.google.maps.LatLngBounds();
-    for (var i=0; i < challangeArr.length; i++) {
+    for (i=0; i < challangeArr.length; i++) {
       challengeMarkers.extend(challangeArr[i]);
     }
 
