@@ -24,20 +24,9 @@ class GameRoom extends Component {
     super();
      const { classes } = props;
       this.state= {
-        location: {},
-        circuit: {
-            circuit_boundaries: {},
-            challenges: [{
-              location_gate:{
-                name:'init'
-              }
-            }]
-          }
+
       }
   }
-
-
-
   render() {
 
     return (
@@ -54,20 +43,23 @@ class GameRoom extends Component {
                   <Typography variant="h4" gutterBottom>
                     User Name: {game.user.username}
                   </Typography>
-                  <Typography variant="h4" gutterBottom>
-                    Coords: {game.user.user_session_boundary.here_api_format ? game.user.user_session_boundary.here_api_format: ''}
-                  </Typography>
                    <GameRoomCard value={game}/>
                  </div>
                 )
             }</GameContext.Consumer>
+            <GameContext.Consumer>{
+                (game) => (
+                    <Typography variant="h5" component="h3" align="center">
+                      {game.circuit._id ? 'Game Joined: '+ game.circuit._id:
+                      'No game joined yet'}
+                    </Typography>
 
+                )}</GameContext.Consumer>
         </Paper>
       </div>
-    );
-  }
-
-}
+    );//end return
+  }//end render
+}//end GameRoom component
 
 GameRoom.propTypes = {
   classes: PropTypes.object.isRequired

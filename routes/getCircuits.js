@@ -22,6 +22,11 @@ router.post('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
   var userId = data._id;
+  if(userId == ''){
+    console.log("Incorrect User ID - no value");
+    res.status(404).send();
+    return;
+  }
   var hereBoundary;
   //search the user by provided id, then use the boundary to search circuits
   User.findById(userId, function (err, user) {
