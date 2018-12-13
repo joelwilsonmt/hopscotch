@@ -63,8 +63,8 @@ class GameProvider extends React.Component {
               user: res.data.user,
               circuit: res.data.circuit
           });//closes set state
-          console.log("set state of user and game complete, user: ", this.state.user.username);
-          console.log("set state of circuit complete: ", this.state.circuit);
+          console.log("set state of Game (user and circuit) complete, user: ", this.state.user.username);
+          console.log("user's circuit id: ", this.state.circuit._id);
         });//closes .then()
     };//closes updateGame
 
@@ -82,6 +82,21 @@ class GameProvider extends React.Component {
           console.log("set user state complete, user: ", this.state.user.username);
         });//closes .then()
     };//closes updateUser
+
+    this.updateCircuit = (userId) => {
+      console.log("updateCircuit accessed w/ uid: ", userId);
+      const updateCircuit = process.env.REACT_APP_BACK_END_SERVER + 'updateCircuit';
+      //must be a put request because passing a value to be searched by
+      axios.put(updateCircuit, {userId}).then((res,err) => {
+        console.log("updateCircuit complete, data: ", res.data)
+        if(err){console.log(err);}
+        this.setState(
+          {
+              circuit: res.data
+          });//closes set state
+          console.log("set state of circuit complete, circuit id: ", this.state.circuit._id);
+        });//closes .then()
+    };//closes updateCircuit
 
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
     //these placeholders are overwritten with the updateUser Server call
@@ -117,7 +132,8 @@ class GameProvider extends React.Component {
             }]
         },
         updateUser: this.updateUser, //make it so updateUser method is available in state
-        updateGame: this.updateGame
+        updateGame: this.updateGame,
+        updateCircuit: this.updateCircuit
     };
   }
 

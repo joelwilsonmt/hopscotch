@@ -58,12 +58,10 @@ function PaperSheet(props) {
                     Current User Circuit ID: {game.user.current_circuit_id}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
-                    First Challenge Object Gate: {game.circuit.challenges[0].full_challenge_text}
+                    First Challenge: {game.circuit.challenges[1] ? game.circuit.challenges[1].full_challenge_text : ''}
                   </Typography>
-                  <p>User ID: 5c0ff7bc64e17777e313ac23</p>
                   <p>User ID: 5c0ff7c864e17777e313ac24</p>
-                  <p>User ID: 5c0ff7cf64e17777e313ac25</p>
-                  <p>User ID: 5c0ff80e64e17777e313ac27</p>
+                  <p>User ID: 5c0ff7bc64e17777e313ac23</p>
                 </div>
               )
             }</GameContext.Consumer>

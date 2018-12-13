@@ -110,6 +110,13 @@ export default class FormDialog extends React.Component {
                 <Button
                   variant="contained" color="primary"
                   Button onClick={() => {
+                    game.updateCircuit(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update Circuit Object Via User ID
+                </Button>
+                <Button
+                  variant="contained" color="primary"
+                  Button onClick={() => {
                     game.updateGame(this.state.idSearch) /*fill in this value with session._id somehow*/
                   }}>
                   Update Game Object
