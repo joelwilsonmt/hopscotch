@@ -58,7 +58,7 @@ class SimpleMenu extends React.Component {
                 <Button
                   variant="contained" color="secondary"
                   Button onClick={() => {
-                    session.updateUser('5c0ff7c864e17777e313ac24') /*fill in this value with session._id somehow*/
+                    session.updateGame('5c0ff7c864e17777e313ac24') /*fill in this value with session._id somehow*/
                   }}>
                   Crentist
                 </Button>

@@ -90,16 +90,19 @@ class PaperSheet extends Component {
                   <Typography variant="h4" gutterBottom>
                     User Name: {game.user.username}
                   </Typography>
-                  <Typography variant="h6" gutterBottom>
-                    Circuit: {this.state.circuit._id}
-                  </Typography>
-
                 </div>
               )
             }</GameContext.Consumer>
-            <Typography variant="h6" gutterBottom>
-              First Challenge: {this.state.circuit.challenges[0].location_gate.name}
-            </Typography>
+            <GameContext.Consumer>{
+                (game) => (
+                  <Typography variant="h6" gutterBottom>
+                    {
+                      /*conditional operator says if doesn't exist, display nothing*/
+                      game.circuit.challenges[1] ? 'Second Challenge: '+ game.circuit.challenges[1].full_challenge_text : ''
+                    }
+                  </Typography>
+                )
+            }</GameContext.Consumer>
              <GameRoomCard />
         </Paper>
       </div>

@@ -29,6 +29,16 @@ TODO is to make it so the axios call contained in the updateUser() method also
 returns the current circuit object of the user
 
 
+look at conditional rendering: https://reactjs.org/docs/conditional-rendering.html
+
+basically, when rendering Consumers, we should check if the value exists first, then render if it does
+in an inline verification. So for example, to render the 2nd challenge's full text you would
+do this within a GameContext.Consumer function:
+game.circuit.challenges[1] ? 'Second Challenge: '+ game.circuit.challenges[1].full_challenge_text : ''
+
+The syntax is (condition to test) ? <span>Render if true</span> : <span>Render if not true</span>
+  --> the above will make displaying information and our lives much easier
+
 
 */
 
@@ -68,7 +78,7 @@ class GameProvider extends React.Component {
           {
               user: res.data
           });//closes set state
-          console.log("set state complete, user: ", this.state.user.username);
+          console.log("set user state complete, user: ", this.state.user.username);
         });//closes .then()
     };//closes updateUser
 
