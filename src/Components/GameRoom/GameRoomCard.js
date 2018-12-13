@@ -37,7 +37,7 @@ const styles = {
 class SimpleCard extends React.Component {
   constructor(props) {
     super();
-    this.state = props.value; //assigns value passed to this as value props
+    this.state = {foundCircuit: ''}
   }
   componentWillMount() {
     //var userId = this.props.context.userId;
@@ -53,22 +53,27 @@ class SimpleCard extends React.Component {
         roomName = circuit._id;
         console.log("room name / circuit id: " + roomName);
         console.log("this value inside post call ", this.props.value);
-        this.props.value.updateCircuit(circuit);
+        this.setState({foundCircuit: circuit});
+        //DO NOT UPDATE GAME HERE, THAT IS DONE ON THE HANDLEJOIN FUNCTION
         //TODO set corresponding game circuit object through GameProvider
 
       }).catch(function(err){
-        console.error(err);
-        //add circuit if can't find: (NOT WORKING CURRENTLY)
-        /*if(err.response.status == 404){
+        console.error("error", err);
+
+        if(userId != ''){
+          console.log("User is not empty");
           axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
           function(res){
-            console.log(res);
+            console.log("add circuit successful: ", res.data);
             roomName = res.data[0]._id;
 
           }).catch(function(err){
             console.error(err);
           });
-        }*/
+        }
+        else {
+          console.log("invalid user");
+        }
       });
   }
   handleJoin(game) {
@@ -113,7 +118,9 @@ class SimpleCard extends React.Component {
             Location
           </Typography>
           <Typography variant="h6" component="h2" align="center">
-            Missoula
+            {this.state.foundCircuit.challenges ?
+              this.state.foundCircuit.challenges[1].full_challenge_text
+              : ''}
           </Typography>
           <GameContext.Consumer>{
               (game) => (
@@ -124,7 +131,6 @@ class SimpleCard extends React.Component {
           }</GameContext.Consumer>
         </CardContent>
         <CardActions>
-          <Link to="/Lobby/">
             <GameContext.Consumer>{
                 (game) => (
             <Button size="small" justify="center"
@@ -133,7 +139,6 @@ class SimpleCard extends React.Component {
               Join Circuit
             </Button>
           )}</GameContext.Consumer>
-          </Link>
         </CardActions>
       </Card>
     );

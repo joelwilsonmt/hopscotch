@@ -54,6 +54,9 @@ class GameRoom extends Component {
                   <Typography variant="h4" gutterBottom>
                     User Name: {game.user.username}
                   </Typography>
+                  <Typography variant="h4" gutterBottom>
+                    Coords: {game.user.user_session_boundary.here_api_format ? game.user.user_session_boundary.here_api_format: ''}
+                  </Typography>
                    <GameRoomCard value={game}/>
                  </div>
                 )
