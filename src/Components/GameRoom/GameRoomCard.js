@@ -121,13 +121,6 @@ class SimpleCard extends React.Component {
               this.state.foundCircuit.challenges[1].full_challenge_text
               : ''}
           </Typography>
-          <GameContext.Consumer>{
-              (game) => (
-                <Typography variant="h6" component="h2" align="center">
-                  {game.circuit.challenges[2] ? 'Third Challenge: '+ game.circuit.challenges[2].full_challenge_text : ''}
-                </Typography>
-              )
-          }</GameContext.Consumer>
         </CardContent>
         <CardActions>
             <GameContext.Consumer>{
