@@ -35,11 +35,7 @@ const AppRouter = () => (
           )
         }</GameContext.Consumer>
       <Route path="/" exact component={App} />
-      <GameContext.Consumer>{
-      (game) => (
-        <Route path="/GameRoom/" value={{game}} component={GameRoom} />
-      )
-      }</GameContext.Consumer>
+      <Route path="/GameRoom/" component={GameRoom} />
       <Route path="/Lobby/" component={Lobby} />
       <Route path="/Map/" component={Map} />
       <Route path="/Camera/" component={Camera} />

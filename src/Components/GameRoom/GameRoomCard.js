@@ -9,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import {UserContext} from "../Contexts/UserContext";
+import {GameContext} from "../Contexts/GameContext";
 
 
 
@@ -38,6 +38,38 @@ class SimpleCard extends React.Component {
   constructor(props) {
     super();
     this.state = props.value; //assigns value passed to this as value props
+  }
+  componentWillMount() {
+    //var userId = this.props.context.userId;
+    var userId = this.props.value.user._id;
+    var roomName = '';
+    console.log("props at component will mount: ", this.props);
+    //get a list of circuits that match a user's boundary:
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
+      (res) => {
+        var circuit = res.data;
+        console.log("server returned circuit info: ", circuit);
+        console.log("first challenge: ", circuit.challenges[0]);
+        roomName = circuit._id;
+        console.log("room name / circuit id: " + roomName);
+        console.log("this value inside post call ", this.props.value);
+        this.props.value.updateCircuit(circuit);
+        //TODO set corresponding game circuit object through GameProvider
+
+      }).catch(function(err){
+        console.error(err);
+        //add circuit if can't find: (NOT WORKING CURRENTLY)
+        /*if(err.response.status == 404){
+          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
+          function(res){
+            console.log(res);
+            roomName = res.data[0]._id;
+
+          }).catch(function(err){
+            console.error(err);
+          });
+        }*/
+      });
   }
   handleJoin(game) {
     console.log("user object: ", game.user);
@@ -83,20 +115,24 @@ class SimpleCard extends React.Component {
           <Typography variant="h6" component="h2" align="center">
             Missoula
           </Typography>
-          <Typography component="p" align="center">
-            10 Challenges to be completed
-          </Typography>
+          <GameContext.Consumer>{
+              (game) => (
+                <Typography variant="h6" component="h2" align="center">
+                  {game.circuit.challenges[2] ? 'Third Challenge: '+ game.circuit.challenges[2].full_challenge_text : ''}
+                </Typography>
+              )
+          }</GameContext.Consumer>
         </CardContent>
         <CardActions>
           <Link to="/Lobby/">
-            <UserContext.Consumer>{
+            <GameContext.Consumer>{
                 (game) => (
             <Button size="small" justify="center"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
-          )}</UserContext.Consumer>
+          )}</GameContext.Consumer>
           </Link>
         </CardActions>
       </Card>

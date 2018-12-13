@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 });
 
-class PaperSheet extends Component {
+class GameRoom extends Component {
   constructor(props) {
     super();
      const { classes } = props;
@@ -35,40 +35,7 @@ class PaperSheet extends Component {
           }
       }
   }
-  componentWillMount() {
-    //var userId = this.props.context.userId;
-    var userId = '5c0ff7bc64e17777e313ac23';
-    var roomName = '';
-    console.log("props at component will mount: ", this.props);
-    //get a list of circuits that match a user's boundary:
-    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
-      (res) => {
-        var circuit = res.data;
-        console.log("server returned circuit info: ", circuit);
-        console.log("first challenge: ", circuit.challenges[0]);
-        console.log("number of people who have completed challenge 1: ", circuit.challenges[0].id_users_completed.length);
-        roomName = circuit._id;
-        console.log("room name / circuit id: " + roomName);
-        console.log("this value inside post call ", this.props.value);
-        //this.props.value.updateCircuit(circuit);
-        //TODO set corresponding game circuit object through GameProvider
 
-      }).catch(function(err){
-        console.error(err);
-        //add circuit if can't find: (NOT WORKING CURRENTLY)
-        /*if(err.response.status == 404){
-          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
-          function(res){
-            console.log(res);
-            roomName = res.data[0]._id;
-
-          }).catch(function(err){
-            console.error(err);
-          });
-        }*/
-      });
-
-  }
 
 
   render() {
@@ -87,20 +54,11 @@ class PaperSheet extends Component {
                   <Typography variant="h4" gutterBottom>
                     User Name: {game.user.username}
                   </Typography>
-                </div>
-              )
-            }</GameContext.Consumer>
-            <GameContext.Consumer>{
-                (game) => (
-                  <Typography variant="h6" gutterBottom>
-                    {
-                      /*conditional operator says if doesn't exist, display nothing*/
-                      game.circuit.challenges[1] ? 'Second Challenge: '+ game.circuit.challenges[1].full_challenge_text : ''
-                    }
-                  </Typography>
+                   <GameRoomCard value={game}/>
+                 </div>
                 )
             }</GameContext.Consumer>
-             <GameRoomCard />
+
         </Paper>
       </div>
     );
@@ -108,8 +66,8 @@ class PaperSheet extends Component {
 
 }
 
-PaperSheet.propTypes = {
+GameRoom.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(PaperSheet);
+export default GameRoom;
