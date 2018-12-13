@@ -57,16 +57,15 @@ class SimpleCard extends React.Component {
         //DO NOT UPDATE GAME HERE, THAT IS DONE ON THE HANDLEJOIN FUNCTION
         //TODO set corresponding game circuit object through GameProvider
 
-      }).catch(function(err){
+      }).catch( (err) => {
         console.error("error", err);
-
         if(userId != ''){
           console.log("User is not empty");
           axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
-          function(res){
-            console.log("add circuit successful: ", res.data);
-            roomName = res.data[0]._id;
-
+          (res) => {
+            var newCircuit = res.data;
+            console.log("add circuit successful: ", newCircuit);
+            this.setState({foundCircuit: newCircuit});
           }).catch(function(err){
             console.error(err);
           });
