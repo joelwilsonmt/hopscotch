@@ -1,0 +1,125 @@
+import React from 'react';
+import axios from "axios";
+
+/*
+The UserContext context is a React context object that has a
+Provider component and a Consumer component
+
+The Provider component is configured in this file - it gives anything that
+is wrapped in it access to its state, which contains two important properties
+
+When a Consumer component accesses
+<UserContext.Consumer>
+  {(game) => (
+    //the user game object is available here
+  )}
+</UserContext.Consumer>
+
+In the user session object there is placeholder data to initialize the session
+(for example username is 'not logged in'). In addition, as defined in this file,
+the user session object exposed by the UserContext.Consumer has a method to set
+its own state with a user's information retrieved by a Mongoose/MongoDB id axios put call (essentially taking the user session cookie and synchronizing the user data on the client side with all the server data).
+
+The important thing about this is that it updates any and all child components
+of the provider when
+  session.updateUser(this.state.id)
+is called
+
+TODO is to make it so the axios call contained in the updateUser() method also
+returns the current circuit object of the user
+
+
+
+*/
+
+
+export var GameContext = React.createContext();
+
+class GameProvider extends React.Component {
+  constructor(props) {
+    super(props);
+    //updateGame method takes a user id, and uses the /update Express route
+    //to reset the GameProvider state w/ new user and current circuit data from the server
+    this.updateGame = (userId) => {
+      console.log("updateGame accessed w/ uid: ", userId);
+      const updateRoute = process.env.REACT_APP_BACK_END_SERVER + 'update';
+      //must be a put request because passing a value to be searched by
+      axios.put(updateRoute, {userId}).then((res,err) => {
+        console.log("get game data handled", res.data);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              user: res.data.user,
+              circuit: res.data.circuit
+          });//closes set state
+          console.log("set state of user and game complete, user: ", this.state.user.username);
+          console.log("set state of circuit complete: ", this.state.circuit);
+        });//closes .then()
+    };//closes updateGame
+
+
+    this.updateUser = (userId) => {
+      console.log("updateUser accessed w/ uid: ", userId);
+      const getUser = process.env.REACT_APP_BACK_END_SERVER + 'getUser';
+      axios.put(getUser, {userId}).then((res,err) => {
+        console.log("get user handled", res.data.username);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              user: res.data
+          });//closes set state
+          console.log("set state complete, user: ", this.state.user.username);
+        });//closes .then()
+    };//closes updateUser
+
+    //filling in the constructor with placeholders so react doesn't crash trying to render null data:
+    //these placeholders are overwritten with the updateUser Server call
+    this.state = {
+        //this user object is the copy of what is in the server every time
+        //the Provider's passed value={this.state} .updateUser(userId) method
+        //is accessed
+        user: {
+          username: 'Not logged in',
+          current_user_location: {
+            type: "",
+            coordinates: []
+          }, //set in addUser and updateUserLocation
+          user_session_boundary: {
+            here_api_format: [] //only need one format of bounding box for Here API and matchmaking
+          },
+          challenges_completed: [], //id's of challenges completed, I don't think we need this
+          circuits_participated:[]
+        },
+        circuit: {
+            circuit_boundaries: [],
+            challenges:[{
+              //order challenges by distance in getChallengeList?
+              object_gate: '', //word of object we want to confirm
+              location_gate: {
+                position: [], //array of lat/long coords
+                name: '', //name of location
+                address: '', //address in plain text
+                category: '' //whatever category the location belongs to
+              },
+              id_users_completed: [], //ids of users that have completed this challenge
+              full_challenge_text: ''
+            }]
+        },
+        updateUser: this.updateUser, //make it so updateUser method is available in state
+        updateGame: this.updateGame
+    };
+  }
+
+  render() {
+    //<UserProvider> component returns the <UserContext.Provider> object
+    //with the value passing to anything inside of it the state contained
+    //in the initial and subsequent setting of this Component's state
+    return (
+      <GameContext.Provider value={this.state}>
+        {this.props.children}
+      </GameContext.Provider>
+    );
+  }
+}
+
+export default GameProvider;

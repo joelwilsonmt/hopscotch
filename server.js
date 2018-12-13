@@ -8,10 +8,11 @@ var addUser = require('./routes/addUser');
 var getUser = require('./routes/getUser');
 var updateUserLocation = require('./routes/updateUserLocation');
 var addCircuit = require('./routes/addCircuit');
-var assignUserBox = require('./routes/assignUserBox');
+//var assignUserBox = require('./routes/assignUserBox');
 var submitChallenge = require('./routes/submitChallenge');
 var getCircuits = require('./routes/getCircuits');
 var assignUserToCircuit = require('./routes/assignUserToCircuit');
+var update = require('./routes/update');
 
 var app = express();
 var http = require('http').Server(app);
@@ -26,10 +27,11 @@ app.use('/addUser', addUser);
 app.use('/getUser', getUser);
 app.use('/updateUserLocation', updateUserLocation);
 app.use('/addCircuit', addCircuit);
-app.use('/assignUserBox', assignUserBox);
+//app.use('/assignUserBox', assignUserBox);
 app.use('/submitChallenge', submitChallenge);
 app.use('/getCircuits', getCircuits);
 app.use('/assignUserToCircuit', assignUserToCircuit);
+app.use('/update', update);
 
 
 io.on('connection', function(socket){

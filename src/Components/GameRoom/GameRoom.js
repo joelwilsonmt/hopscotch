@@ -7,6 +7,7 @@ import GameRoomCard from "./GameRoomCard";
 import AppBar from "../Utilities/AppBar";
 import axios from "axios";
 import {UserContext} from "../Contexts/UserContext";
+import {GameContext} from "../Contexts/GameContext";
 var dotenv = require('dotenv').config();
 
 
@@ -83,7 +84,7 @@ class PaperSheet extends Component {
           <Typography variant="h5" component="h3" align="center">
             GAME ROOM
           </Typography>
-          <UserContext.Consumer>{
+          <GameContext.Consumer>{
               (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
                 <div>
                   <Typography variant="h4" gutterBottom>
@@ -95,7 +96,7 @@ class PaperSheet extends Component {
 
                 </div>
               )
-            }</UserContext.Consumer>
+            }</GameContext.Consumer>
             <Typography variant="h6" gutterBottom>
               First Challenge: {this.state.circuit.challenges[0].location_gate.name}
             </Typography>

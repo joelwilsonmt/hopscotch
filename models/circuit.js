@@ -2,7 +2,6 @@ var mongoose = require('./../config/db-config');
 
 CircuitSchema  = mongoose.Schema(
     {
-      users:[Array],
       circuit_boundaries: [Number],
       challenges:[{
         //order challenges by distance in getChallengeList?
@@ -13,7 +12,8 @@ CircuitSchema  = mongoose.Schema(
           address: String, //address in plain text
           category: String //whatever category the location belongs to
         },
-        id_users_completed: [String] //ids of users that have completed this challenge
+        id_users_completed: [String], //ids of users that have completed this challenge
+        full_challenge_text: String
       }]
     },
     { collection: 'circuits' });
