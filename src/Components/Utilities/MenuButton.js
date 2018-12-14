@@ -39,26 +39,6 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-        <GameContext.Consumer>{
-            (session) => ( //can rewrite this as (userProviderState) => () if that's more clear
-              <div>
-                <Button
-                  variant="contained" color="secondary"
-                  Button onClick={() => {
-                    session.updateUser('5c0ff7bc64e17777e313ac23') /*fill in this value with session._id somehow*/
-                  }}>
-                  New User
-                </Button>
-                <Button
-                  variant="contained" color="secondary"
-                  Button onClick={() => {
-                    session.updateUser('5c0ff7c864e17777e313ac24') /*fill in this value with session._id somehow*/
-                  }}>
-                  Crentist
-                </Button>
-              </div>
-            )
-          }</GameContext.Consumer>
         <Link to="/">
         <MenuItem onClick={this.handleClose}>Home</MenuItem>
         </Link>

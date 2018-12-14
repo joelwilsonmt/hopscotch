@@ -62,7 +62,6 @@ class SimpleCard extends React.Component {
         console.log("first challenge: ", circuit.challenges[0]);
         roomName = circuit._id;
         console.log("room name / circuit id: " + roomName);
-        console.log("this value inside post call ", this.props.value);
         this.setState(
           {
           foundCircuit: circuit,
@@ -142,7 +141,6 @@ class SimpleCard extends React.Component {
                 <CircularProgress/>
                 <LinearProgress/>
               </div>
-
             }
           </Typography>
         </CardContent>
