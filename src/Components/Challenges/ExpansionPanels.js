@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ProofButton from './ProofButton';
+import {GameContext} from "../Contexts/GameContext";
 
 
 const styles = theme => ({
@@ -24,114 +25,42 @@ function SimpleExpansionPanel(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Brief Description</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>Detailed information on what to do.</Typography>
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Two</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Three</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Four</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Five</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Six</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Seven</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Eight</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Nine</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
+      <GameContext.Consumer>{
+          (game) => (
 
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Ten</Typography>
+          <Typography className={classes.heading}>
+
+
+            {
+            (game.circuit.challenges.length > 1) ?
+            game.circuit.challenges[1].full_challenge_text:
+            'Cant find circuit'
+            }
+
+
+          </Typography>
         </ExpansionPanelSummary>
+        <Typography>
+          {
+          (game.circuit.challenges.length > 1) ?
+          'Location: ' + game.circuit.challenges[1].location_gate.name:
+          'Cant find circuit'
+          }
+        </Typography>
+        <Typography>
+          {
+          (game.circuit.challenges.length > 1) ?
+          'Address: ' + game.circuit.challenges[1].location_gate.address:
+          'Cant find circuit'
+          }
+        </Typography>
         <ExpansionPanelActions>
           <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
+    )}</GameContext.Consumer>
     </div>
   );
 }
