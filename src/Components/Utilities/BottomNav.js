@@ -1,48 +1,120 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
+// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Assignment from '@material-ui/icons/Assignment';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import SwipeableViews from "react-swipeable-views";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import { Paper } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
-const styles = {
-  root: {
-    position: 'relative',
-    width: '100%'
-  },
+// import Challenges from "../Challenges/Challenges";
+// import Map from "../Map/Map";
+
+
+
+
+function TabContainer({ children, dir }) {
+  return (
+    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+      {children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  dir: PropTypes.string.isRequired
 };
 
-class SimpleBottomNavigation extends React.Component {
+const styles = theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: 500
+  }
+});
+
+class FullWidthTabs extends React.Component {
   state = {
-    value: 0,
+    value: 0
   };
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
   render() {
-    const { classes } = this.props;
-    const { value } = this.state;
+    const { classes, theme } = this.props;
 
     return (
-      <BottomNavigation
-        value={value}
-        onChange={this.handleChange}
-        showLabels
-        className={classes.root}
-      >
-        <BottomNavigationAction label="CHALLENGES" icon={<Assignment />} />
-        <BottomNavigationAction label="MAP" icon={<LocationOnIcon />} />
-      </BottomNavigation>
+      <BrowserRouter>
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              fullWidth
+            >
+              <Tab label="Item One" component={Link} to="/Challenges" />
+              <Tab label="Item Two" component={Link} to="/Map" />
+            </Tabs>
+          </AppBar>
+
+          <Switch>
+            <Route path="/one" component={ItemOne} />
+            <Route path="/two" component={ItemTwo} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
 
-SimpleBottomNavigation.propTypes = {
+FullWidthTabs.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleBottomNavigation);
+function ItemOne(theme) {
+  return (
+    <Paper>
+      <div>Item 1</div>
+    </Paper>
+  );
+}
+
+function ItemTwo(theme) {
+  return (
+    <Paper>
+      <div>Item two</div>
+    </Paper>
+  );
+}
+
+// const PageShell = (Page, previous) => {
+//   return props => (
+//     <div className="page">
+//       <ReactCSSTransitionGroup
+//         transitionAppear={true}
+//         transitionAppearTimeout={600}
+//         transitionEnterTimeout={600}
+//         transitionLeaveTimeout={600}
+//         transitionName={props.match.path === "/one" ? "SlideIn" : "SlideOut"}
+//       >
+//         {console.log(props)}
+//         <Page {...props} />
+//       </ReactCSSTransitionGroup>
+//     </div>
+//   );
+// };
+
+export default withStyles(styles, { withTheme: true })(FullWidthTabs);
