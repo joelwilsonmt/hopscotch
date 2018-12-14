@@ -1,5 +1,7 @@
 import React from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
 
 const mapStyle = {
   width: '94vw',  //change
@@ -25,23 +27,44 @@ export class MapContainer extends React.Component {
     }
 
 
+    const style = {
+      width: '50vw',
+      height: '75vh',
+      'marginLeft': 'auto',
+      'marginRight': 'auto'
+    }
     return (
       <Map
-        google={this.props.google}
-        style={mapStyle}
-        initialCenter={{
-            lat: 46.86028,
-            lng: -113.98278
-          }}
-        zoom={13}
-        disableDefaultUI={true}
-        zoomControl={true}
-        // mapTypeControl={false}
-        // scaleControl={false}
-        // streetViewControl={false}
-        // rotateControl={false}
-        // fullscreenControl={false}
-        challengeMarkers={challengeMarkers}>
+        item
+        xs = { 12 }
+        style = { style }
+        google = { this.props.google }
+        onClick = { this.onMapClick }
+        zoom = { 14 }
+        initialCenter = {{ lat: 46.8646461, lng: -113.9814976 }}
+      >
+        <Marker
+          onClick = { this.onMarkerClick }
+          title = { 'Changing Colors Garage' }
+          position = {{ lat: 46.8646461, lng: -113.9814976 }}
+          name = { 'Changing Colors Garage' }
+        />
+        <InfoWindow>
+          <Paper>
+            <Typography
+              variant = 'headline'
+              component = 'h4'
+            >
+              Changing Colors Garage
+            </Typography>
+            <Typography
+              component = 'p'
+            >
+              98G Albe Dr Newark, DE 19702 <br />
+              302-293-8627
+            </Typography>
+          </Paper>
+        </InfoWindow>
       </Map>
     );
   }
