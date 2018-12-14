@@ -37,7 +37,7 @@ function pictureIsValid(pictureFile) {
 
   // Convert blob to base64
   var userBase64 = Buffer.from(newObj).toString('base64');
-  console.log(userBase64);
+  console.log(userBase64)
 
   // JSON request for Google Cloud Vision API
 
@@ -45,7 +45,7 @@ function pictureIsValid(pictureFile) {
 
         "image": {
           "source": {
-            "imageUri": userBase64
+            "imageUri": newObj // <---- THIS NEEDS TO BE A URI!!!!!!!
           }
         },
         "features": [
