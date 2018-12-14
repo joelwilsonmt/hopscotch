@@ -29,7 +29,13 @@ export default class App extends Component {
 
   confirmphoto() {
     console.log("blob contents:", this.state.blob);
-    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.blob)
+    //
+    axios({
+      method: 'post',
+      headers: { 'content-type': 'multipart/form-data' },
+      url: process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge',
+      data: this.state.blob
+    })
     .then((res)=>{
       console.log(res);
     })

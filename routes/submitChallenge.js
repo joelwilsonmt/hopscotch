@@ -32,32 +32,32 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 function pictureIsValid(pictureFile) {
 
   // Stringify raw blob data
-  JSON.stringify(pictureFile);
-  var newObj = JSON.stringify(pictureFile);
+  // let file = JSON.stringify(pictureFile);
+
+  // Buffer first, and then convert to base64
+  // var encoded = Buffer.from(pictureFile).toString('base64');
 
   // Convert blob to base64
-  var userBase64 = Buffer.from(newObj).toString('base64');
-  console.log(userBase64)
+  // let newfile = pictureFile.toString('base64');
 
   // JSON request for Google Cloud Vision API
 
   const request = {
 
-        "image": {
-          "source": {
-            "imageUri": newObj // <---- THIS NEEDS TO BE A URI!!!!!!!
-          }
-        },
-        "features": [
-          {
-            "type":"LABEL_DETECTION",
-            "maxResults":5
+      "requests":[
+        {
+          "image":{
+            "content": Buffer.from(JSON.stringify(pictureFile)).toString("base64")
           },
-          {
-            "type": "WEB_DETECTION"
-          }
-        ]
-      };
+          "features":[
+            {
+              "type":"LABEL_DETECTION",
+              "maxResults":1
+            }
+          ]
+        }
+      ]
+    };
 
   // Making the request
   client.annotateImage(request)
