@@ -1,19 +1,15 @@
 import React from 'react';
 import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import SwipeableViews from "react-swipeable-views";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-
 import MainAppBar from "../Utilities/MainAppBar";
 import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
-
 import {UserContext} from "../Contexts/UserContext";
 import UserProvider from "../Contexts/UserContext";
 
@@ -89,7 +85,7 @@ function ItemOne(theme) {
 
   );
   }
-}
+
 
 function ItemTwo(theme) {
   return (

@@ -65,9 +65,6 @@ class SimpleMenu extends React.Component {
         <Link to="/GameRoom/">
         <MenuItem onClick={this.handleClose}>Game Room</MenuItem>
         </Link>
-        <Link to="/Lobby/">
-        <MenuItem onClick={this.handleClose}>Lobby</MenuItem>
-        </Link>
         <Link to="/Challenges/">
         <MenuItem onClick={this.handleClose}>Challenges</MenuItem>
         </Link>
