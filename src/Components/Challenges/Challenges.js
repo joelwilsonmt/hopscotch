@@ -1,51 +1,104 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "../Utilities/AppBar";
-import Paper from "@material-ui/core/Paper";
+import React from 'react';
+import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
+
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from "react-swipeable-views";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import { Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+
+import MainAppBar from "../Utilities/MainAppBar";
 import ExpansionPanels from "./ExpansionPanels";
-import BottomNav from "../Utilities/BottomNav";
+import MapContainer from "../Map/MapContainer";
+
 import {UserContext} from "../Contexts/UserContext";
 import UserProvider from "../Contexts/UserContext";
 
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
-  }
-});
-
-
-class PaperSheet extends React.Component  {
-  constructor(props){
-    console.log(props);
-    super(props);
-    this.state = {
-      _id: this.props.id
-    };
-  }
-  render(){
+function TabContainer({ children, dir }) {
   return (
-    <UserProvider>
-      <AppBar />
-      <Paper  elevation={1}>
-        <Typography variant="h5" component="h3" align="center">
-          CHALLENGES: {this.state._id}
-        </Typography>
-        <br />
-        <br />
+    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+      {children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  dir: PropTypes.string.isRequired
+};
+
+
+class FullWidthTabs extends React.Component {
+  state = {
+    value: 0
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
+  render() {
+    const { classes, theme } = this.props;
+
+    return (
+      <BrowserRouter>
+        <div className={classes.root}>
+          <MainAppBar />
+          <AppBar position="static" color="default">
+            <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              fullWidth
+            >
+              <Tab label="CHALLENGES" component={Link} to="/Challenges" />
+              <Tab label="MAP" component={Link} to="/MapContainer" />
+            </Tabs>
+          </AppBar>
+          <Switch>
+            <Route path="/Challenges/" component={ItemOne} />
+            <Route path="/MapContainer" component={ItemTwo} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+FullWidthTabs.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+};
+
+function ItemOne(theme) {
+  return (
+    <Paper>
+      <div>
         <ExpansionPanels />
-      </Paper>
-      <BottomNav />
-    </UserProvider>
+      </div>
+    </Paper>
+
   );
   }
 }
 
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+function ItemTwo(theme) {
+  return (
+    <Paper>
+      <div>
+        <MapContainer />
+      </div>
+    </Paper>
+  );
+}
 
-export default withStyles(styles)(PaperSheet);
+export default withStyles({ withTheme: true })(FullWidthTabs);
