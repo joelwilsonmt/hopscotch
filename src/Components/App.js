@@ -8,61 +8,42 @@ import Map from "./Map/Map";
 import Camera from "./Camera/Camera";
 import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
+import AppBar from "./Utilities/AppBar";
+import UserProvider from "./Contexts/UserContext";
+import {UserContext} from "./Contexts/UserContext";
+import GameProvider from "./Contexts/GameContext";
+import {GameContext} from "./Contexts/GameContext";
 
+const App = () =>
+<div>
 
-let imgUrl = './Images/circuit1.jpg'
-let styles = {
-    root: {
-       backgroundImage: `url(${ imgUrl })`,
-       backgroundRepeat  : 'no-repeat',
-       backgroundPosition: 'center',
-  }
-}
+    <AppBar />
+    <OpeningScreen/>
 
-const App = () => <h2>Home</h2>;
+</div>;
 
 const AppRouter = () => (
+<GameProvider>
   <Router>
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/GameRoom/">Game Room</Link>
-          </li>
-          <li>
-            <Link to="/Lobby/">Lobby</Link>
-          </li>
-          <li>
-            <Link to="/Challenges/">Challenges</Link>
-          </li>
-          <li>
-            <Link to="/Map/">Map</Link>
-          </li>
-          <li>
-            <Link to="/Camera/">Camera</Link>
-          </li>
-          <li>
-            <Link to="/CircuitReview/">Circuit Review</Link>
-          </li>
-          <li>
-            <Link to="/OpeningScreen/">Opening Screen</Link>
-          </li>
-        </ul>
-      </nav>
-
+      {/*attempting to pass session id through routes:*/}
+      <GameContext.Consumer>{
+          (game) => (
+            <div>
+            <Route path="/Challenges/" id={game.user._id} component={Challenges} />
+            </div>
+          )
+        }</GameContext.Consumer>
       <Route path="/" exact component={App} />
       <Route path="/GameRoom/" component={GameRoom} />
       <Route path="/Lobby/" component={Lobby} />
-      <Route path="/Challenges/" component={Challenges} />
       <Route path="/Map/" component={Map} />
       <Route path="/Camera/" component={Camera} />
       <Route path="/CircuitReview/" component={CircuitReview} />
       <Route path="/OpeningScreen/" component={OpeningScreen} />
     </div>
   </Router>
+</GameProvider>
 );
 
 export default AppRouter;

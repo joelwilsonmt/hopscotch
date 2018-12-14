@@ -16,21 +16,16 @@ var User = require('../models/user');
 * The /getUser route is defined in server.js
 */
 router.put('/', function (req, res) {
-  console.log("getting user");
-  console.log("req body " + JSON.stringify(req.body) + " @ " + new Date());
-  var data = req.body.userId;
-  console.log("searching by " + data);
+  console.log("assigning user to circuit");
+  var data = req.body;
+  console.log("searching by user id: " + data.userId);
+  console.log("circuit id to add: ", data.circuit_id)
   //setting it to first name last name for now
   //passport should take care of this later for us
-  User.findById(data)
-    .then(function (user) {
-        // if(err) {
-        //   // console.log("cannot find user");
-        //   // res.status(404);
-        //   console.log("error finding user ", user);
-        //   console.log(err);
-        // }
-        console.log("find user complete" + user);
+  User.findByIdAndUpdate(data.userId, {current_circuit_id: data.circuit_id}, {upsert: true, new: true}, function(err, user){
+        if(err){console.log(err);}
+        console.log("Assign user to circuit complete");
+        // console.log("user's new circuit id: " + user.current_circuit_id);
         res.status(200).send(user);
     }); //closes exec
 }); //closes router.get

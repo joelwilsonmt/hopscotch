@@ -2,28 +2,19 @@ var mongoose = require('./../config/db-config');
 
 CircuitSchema  = mongoose.Schema(
     {
-      users:[Array],
       circuit_boundaries: [Number],
       challenges:[{
         //order challenges by distance in getChallengeList?
-        object_gate: String,
+        object_gate: String, //word of object we want to confirm
         location_gate: {
-          position: [Number],
-          name: String,
-          address: String,
-          category: String
+          position: [Number], //array of lat/long coords
+          name: String, //name of location
+          address: String, //address in plain text
+          category: String //whatever category the location belongs to
         },
-        id_users_completed: [Number]
-      }],
-      time_started: Date,
-      time_completed: Date,
-      date_created: Date,
-      date_deleted: Date,
-      archived: Boolean,
-      delete_in_ten_days: {
-        delete: Boolean,
-        start_delete: Date
-        }
+        id_users_completed: [String], //ids of users that have completed this challenge
+        full_challenge_text: String
+      }]
     },
     { collection: 'circuits' });
 var Circuit = mongoose.model('Circuit', CircuitSchema);

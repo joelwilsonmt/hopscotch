@@ -7,13 +7,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {UserContext} from "../Contexts/UserContext";
+import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
-import {
-  Route,
-  Link,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
 import GameRoom from "../GameRoom/GameRoom";
 var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
@@ -24,6 +22,7 @@ export default class FormDialog extends React.Component {
     this.state = {
       open: false,
       userNameInputValue: '',
+      idSearch: '',
       _id: ''
     };
   }
@@ -53,36 +52,84 @@ export default class FormDialog extends React.Component {
             userNameInputValue: e.target.value
         });
   }
+  updateIdSearchValue = (e) => {
+    this.setState({
+            idSearch: e.target.value
+        });
+  }
   submitUserToServer = () => {
-    console.log("this at begining of server submit: " + this);
-    var userObject = {};
-    userObject.username = this.state.userNameInputValue;
-    userObject.longitude = this.state.location.coords.longitude;
-    userObject.latitude = this.state.location.coords.latitude;
-    console.log(userObject);
+    console.log("add user accessed for " + this.state.userNameInputValue);
+    var userObject = {
+      username: this.state.userNameInputValue,
+      longitude: this.state.location.coords.longitude,
+      latitude: this.state.location.coords.latitude
+    };
+    // userObject.username = ;
+    // userObject.longitude = this.state.location.coords.longitude;
+    // userObject.latitude = this.state.location.coords.latitude;
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
-    console.log(addUser);
     var userId = '';
-    axios.post(addUser, userObject).then(function(res, err){
+    //must use fat arrow function in callback to bind FormDialog's this
+    //to inside the function itself:
+    axios.post(addUser, userObject).then((res, err) => {
       if(err) {console.error(err);}
+        console.log("passed value prop: ", this.props.value);
         console.log("Add user server response:");
         console.log(res.data);
+        this.props.value.updateUser(res.data);
         userId = res.data;
-    }).then(function(){
-    console.log("this should contain a value: " + userId);
-
+    }).then(() => {
+      //TODO set user id state here and pass up to toppest parent
+      this.setState({
+        _id : userId
+      });
+      console.log("this is the user id in state: " + this.state._id);
     });
-    this.setState({
-      _id : userId
-    });
-    console.log("this is the user id in state: " + this.state._id);
   }
 
   render() {
+    var userId = "5c0f6b4fc2f3025f3a8aa33a";
     return (
       <div>
+        <TextField
+          value={this.state.idSearch}
+          onChange={this.updateIdSearchValue}
+          margin="dense"
+          id="name"
+          label="Name"
+          fullWidth
+        />
+      <GameContext.Consumer>{
+            (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
+              <div>
+                <Button
+                  variant="contained" color="secondary"
+                  Button onClick={() => {
+                    game.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update User Id
+                </Button>
+                <Button
+                  variant="contained" color="primary"
+                  Button onClick={() => {
+                    game.updateCircuit(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update Circuit Object Via User ID
+                </Button>
+                <Button
+                  variant="contained" color="primary"
+                  Button onClick={() => {
+                    game.updateGame(this.state.idSearch) /*fill in this value with session._id somehow*/
+                  }}>
+                  Update Game Object
+                </Button>
+              </div>
+            )
+          }</GameContext.Consumer>
       <Button variant="contained" color="primary"
-        Button onClick={this.handleClickOpen}>Get Started</Button>
+        Button onClick={this.handleClickOpen}>
+        Add User to Database
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -108,15 +155,15 @@ export default class FormDialog extends React.Component {
               Cancel
             </Button>
             {/*<Link to="/GameRoom">*/}
-            <Button onClick={() => {
+            <Button
+              color="primary"
+              onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
-                }
-              }
-              color="primary">
+                }}>
               Submit
             </Button>
-            {/*</Link>*/}
+          {/*</Link>*/}
           </DialogActions>
         </Dialog>
       </div>

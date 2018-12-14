@@ -14,6 +14,8 @@ import MainAppBar from "../Utilities/MainAppBar";
 import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
 
+import {UserContext} from "../Contexts/UserContext";
+import UserProvider from "../Contexts/UserContext";
 
 function TabContainer({ children, dir }) {
   return (
@@ -37,6 +39,7 @@ class FullWidthTabs extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
+
 
   handleChangeIndex = index => {
     this.setState({ value: index });
@@ -83,7 +86,9 @@ function ItemOne(theme) {
         <ExpansionPanels />
       </div>
     </Paper>
+
   );
+  }
 }
 
 function ItemTwo(theme) {
