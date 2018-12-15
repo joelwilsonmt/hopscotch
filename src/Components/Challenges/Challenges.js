@@ -10,8 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import MainAppBar from "../Utilities/MainAppBar";
 import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
-import {UserContext} from "../Contexts/UserContext";
-import UserProvider from "../Contexts/UserContext";
+import {GameContext} from "../Contexts/GameContext";
 
 function TabContainer({ children, dir }) {
   return (
@@ -78,9 +77,12 @@ FullWidthTabs.propTypes = {
 function ItemOne(theme) {
   return (
     <Paper>
-      <div>
-        <ExpansionPanels />
-      </div>
+      <GameContext.Consumer>{
+          (game) => (
+            game.circuit.challenges.map(function(challenge, i){
+              return <ExpansionPanels value={challenge} key={i} />
+            })
+      )}</GameContext.Consumer>
     </Paper>
 
   );
