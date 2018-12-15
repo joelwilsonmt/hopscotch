@@ -37,7 +37,7 @@ class SimpleExpansionPanel extends React.Component{
           <Typography>
 
             {
-            this.props.value.full_challenge_text
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
 
 

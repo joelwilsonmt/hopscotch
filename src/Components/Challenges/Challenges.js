@@ -80,7 +80,7 @@ function ItemOne(theme) {
       <GameContext.Consumer>{
           (game) => (
             game.circuit.challenges.map(function(challenge, i){
-              return <ExpansionPanels value={challenge} key={i} />
+              return <ExpansionPanels value={challenge} key={i} listId={i} />
             })
       )}</GameContext.Consumer>
     </Paper>
