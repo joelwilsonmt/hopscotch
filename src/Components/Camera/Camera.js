@@ -21,6 +21,17 @@ export default class App extends Component {
     this.setState({ screenshot });
   }
 
+  confirmphoto() {
+    console.log("data: ", this.state);
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+  }
+
   render() {
     return (
       <div>
@@ -41,7 +52,7 @@ export default class App extends Component {
             </div>
 
             <h2>Your Submission: </h2>
-            
+
             {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
 
           </div>

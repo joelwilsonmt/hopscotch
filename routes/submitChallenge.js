@@ -32,13 +32,13 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 function pictureIsValid(pictureFile) {
 
   // Stringify raw blob data
-  var newObj = JSON.stringify(pictureFile);
+  // var newObj = JSON.stringify(pictureFile);
 
   // Buffer first, and then convert to base64
-  var encoded = Buffer.from(newObj).toString('base64');
+  // var encoded = Buffer.from(newObj).toString('base64');
 
   // Convert blob to base64
-  let newFile = pictureFile.toString('base64');
+  // let newFile = pictureFile.toString('base64');
 
   // JSON request for Google Cloud Vision API
   const request = {
@@ -46,7 +46,7 @@ function pictureIsValid(pictureFile) {
       "requests":[
         {
           "image":{
-            "content": newFile
+            "content": pictureFile
           },
           "features":[
             {
