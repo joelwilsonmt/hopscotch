@@ -10,26 +10,33 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       screenshot: null,
       tab: 0
     };
+    this.confirmphoto.bind(this)
   }
 
+  // setRef = webcam => {
+  // this.webcam = webcam;
+  // };
+
   handleClick = () => {
-    const screenshot = this.webcam.getScreenshot();
+    const screenshot = this.webcam.getScreenshot()
     this.setState({ screenshot });
   }
 
-  confirmphoto() {
-    console.log("data: ", this.state);
-    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state)
+  confirmphoto = () => {
+    console.log("data: ", this.state.screenshot);
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.screenshot)
     .then((res)=>{
       console.log(res);
     })
     .catch((err)=>{
       console.log(err);
     });
+    console.log(this)
   }
 
   render() {
@@ -55,6 +62,12 @@ export default class App extends Component {
 
             {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
 
+            <p>{this.state.screenshot}</p>
+
+            <div>
+              <button onClick={this.confirmphoto}>submit</button>
+            </div>
+
           </div>
 
         </div>
@@ -64,7 +77,87 @@ export default class App extends Component {
   }
 }
 
+
 /*
+ORIGINAL CAMERA.JS CODE WITH OLD NPM
+
+export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.takePicture = this.takePicture.bind(this);
+    this.state = {blob:''};
+    this.confirmphoto.bind(this)
+  }
+
+  takePicture() {
+    this.camera.capture()
+    .then(blob => {
+      this.img.src = URL.createObjectURL(blob)
+      this.img.onload = () => {
+        URL.revokeObjectURL(this.src)
+      }
+      this.setState({
+        blob:blob
+      })
+    })
+  }
+
+  confirmphoto() {
+    console.log("blob contents:", this.state.blob);
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.blob)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });//end axios call
+  }
+
+  render() {
+    return (
+      <div style={style.container}>
+
+        <Camera
+          style={style.preview}
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+        >
+
+          <div style={style.captureContainer} onClick={this.takePicture}>
+            <div style={style.captureButton} />
+          </div>
+        </Camera>
+
+        <img
+          style={style.captureImage}
+          ref={(img) => {
+            this.img = img;
+          }}
+        />
+
+        <CameraButtons confirmphoto={
+              this.confirmphoto.bind(this)}/>
+
+      </div>
+    );
+  }
+}
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+STYLE TO UNLOAD LATER
+
 const style = {
   preview: {
     position: 'relative',

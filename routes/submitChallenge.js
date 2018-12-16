@@ -31,29 +31,27 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 
 function pictureIsValid(pictureFile) {
 
-  // Stringify raw blob data
-  // var newObj = JSON.stringify(pictureFile);
+  // console.log(pictureFile);
 
-  // Buffer first, and then convert to base64
-  // var encoded = Buffer.from(newObj).toString('base64');
-
-  // Convert blob to base64
-  // let newFile = pictureFile.toString('base64');
+  let file = JSON.stringify(pictureFile);
+  console.log(file);
 
   // JSON request for Google Cloud Vision API
   const request = {
-
-      "requests":[
+      requests:[
         {
-          "image":{
-            "content": pictureFile
+          image:{
+            content: file
           },
-          "features":[
+          features:[
             {
-              "type":"LABEL_DETECTION",
-              "maxResults":1
+              type:"LABEL_DETECTION",
+              maxResults:1
             }
-          ]
+          ],
+          imageContext: {
+            languageHints: ["en"]
+          }
         }
       ]
     };
@@ -68,12 +66,12 @@ function pictureIsValid(pictureFile) {
   });
 };
 
-router.post('/', function (req, res) {
+router.put('/', function (req, res) {
   console.log("submitting challenge at " +new Date());
   var data = req.body;
-  console.log("data passed type:", typeof data);
+  // console.log("data passed type:", data.screenshot);
   // console.log(data);
-  var test = pictureIsValid(data);
+  var test = pictureIsValid(data.screenshot);
   res.sendStatus(200).send(/*picture is valid && location is valid*/);
 }); //closes router.put
 
