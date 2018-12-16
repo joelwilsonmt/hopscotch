@@ -16,10 +16,9 @@ var User = require('../models/user');
 * The /getUser route is defined in server.js
 */
 router.put('/', function (req, res) {
-  console.log("getting user");
-  console.log("req body " + JSON.stringify(req.body) + " @ " + new Date());
+  console.log("getting user" + " @ " + new Date() + "----------------------------------");
   var data = req.body.userId;
-  console.log("searching by " + data);
+  console.log("searching by ID: " + data);
   //setting it to first name last name for now
   //passport should take care of this later for us
   User.findById(data)
@@ -30,7 +29,7 @@ router.put('/', function (req, res) {
         //   console.log("error finding user ", user);
         //   console.log(err);
         // }
-        console.log("find user complete" + user);
+        console.log("find user complete, username: " + user.username);
         res.status(200).send(user);
     }); //closes exec
 }); //closes router.get

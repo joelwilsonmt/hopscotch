@@ -51,8 +51,13 @@ router.post('/', function (req, res) {
           //push POIs and random objects to list challenges
           var sets_challenges = [];
           console.log("Places found: " + places.length);
-          for(var i = 0; i < places.length; i++) {
-            var words = ['keys', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'milk', 'watch', 'magnet', 'CD', 'shoe','flag'];
+          //which is longer, 10 or place.length...
+          var challengeLimit = 10;
+          if (places.length < challengeLimit){
+            challengeLimit = places.length;
+          }
+          for(var i = 0; i < challengeLimit; i++) {
+            var words = ['key', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'CD of Bjork\'s Utopia', 'watch', 'magnet', 'CD', 'shoe','flag'];
             var objectGate = words[Math.floor(Math.random()*words.length)];
             var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';
             sets_challenges[i] = {

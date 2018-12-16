@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as  Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 //import CountDown from "../Utilities/CountDown";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -12,6 +12,7 @@ import axios from "axios";
 import {GameContext} from "../Contexts/GameContext";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 /*
 
@@ -43,7 +44,7 @@ const styles = {
 
 class SimpleCard extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
                   foundCircuit: '',
                   circuitFound: false,
@@ -51,6 +52,7 @@ class SimpleCard extends React.Component {
                   }
   }
   componentWillMount() {
+
     //var userId = this.props.context.userId;
     var userId = this.props.value.user._id;
     var roomName = '';
@@ -111,7 +113,6 @@ class SimpleCard extends React.Component {
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', req).then(
       (res) => {
         var circuit = res.data;
-        console.log("server returned circuit info: ", circuit);
         console.log("Server has assigned user to circuit");
         game.updateGame(game.user._id);
         //TODO set corresponding game circuit object through GameProvider
@@ -148,12 +149,14 @@ class SimpleCard extends React.Component {
           {this.state.circuitFound ?
             <GameContext.Consumer>{
                 (game) => (
+            <Link to="/Challenges/">
             <Button size="small" justify="center"
               color="primary"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
+          </Link>
         )}</GameContext.Consumer>: ''}
         </CardActions>
       </Card>

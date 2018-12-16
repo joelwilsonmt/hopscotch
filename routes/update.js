@@ -15,9 +15,8 @@ var Circuit = require('../models/circuit');
 //this is a put route because it takes a request value to search by
 router.put('/', function (req, res) {
   console.log("updating all information @ " + new Date() + "------------------------------");
-  console.log("req body " + req + " @ " + new Date());
   var data = req.body.userId;
-  console.log("searching by " + JSON.stringify(data));
+  console.log("searching by User ID: " + JSON.stringify(data));
   User.findById(data)
     .then(function (user) {
         Circuit.findById(user.current_circuit_id)
