@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ProofButton from './ProofButton';
+import {GameContext} from "../Contexts/GameContext";
 
 
 const styles = theme => ({
@@ -20,120 +21,45 @@ const styles = theme => ({
   }
 });
 
-function SimpleExpansionPanel(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Brief Description</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>Detailed information on what to do.</Typography>
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Two</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Three</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Four</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Five</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Six</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Seven</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Eight</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Nine</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography />
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <ProofButton />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
+class SimpleExpansionPanel extends React.Component{
+  constructor(props) {
+    super(props);
+  }
 
+  componentWillMount() {
+    console.log("value of props value before mount: ", this.props.value);
+  }
+  render(){
+  return (
+    <div>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Challenge Ten</Typography>
+          <Typography>
+
+            {
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
+            }
+
+
+          </Typography>
         </ExpansionPanelSummary>
+        <Typography>
+          {
+          this.props.value.location_gate.name
+          }
+        </Typography>
+        <Typography>
+          {
+          this.props.value.location_gate.address
+          }
+        </Typography>
         <ExpansionPanelActions>
           <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
     </div>
-  );
+    );
+  }
 }
 
 SimpleExpansionPanel.propTypes = {

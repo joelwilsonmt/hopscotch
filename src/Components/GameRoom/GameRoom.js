@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
-import AppBar from "../Utilities/AppBar";
+import MainAppBar from "../Utilities/MainAppBar";
 import axios from "axios";
 import {UserContext} from "../Contexts/UserContext";
 import {GameContext} from "../Contexts/GameContext";
@@ -31,7 +31,7 @@ class GameRoom extends Component {
 
     return (
       <div>
-        <AppBar />
+        <MainAppBar />
         <Paper elevation={1}>
           <br />
           <Typography variant="h5" component="h3" align="center">
