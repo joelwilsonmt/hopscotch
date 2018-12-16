@@ -21,22 +21,23 @@ const styles = theme => ({
   }
 });
 
-function SimpleExpansionPanel(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <GameContext.Consumer>{
-          (game) => (
+class SimpleExpansionPanel extends React.Component{
+  constructor(props) {
+    super(props);
+  }
 
+  componentWillMount() {
+    console.log("value of props value before mount: ", this.props.value);
+  }
+  render(){
+  return (
+    <div>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>
-
+          <Typography>
 
             {
-            (game.circuit.challenges.length > 1) ?
-            game.circuit.challenges[1].full_challenge_text:
-            'Cant find circuit'
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
 
 
@@ -44,25 +45,21 @@ function SimpleExpansionPanel(props) {
         </ExpansionPanelSummary>
         <Typography>
           {
-          (game.circuit.challenges.length > 1) ?
-          'Location: ' + game.circuit.challenges[1].location_gate.name:
-          'Cant find circuit'
+          this.props.value.location_gate.name
           }
         </Typography>
         <Typography>
           {
-          (game.circuit.challenges.length > 1) ?
-          'Address: ' + game.circuit.challenges[1].location_gate.address:
-          'Cant find circuit'
+          this.props.value.location_gate.address
           }
         </Typography>
         <ExpansionPanelActions>
           <ProofButton />
         </ExpansionPanelActions>
       </ExpansionPanel>
-    )}</GameContext.Consumer>
     </div>
-  );
+    );
+  }
 }
 
 SimpleExpansionPanel.propTypes = {
