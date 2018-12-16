@@ -11,6 +11,7 @@ import MainAppBar from "../Utilities/MainAppBar";
 import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
+import socketIOClient from 'socket.io-client';
 
 function TabContainer({ children, dir }) {
   return (
@@ -27,10 +28,16 @@ TabContainer.propTypes = {
 
 
 class FullWidthTabs extends React.Component {
-  state = {
-    value: 0
-  };
-
+  constructor(props) {
+    super();
+    this.state = {
+      value: ''
+    }
+  }
+  componentWillMount() {
+    const socket = socketIOClient('localhost:3001/');
+    //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
+  }
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -55,13 +62,13 @@ class FullWidthTabs extends React.Component {
               textColor="primary"
               fullWidth
             >
-              <Tab label="CHALLENGES" component={Link} to="/Challenges" />
-              <Tab label="MAP" component={Link} to="/MapContainer" />
+              <Tab label="CHALLENGES" component={Link} to="/Challenges/" />
+              <Tab label="MAP" component={Link} to="/MapContainer/" />
             </Tabs>
           </AppBar>
           <Switch>
             <Route path="/Challenges/" component={ItemOne} />
-            <Route path="/MapContainer" component={ItemTwo} />
+            <Route path="/MapContainer/" component={ItemTwo} />
           </Switch>
         </div>
       </BrowserRouter>
@@ -93,7 +100,10 @@ function ItemTwo(theme) {
   return (
     <Paper>
       <div>
-        <MapContainer />
+        <GameContext.Consumer>{
+            (game) => (
+        <MapContainer value={game}/>
+        )}</GameContext.Consumer>
       </div>
     </Paper>
   );
