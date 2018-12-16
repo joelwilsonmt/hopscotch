@@ -1,74 +1,59 @@
 import React, { Component } from 'react';
-import Camera from 'react-camera';
+// import Camera from 'react-camera';
 import CameraButtons from './CameraButtons';
 import axios from 'axios';
-import 'react-html5-camera-photo/build/css/index.css'
+import Webcam from 'react-webcam';
+// import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
 
 export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.takePicture = this.takePicture.bind(this);
-    this.state = {blob:''};
-    this.confirmphoto.bind(this)
+    this.state = {
+      screenshot: null,
+      tab: 0
+    };
   }
 
-  takePicture() {
-    this.camera.capture()
-    .then(blob => {
-      this.img.src = URL.createObjectURL(blob)
-      this.img.onload = () => {
-        URL.revokeObjectURL(this.src)
-      }
-      this.setState({
-        blob:blob
-      })
-    })
-  }
-
-  confirmphoto() {
-    console.log("blob contents:", this.state.blob);
-    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.blob)
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((err)=>{
-      console.log(err);
-    });//end axios call
+  handleClick = () => {
+    const screenshot = this.webcam.getScreenshot();
+    this.setState({ screenshot });
   }
 
   render() {
     return (
-      <div style={style.container}>
+      <div>
 
-        <Camera
-          style={style.preview}
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-        >
+        <h1>react-webcam</h1>
 
-          <div style={style.captureContainer} onClick={this.takePicture}>
-            <div style={style.captureButton} />
-          </div>
-        </Camera>
-
-        <img
-          style={style.captureImage}
-          ref={(img) => {
-            this.img = img;
-          }}
+        <Webcam
+          audio={false}
+          ref={node => this.webcam = node}
         />
 
-        <CameraButtons confirmphoto={
-              this.confirmphoto.bind(this)}/>
+        <div>
+
+          <div className='screenshots'>
+
+            <div className='controls'>
+              <button onClick={this.handleClick}>capture</button>
+            </div>
+
+            <h2>Your Submission: </h2>
+            
+            {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+
+          </div>
+
+        </div>
 
       </div>
     );
   }
 }
 
+/*
 const style = {
   preview: {
     position: 'relative',
@@ -93,3 +78,4 @@ const style = {
     width: '100%'
   }
 };
+*/
