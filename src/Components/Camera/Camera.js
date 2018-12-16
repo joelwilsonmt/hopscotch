@@ -29,7 +29,7 @@ export default class App extends Component {
 
   confirmphoto = () => {
     console.log("data: ", this.state.screenshot);
-    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', this.state.screenshot)
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', {screenshot:this.state.screenshot})
     .then((res)=>{
       console.log(res);
     })
@@ -47,6 +47,7 @@ export default class App extends Component {
 
         <Webcam
           audio={false}
+          screenshotFormat="image/jpeg"
           ref={node => this.webcam = node}
         />
 

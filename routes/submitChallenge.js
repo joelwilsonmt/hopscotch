@@ -6,10 +6,13 @@ const haversine = require('haversine');
 var synonyms = require("synonyms");
 var AWS = require('aws-sdk');
 var dotenv = require('dotenv').config();
-var fs = require('fs');
+// var fs = require('fs');
 var atob = require('atob');
-const vision = require('@google-cloud/vision');
-const client = new vision.ImageAnnotatorClient();
+// const vision = require('@google-cloud/vision');
+// const client = new vision.ImageAnnotatorClient();
+var Blob = require('blob');
+
+
 
 function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
   var start = {};
@@ -31,46 +34,61 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 
 function pictureIsValid(pictureFile) {
 
-  // console.log(pictureFile);
+  console.log(pictureFile);
 
-  let file = JSON.stringify(pictureFile);
-  console.log(file);
+  // let file = JSON.stringify(pictureFile);
+  // console.log(file);
 
-  // JSON request for Google Cloud Vision API
-  const request = {
-      requests:[
-        {
-          image:{
-            content: file
-          },
-          features:[
-            {
-              type:"LABEL_DETECTION",
-              maxResults:1
-            }
-          ],
-          imageContext: {
-            languageHints: ["en"]
-          }
-        }
-      ]
-    };
+  // let buffer = new Buffer.from(file).toString('base64');
+  // console.log(buffer);
 
-  // Making the request
-  client.annotateImage(request)
-  .then(function(res){
-    console.log("result: ", res);
+
+
+  function getBinary(base64Image) {
+
+     var binaryImg = atob(base64Image);
+     var length = binaryImg.length;
+     var ab = new ArrayBuffer(length);
+     var ua = new Uint8Array(ab);
+     for (var i = 0; i < length; i++) {
+       ua[i] = binaryImg.charCodeAt(i);
+      }
+
+      return ab;
+  }
+
+  var base64Image = pictureFile.split("data:image/jpeg;base64,")[1];
+  var imageBytes = getBinary(base64Image);
+
+
+  AWS.config.update({
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.ACCESS_SECRET,
+    region: 'us-west-2'
+  });
+
+  let rekognition = new AWS.Rekognition();
+
+  rekognition.detectLabels({
+    Image: {
+      Bytes: imageBytes
+    }
+  })
+  .promise().then(function(res){
+    console.log(res);
   })
   .catch(function(err){
-    console.log(err);
+    console.error(err);
   });
+
 };
+
 
 router.put('/', function (req, res) {
   console.log("submitting challenge at " +new Date());
   var data = req.body;
   // console.log("data passed type:", data.screenshot);
-  // console.log(data);
+  console.log(data);
   var test = pictureIsValid(data.screenshot);
   res.sendStatus(200).send(/*picture is valid && location is valid*/);
 }); //closes router.put
