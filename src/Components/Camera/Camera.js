@@ -1,33 +1,83 @@
 import React, { Component } from 'react';
-import Camera from 'react-camera';
+// import Camera from 'react-camera';
 import CameraButtons from './CameraButtons';
 import axios from 'axios';
+import Webcam from 'react-webcam';
+// import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
 
-const style = {
-  preview: {
-    position: 'relative',
-  },
-  captureContainer: {
-    display: 'flex',
-    position: 'absolute',
-    justifyContent: 'center',
-    zIndex: 1,
-    bottom: 0,
-    width: '100%'
-  },
-  captureButton: {
-    backgroundColor: '#fff',
-    borderRadius: '50%',
-    height: 56,
-    width: 56,
-    color: '#000',
-    margin: 20
-  },
-  captureImage: {
-    width: '100%'
+export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      screenshot: null,
+      tab: 0
+    };
+    this.confirmphoto.bind(this)
   }
-};
+
+  handleClick = () => {
+    const screenshot = this.webcam.getScreenshot()
+    this.setState({ screenshot });
+  }
+
+  confirmphoto = () => {
+    console.log("data: ", this.state.screenshot);
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', {screenshot:this.state.screenshot})
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+    console.log(this)
+  }
+
+  render() {
+    return (
+      <div>
+
+        <h1>react-webcam</h1>
+
+        <Webcam
+          audio={false}
+          screenshotFormat="image/jpeg"
+          ref={node => this.webcam = node}
+          screenshotQuality={.8}
+        />
+
+        <div>
+
+          <div className='screenshots'>
+
+            <div className='controls'>
+              <button onClick={this.handleClick}>capture</button>
+            </div>
+
+            <h2>Your Submission: </h2>
+
+            {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+
+            <p>{this.state.screenshot}</p>
+
+            <div>
+              <button onClick={this.confirmphoto}>submit</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    );
+  }
+}
+
+
+/*
+ORIGINAL CAMERA.JS CODE WITH OLD NPM
 
 export default class App extends Component {
 
@@ -92,3 +142,36 @@ export default class App extends Component {
     );
   }
 }
+
+*/
+
+
+/*
+STYLE TO UNLOAD LATER
+
+const style = {
+  preview: {
+    position: 'relative',
+  },
+  captureContainer: {
+    display: 'flex',
+    position: 'absolute',
+    justifyContent: 'center',
+    zIndex: 1,
+    bottom: 0,
+    width: '100%'
+  },
+  captureButton: {
+    backgroundColor: '#fff',
+    borderRadius: '50%',
+    height: 56,
+    width: 56,
+    color: '#000',
+    margin: 20
+  },
+  captureImage: {
+    width: '100%'
+  }
+};
+
+*/
