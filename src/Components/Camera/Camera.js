@@ -49,6 +49,7 @@ export default class App extends Component {
           audio={false}
           screenshotFormat="image/jpeg"
           ref={node => this.webcam = node}
+          screenshotQuality={.5}
         />
 
         <div>
@@ -149,14 +150,7 @@ export default class App extends Component {
 */
 
 
-
-
-
-
-
-
 /*
-
 STYLE TO UNLOAD LATER
 
 const style = {
@@ -183,4 +177,5 @@ const style = {
     width: '100%'
   }
 };
+
 */

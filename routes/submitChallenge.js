@@ -12,8 +12,6 @@ var atob = require('atob');
 // const client = new vision.ImageAnnotatorClient();
 var Blob = require('blob');
 
-
-
 function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
   var start = {};
   start.latitude = userCoords[1];
@@ -34,15 +32,13 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 
 function pictureIsValid(pictureFile) {
 
-  console.log(pictureFile);
+
 
   // let file = JSON.stringify(pictureFile);
   // console.log(file);
 
   // let buffer = new Buffer.from(file).toString('base64');
   // console.log(buffer);
-
-
 
   function getBinary(base64Image) {
 
@@ -60,7 +56,6 @@ function pictureIsValid(pictureFile) {
   var base64Image = pictureFile.split("data:image/jpeg;base64,")[1];
   var imageBytes = getBinary(base64Image);
 
-
   AWS.config.update({
     accessKeyId: process.env.ACCESS_KEY,
     secretAccessKey: process.env.ACCESS_SECRET,
@@ -72,7 +67,8 @@ function pictureIsValid(pictureFile) {
   rekognition.detectLabels({
     Image: {
       Bytes: imageBytes
-    }
+    },
+    MinConfidence: 50
   })
   .promise().then(function(res){
     console.log(res);
@@ -83,12 +79,11 @@ function pictureIsValid(pictureFile) {
 
 };
 
-
 router.put('/', function (req, res) {
   console.log("submitting challenge at " +new Date());
   var data = req.body;
   // console.log("data passed type:", data.screenshot);
-  console.log(data);
+
   var test = pictureIsValid(data.screenshot);
   res.sendStatus(200).send(/*picture is valid && location is valid*/);
 }); //closes router.put
