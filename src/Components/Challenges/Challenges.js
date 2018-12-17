@@ -12,6 +12,7 @@ import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import socketIOClient from 'socket.io-client';
+const socket = socketIOClient('localhost:3001/');
 
 function TabContainer({ children, dir }) {
   return (
@@ -31,11 +32,13 @@ class FullWidthTabs extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      value: ''
     }
   }
   componentWillMount() {
-    const socket = socketIOClient('localhost:3001/');
+    socket.emit('joinRoom', '1234567');
+  }
+  componentWillUnmount() {
+    socket.disconnect();
     //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
   }
   handleChange = (event, value) => {

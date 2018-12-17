@@ -149,7 +149,7 @@ class SimpleCard extends React.Component {
           {this.state.circuitFound ?
             <GameContext.Consumer>{
                 (game) => (
-            <Link to="/Challenges/">
+            <Link to="/Challenges/" value={game}>
             <Button size="small" justify="center"
               color="primary"
               onClick={() => this.handleJoin(game)}
