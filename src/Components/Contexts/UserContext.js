@@ -53,6 +53,21 @@ class UserProvider extends React.Component {
           console.log("set state complete, user: ", this.state.user.username);
         });//closes .then()
       };//closes updateUser
+      this.updateGame = (userId) => {
+        console.log("updateGame accessed w/ uid: ", userId);
+        const updateGameObject = process.env.REACT_APP_BACK_END_SERVER + 'updateGameObject';
+        axios.put(updateGameObject, {userId}).then((res,err) => {
+          console.log("get game data handled", res.data);
+          if(err){console.log(err);}
+          this.setState(
+            {
+                user: res.data.user,
+                circuit: res.data.circuit
+            });//closes set state
+            console.log("set state of user and game complete, user: ", this.state.user.username);
+            console.log("set state of circuit complete: ", this.state.circuit);
+          });//closes .then()
+        };//closes updateUser
 
 
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:

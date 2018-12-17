@@ -36,6 +36,9 @@
     "react-scripts": "2.1.1",
     "react-webcam": "^1.0.4",
     "recordrtc": "^5.4.9",
+    "react-swipeable-views": "^0.13.0",
+    "react-transition-group": "^1.2.1",
+
     "socket.io": "^2.2.0",
     "synonyms": "^1.0.1"
   },

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import AppBar from "../Utilities/AppBar";
+import MainAppBar from "../Utilities/MainAppBar";
 import MapContainer from "./MapContainer";
-import BottomNav from "../Utilities/BottomNav";
+
 
 
 const styles = theme => ({
@@ -21,9 +21,8 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <AppBar />
+      <MainAppBar />
       <MapContainer />
-      <BottomNav />
     </div>
   );
 }

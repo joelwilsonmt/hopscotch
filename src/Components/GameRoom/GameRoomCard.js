@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as  Link } from "react-router-dom";
-import CountDown from "../Utilities/CountDown";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+//import CountDown from "../Utilities/CountDown";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -8,8 +8,17 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import {GameContext} from "../Contexts/GameContext";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
+/*
+
+When a user navigates to the Game Room, it mounts this SimpleCard which makes server calls and handles errors to be able to check against the user's boundary to set a matching circuit in state. If no matching circuits are found, a circuit is created and its corresponding data is set in state to the the this.state.foundCircuit object
+
+*/
 
 
 
@@ -35,10 +44,83 @@ const styles = {
 
 class SimpleCard extends React.Component {
   constructor(props) {
-    super()
-    this.State={
+    super(props);
+    this.state = {
+                  foundCircuit: '',
+                  circuitFound: false,
+                  message: 'Searching for circuits...'
+                  }
+  }
+  componentWillMount() {
 
+    //var userId = this.props.context.userId;
+    var userId = this.props.value.user._id;
+    var roomName = '';
+    //get a list of circuits that match a user's boundary:
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
+      (res) => {
+        var circuit = res.data;
+        console.log("server returned circuit info: ", circuit);
+        console.log("first challenge: ", circuit.challenges[0]);
+        roomName = circuit._id;
+        console.log("room name / circuit id: " + roomName);
+        this.setState(
+          {
+          foundCircuit: circuit,
+          circuitFound: true,
+          message: 'Circuit Found!'
+        }
+        );
+        //DO NOT UPDATE GAME HERE, THAT IS DONE ON THE HANDLEJOIN FUNCTION
+        //TODO set corresponding game circuit object through GameProvider
+
+      }).catch( (err) => {
+        console.error("error", err);
+        if(userId != ''){
+          console.log("Get circuits failed, creating circuit in database");
+          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
+          (res) => {
+            var newCircuit = res.data;
+            console.log("add circuit successful: ", newCircuit);
+            this.setState(
+              {
+              foundCircuit: newCircuit,
+              circuitFound: true,
+              message: 'Circuit Added!'
+
+              }
+            );
+          }).catch(function(err){
+            console.error(err);
+          });
+        }
+        else {
+          this.setState({
+            message: 'Invalid User Id'
+          });
+          console.log("invalid user");
+        }
+      });
+  }
+  handleJoin(game) {
+    console.log("user id: ", game.user._id);
+    var req = {
+      userId: game.user._id,
+      circuit_id: this.state.foundCircuit._id
     }
+    console.log("request body: ", req);
+    //console.log("circuit object: ", this.props.value.user.current_circuit_id);
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', req).then(
+      (res) => {
+        var circuit = res.data;
+        console.log("Server has assigned user to circuit");
+        game.updateGame(game.user._id);
+        //TODO set corresponding game circuit object through GameProvider
+
+      }).catch(function(err){
+        console.error(err);
+        //add circuit if can't find: (NOT WORKING CURRENTLY)
+      });
   }
 
 
@@ -46,29 +128,36 @@ class SimpleCard extends React.Component {
     return (
       <Card>
         <CardContent>
-          <Typography>
-          Circuit starts in <CountDown />
-          </Typography>
-          <br />
-          <Typography color="textSecondary" gutterBottom align="center">
-            Location
+          <Typography variant="h6" component="h2" align="center">
+            {this.state.message}
           </Typography>
           <Typography variant="h6" component="h2" align="center">
-            Missoula
-          </Typography>
-          <Typography color="textSecondary" align="center">
-            Players in Lobby <br /> 7 of 8
-          </Typography>
-          <Typography component="p" align="center">
-            10 Challenges to be completed
+            {
+              this.state.foundCircuit.challenges
+              ?
+              "Circuit Found with " + this.state.foundCircuit.challenges.length +
+              " Challenges"
+              :
+              <div>
+                <CircularProgress/>
+                <LinearProgress/>
+              </div>
+            }
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to="/Lobby/">
-            <Button size="small" justify="center">
+          {this.state.circuitFound ?
+            <GameContext.Consumer>{
+                (game) => (
+            <Link to="/Challenges/">
+            <Button size="small" justify="center"
+              color="primary"
+              onClick={() => this.handleJoin(game)}
+              >
               Join Circuit
             </Button>
           </Link>
+        )}</GameContext.Consumer>: ''}
         </CardActions>
       </Card>
     );
