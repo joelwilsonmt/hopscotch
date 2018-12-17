@@ -56,7 +56,9 @@ class GameProvider extends React.Component {
       const updateRoute = process.env.REACT_APP_BACK_END_SERVER + 'update';
       //must be a put request because passing a value to be searched by
       axios.put(updateRoute, {userId}).then((res,err) => {
-        console.log("get game data handled", res.data);
+        console.log("update game data handled", res.data);
+        console.log("setting user", res.data.user);
+        console.log("setting circuit", res.data.circuit);
         if(err){console.log(err);}
         this.setState(
           {
@@ -67,7 +69,6 @@ class GameProvider extends React.Component {
           console.log("user's circuit id: ", this.state.circuit._id);
         });//closes .then()
     };//closes updateGame
-
 
     this.updateUser = (userId) => {
       console.log("updateUser accessed w/ uid: ", userId);
@@ -98,6 +99,22 @@ class GameProvider extends React.Component {
         });//closes .then()
     };//closes updateCircuit
 
+    this.setScreen = (screenName) => {
+      console.log("Routing to screen ", screenName);
+        this.setState(
+          {
+              screen: screenName
+          });//closes set state
+          console.log("Screen state set in provider:", this.state.screen);
+    };//closes setScreen
+
+    this.setView = (viewName) => {
+      console.log("Changing view to ", viewName);
+      this.setState({
+          view: viewName
+      });//closes set view
+    }
+
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
     //these placeholders are overwritten with the updateUser Server call
     this.state = {
@@ -118,23 +135,28 @@ class GameProvider extends React.Component {
           circuits_participated:[]
         },
         circuit: {
-            circuit_boundaries: [],
-            challenges:[{
-              //order challenges by distance in getChallengeList?
-              object_gate: '', //word of object we want to confirm
-              location_gate: {
-                position: [], //array of lat/long coords
-                name: '', //name of location
-                address: '', //address in plain text
-                category: '' //whatever category the location belongs to
-              },
-              id_users_completed: [], //ids of users that have completed this challenge
-              full_challenge_text: ''
-            }]
+          circuit_boundaries: [],
+          challenges:[{
+            //order challenges by distance in getChallengeList?
+            object_gate: '', //word of object we want to confirm
+            location_gate: {
+              position: [], //array of lat/long coords
+              name: '', //name of location
+              address: '', //address in plain text
+              category: '' //whatever category the location belongs to
+            },
+            id_users_completed: [], //ids of users that have completed this challenge
+            full_challenge_text: ''
+          }],
+          _id: 'Circuit ID Not Set'
         },
         updateUser: this.updateUser, //make it so updateUser method is available in state
         updateGame: this.updateGame,
-        updateCircuit: this.updateCircuit
+        updateCircuit: this.updateCircuit,
+        screen: 'OpeningScreen',
+        view: '',
+        setScreen: this.setScreen,
+        setView: this.setView
     };
   }
 

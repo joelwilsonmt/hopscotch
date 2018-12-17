@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
@@ -28,14 +27,17 @@ TabContainer.propTypes = {
 };
 
 
-class FullWidthTabs extends React.Component {
+class Challenges extends React.Component {
   constructor(props) {
     super();
     this.state = {
+      value: 'challenges' //sets it so that when screen opens, challenges tab has focus
     }
   }
   componentWillMount() {
-    socket.emit('joinRoom', '1234567');
+    console.log("this value at challenges mount: ", this)
+    //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
+
   }
   componentWillUnmount() {
     socket.disconnect();
@@ -52,11 +54,9 @@ class FullWidthTabs extends React.Component {
 
   render() {
     const { classes, theme } = this.props;
-
+    const { value } = this.state;
     return (
-      <BrowserRouter>
-        <div className={classes.root}>
-          <MainAppBar />
+        <div >
           <AppBar position="static" color="default">
             <Tabs
               value={this.state.value}
@@ -65,26 +65,19 @@ class FullWidthTabs extends React.Component {
               textColor="primary"
               fullWidth
             >
-              <Tab label="CHALLENGES" component={Link} to="/Challenges/" />
-              <Tab label="MAP" component={Link} to="/MapContainer/" />
+              <Tab value="challenges" label="CHALLENGES"  />
+              <Tab value="map" label="MAP" />
             </Tabs>
           </AppBar>
-          <Switch>
-            <Route path="/Challenges/" component={ItemOne} />
-            <Route path="/MapContainer/" component={ItemTwo} />
-          </Switch>
+          {value === 'challenges' && <ChallengeList/>}
+          {value === 'map' && <Map/>}
         </div>
-      </BrowserRouter>
     );
   }
 }
 
-FullWidthTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-};
 
-function ItemOne(theme) {
+function ChallengeList(theme) {
   return (
     <Paper>
       <GameContext.Consumer>{
@@ -99,7 +92,7 @@ function ItemOne(theme) {
   }
 
 
-function ItemTwo(theme) {
+function Map(theme) {
   return (
     <Paper>
       <div>
@@ -112,4 +105,4 @@ function ItemTwo(theme) {
   );
 }
 
-export default withStyles({ withTheme: true })(FullWidthTabs);
+export default Challenges;

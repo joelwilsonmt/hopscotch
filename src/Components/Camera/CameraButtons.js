@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -25,11 +24,9 @@ class ButtonSizes extends React.Component {
           <Button variant="outlined" size="small" color="primary">
             RETAKE
           </Button>
-          <Link to="/Challenges/">
             <Button variant="outlined" size="small" color="primary">
               CHALLENGES
             </Button>
-          </Link>
         </div>
       </div>
     );

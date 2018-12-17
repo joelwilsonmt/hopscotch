@@ -10,34 +10,26 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MenuButton from "./MenuButton";
 import Avatar from "./Avatar";
 import {GameContext} from "../Contexts/GameContext";
+import {RouterContext} from "../Contexts/RouterContext";
 
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
-
-function ButtonAppBar(props) {
+function MainAppBar(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
+    <div >
       <AppBar position="static">
         <Toolbar>
-          <MenuButton />
-          <Typography variant="h4" color="inherit" className={classes.grow}>
+          <GameContext.Consumer>{
+              (route) => (
+                <MenuButton value={route}/>
+              )
+          }</GameContext.Consumer>
+          <Typography variant="h4" color="inherit">
             CIRCUIT BREAKER
           </Typography>
           <Typography variant="h5" color="inherit">
             <GameContext.Consumer>{
-                (session) => ( //can be rewreitten as (userProviderState)
-                    <span>{session.user.username}</span>
+                (game) => ( //can be rewreitten as (userProviderState)
+                    <span>{game.user.username}</span>
                 )
               }</GameContext.Consumer>
           </Typography>
@@ -49,8 +41,5 @@ function ButtonAppBar(props) {
   );
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
-export default withStyles(styles)(ButtonAppBar);
+export default MainAppBar;

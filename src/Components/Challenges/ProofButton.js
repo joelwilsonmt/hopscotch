@@ -28,12 +28,9 @@ function TextButtons(props) {
   const { classes } = props;
   return (
     <div>
-
-    <Link to='/Camera'>
       <Button size="small" color="primary">
         Proof
       </Button>
-      </Link>
     </div>
   );
 }

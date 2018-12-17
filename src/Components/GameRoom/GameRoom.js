@@ -31,7 +31,6 @@ class GameRoom extends Component {
 
     return (
       <div>
-        <MainAppBar />
         <Paper elevation={1}>
           <br />
           <Typography variant="h5" component="h3" align="center">

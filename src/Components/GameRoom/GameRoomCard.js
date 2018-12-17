@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 //import CountDown from "../Utilities/CountDown";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -61,7 +60,6 @@ class SimpleCard extends React.Component {
       (res) => {
         var circuit = res.data;
         console.log("server returned circuit info: ", circuit);
-        console.log("first challenge: ", circuit.challenges[0]);
         roomName = circuit._id;
         console.log("room name / circuit id: " + roomName);
         this.setState(
@@ -76,7 +74,7 @@ class SimpleCard extends React.Component {
 
       }).catch( (err) => {
         console.error("error", err);
-        if(userId != ''){
+        if(userId !== ''){
           console.log("Get circuits failed, creating circuit in database");
           axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
           (res) => {
@@ -110,16 +108,22 @@ class SimpleCard extends React.Component {
     }
     console.log("request body: ", req);
     //console.log("circuit object: ", this.props.value.user.current_circuit_id);
-    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', req).then(
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'assignUserToCircuit/', req)
+    .then(
       (res) => {
-        var circuit = res.data;
         console.log("Server has assigned user to circuit");
         game.updateGame(game.user._id);
-        //TODO set corresponding game circuit object through GameProvider
+        console.log("Game Provider updated, user id in GameRoomCard: ",game.user._id);
 
-      }).catch(function(err){
+        //then route user to challenge screen
+
+      })
+      .then(() => {
+        console.log("Routing to challenge screen");
+        this.props.value.setScreen('Challenges');
+      })
+      .catch(function(err){
         console.error(err);
-        //add circuit if can't find: (NOT WORKING CURRENTLY)
       });
   }
 
@@ -149,14 +153,12 @@ class SimpleCard extends React.Component {
           {this.state.circuitFound ?
             <GameContext.Consumer>{
                 (game) => (
-            <Link to="/Challenges/" value={game}>
             <Button size="small" justify="center"
               color="primary"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
-          </Link>
         )}</GameContext.Consumer>: ''}
         </CardActions>
       </Card>

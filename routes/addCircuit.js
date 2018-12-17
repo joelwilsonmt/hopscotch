@@ -32,10 +32,13 @@ router.post('/', function (req, res) {
         console.error(err);
         return;
       }
+
+    }).then((user) => {
+      console.log("User info after found in addCircuit: ", user);
+      console.log("Boundary for Here API: ", user.user_session_boundary.here_api_format);
       var bounds = user.user_session_boundary.here_api_format;
       apiBoundingBox = bounds[0]+','+bounds[1]+','+bounds[2]+','+bounds[3];
       circuitBoundaries = bounds;
-    }).then(function(){
       var apiCategories = [
                             'leisure-outdoor','landmark-attraction','going-out',
                             'eat-drink', 'natural-geographical', 'sights-museums'
@@ -44,7 +47,7 @@ router.post('/', function (req, res) {
       var api = process.env.HERE_API+ apiBoundingBox +'&cat='+cat;
       //maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses? yes), drink it and move on to the next bar
 
-      console.log("findbyId finished, Here API call starting...");
+      console.log("findbyId finished, Here API call starting w/ bounds...", apiBoundingBox);
       axios.get(api)
         .then(response => { //keep in mind, we're still in the UserfindbyId promise
           var places = response.data.results.items;

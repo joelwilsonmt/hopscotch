@@ -108,21 +108,22 @@ export default class FormDialog extends React.Component {
                     game.updateUser(this.state.idSearch) /*fill in this value with session._id somehow*/
                   }}>
                   Update User Id
-                </Button>
+                </Button><br/>
                 <Button
                   variant="contained" color="primary"
                   Button onClick={() => {
                     game.updateCircuit(this.state.idSearch) /*fill in this value with session._id somehow*/
                   }}>
                   Update Circuit Object Via User ID
-                </Button>
+                </Button><br/>
                 <Button
                   variant="contained" color="primary"
                   Button onClick={() => {
                     game.updateGame(this.state.idSearch) /*fill in this value with session._id somehow*/
                   }}>
                   Update Game Object
-                </Button>
+                </Button><br/>
+
               </div>
             )
           }</GameContext.Consumer>
@@ -154,7 +155,7 @@ export default class FormDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            {/*<Link to="/GameRoom">*/}
+
             <Button
               color="primary"
               onClick={() => {
@@ -163,9 +164,20 @@ export default class FormDialog extends React.Component {
                 }}>
               Submit
             </Button>
-          {/*</Link>*/}
+
           </DialogActions>
-        </Dialog>
+        </Dialog><br/>
+        <GameContext.Consumer>{
+              (router) => (
+            <Button
+              variant="contained" color="primary"
+              Button onClick={() => {
+                router.setScreen('GameRoom') /*fill in this value with session._id somehow*/
+              }}>
+              Take me to the Game Room!
+            </Button>
+          )
+        }</GameContext.Consumer>
       </div>
     );
   }

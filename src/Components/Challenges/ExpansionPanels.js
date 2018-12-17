@@ -25,10 +25,6 @@ class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
   }
-
-  componentWillMount() {
-    console.log("value of props value before mount: ", this.props.value);
-  }
   render(){
   return (
     <div>

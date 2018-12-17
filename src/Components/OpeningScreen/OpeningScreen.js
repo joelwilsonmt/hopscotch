@@ -29,7 +29,7 @@ const styles = theme => ({
   }
 });
 
-class PaperSheet extends React.Component {
+class OpeningScreen extends React.Component {
   constructor(props) {
     super();
   }
@@ -65,23 +65,20 @@ class PaperSheet extends React.Component {
                       Current User Circuit ID: {game.user.current_circuit_id}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
+                      Game Circuit ID: {game.circuit._id}
+                    </Typography>
+                    <Typography variant="h5" gutterBottom>
                       First Challenge: {game.circuit.challenges[1] ? game.circuit.challenges[1].full_challenge_text : ''}
                     </Typography>
-                    <p>User ID: 5c0ff7c864e17777e313ac24</p>
-                    <p>User ID: 5c0ff7bc64e17777e313ac23</p>
                   </div>
                 )
               }</GameContext.Consumer>
         </Paper>
-
       </div>
     );
   }
 }
 
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 
-export default withStyles(styles)(PaperSheet);
+export default OpeningScreen;
