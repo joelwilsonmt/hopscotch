@@ -32,14 +32,6 @@ function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
 
 function pictureIsValid(pictureFile) {
 
-
-
-  // let file = JSON.stringify(pictureFile);
-  // console.log(file);
-
-  // let buffer = new Buffer.from(file).toString('base64');
-  // console.log(buffer);
-
   function getBinary(base64Image) {
 
      var binaryImg = atob(base64Image);

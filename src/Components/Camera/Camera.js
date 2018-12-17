@@ -18,10 +18,6 @@ export default class App extends Component {
     this.confirmphoto.bind(this)
   }
 
-  // setRef = webcam => {
-  // this.webcam = webcam;
-  // };
-
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
     this.setState({ screenshot });
@@ -49,7 +45,7 @@ export default class App extends Component {
           audio={false}
           screenshotFormat="image/jpeg"
           ref={node => this.webcam = node}
-          screenshotQuality={.5}
+          screenshotQuality={.8}
         />
 
         <div>
