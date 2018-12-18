@@ -29,33 +29,4 @@ class ChallengesWrapper extends React.Component {
   }
 }
 
-
-function ChallengeList(theme) {
-  return (
-    <Paper>
-      <GameContext.Consumer>{
-          (game) => (
-            game.circuit.challenges.map(function(challenge, i){
-              return <ExpansionPanels value={challenge} key={i} listId={i} />
-            })
-      )}</GameContext.Consumer>
-    </Paper>
-
-  );
-  }
-
-
-function Map(theme) {
-  return (
-    <Paper>
-      <div>
-        <GameContext.Consumer>{
-            (game) => (
-        <MapContainer value={game}/>
-        )}</GameContext.Consumer>
-      </div>
-    </Paper>
-  );
-}
-
-export default Challenges;
+export default ChallengesWrapper;

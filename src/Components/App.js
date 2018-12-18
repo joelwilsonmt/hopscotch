@@ -40,7 +40,7 @@ class App extends React.Component {
           return (
             <div>
               <MainAppBar/>
-              <Challenges/>
+              <ChallengesWrapper/>
             </div>
           );
         }

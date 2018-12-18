@@ -112,15 +112,10 @@ class SimpleCard extends React.Component {
     .then(
       (res) => {
         console.log("Server has assigned user to circuit");
-        game.updateGame(game.user._id);
+        game.updateGameAndSetScreen(game.user._id, 'Challenges');
         console.log("Game Provider updated, user id in GameRoomCard: ",game.user._id);
-
         //then route user to challenge screen
 
-      })
-      .then(() => {
-        console.log("Routing to challenge screen");
-        this.props.value.setScreen('Challenges');
       })
       .catch(function(err){
         console.error(err);

@@ -107,6 +107,24 @@ class GameProvider extends React.Component {
           });//closes set state
           console.log("Screen state set in provider:", this.state.screen);
     };//closes setScreen
+    this.updateGameAndSetScreen = (userId, screenName) => {
+      console.log("updateGame accessed w/ uid: ", userId);
+      const updateRoute = process.env.REACT_APP_BACK_END_SERVER + 'update';
+      //must be a put request because passing a value to be searched by
+      axios.put(updateRoute, {userId}).then((res,err) => {
+        console.log("update game data handled", res.data);
+        console.log("setting user", res.data.user);
+        console.log("setting circuit", res.data.circuit);
+        console.log("Routing to screen ", screenName);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              user: res.data.user,
+              circuit: res.data.circuit,
+              screen: screenName
+          });//closes set state
+        });//closes .then()
+    };//closes updateGameAndSetScreen
 
     this.setView = (viewName) => {
       console.log("Changing view to ", viewName);
@@ -156,7 +174,8 @@ class GameProvider extends React.Component {
         screen: 'OpeningScreen',
         view: '',
         setScreen: this.setScreen,
-        setView: this.setView
+        setView: this.setView,
+        updateGameAndSetScreen: this.updateGameAndSetScreen
     };
   }
 

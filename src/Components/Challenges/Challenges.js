@@ -36,7 +36,7 @@ class Challenges extends React.Component {
   }
   componentWillMount() {
     console.log("this value at challenges mount: ", this)
-    //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
+    socket.emit('joinRoom', this.props.value.circuit._id);
 
   }
   componentWillUnmount() {
