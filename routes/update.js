@@ -28,6 +28,7 @@ router.put('/', function (req, res) {
             return;//must include return to conclude promise
           }
           console.log("All information updated, sending user and circuit");
+          console.log("Circuit information sending: num circuits = ", circuit.challenges.length);
           res.status(200).send({user, circuit});
         });
     }); //closes then

@@ -24,22 +24,23 @@ const styles = theme => ({
   },
 });
 
-function TextButtons(props) {
-  const { classes } = props;
-  return (
-    <div>
-
-    <Link to='/Camera'>
-      <Button size="small" color="primary">
-        Proof
-      </Button>
-      </Link>
-    </div>
-  );
+class ProofButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick.bind(this);
+  }
+  handleClick = () => {
+    console.log("Proof Button props value at click ", this.props.value);
+  }
+  render(){
+    return (
+      <div>
+        <Button size="small" color="primary" onClick={this.handleClick()}>
+          Proof
+        </Button>
+      </div>
+    );
+  }
 }
 
-TextButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(TextButtons);
+export default ProofButton;

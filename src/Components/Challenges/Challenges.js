@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
@@ -12,6 +11,8 @@ import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import socketIOClient from 'socket.io-client';
+import Camera from "../Camera/Camera";
+const socket = socketIOClient('localhost:3001/');
 
 function TabContainer({ children, dir }) {
   return (
@@ -27,15 +28,20 @@ TabContainer.propTypes = {
 };
 
 
-class FullWidthTabs extends React.Component {
+class Challenges extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      value: ''
+      value: 'challenges' //sets it so that when screen opens, challenges tab has focus
     }
   }
   componentWillMount() {
-    const socket = socketIOClient('localhost:3001/');
+    console.log("this value at challenges mount: ", this)
+    socket.emit('joinRoom', this.props.value.circuit._id);
+
+  }
+  componentWillUnmount() {
+    socket.disconnect();
     //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
   }
   handleChange = (event, value) => {
@@ -49,39 +55,40 @@ class FullWidthTabs extends React.Component {
 
   render() {
     const { classes, theme } = this.props;
-
-    return (
-      <BrowserRouter>
-        <div className={classes.root}>
-          <MainAppBar />
-          <AppBar position="static" color="default">
-            <Tabs
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              fullWidth
-            >
-              <Tab label="CHALLENGES" component={Link} to="/Challenges/" />
-              <Tab label="MAP" component={Link} to="/MapContainer/" />
-            </Tabs>
-          </AppBar>
-          <Switch>
-            <Route path="/Challenges/" component={ItemOne} />
-            <Route path="/MapContainer/" component={ItemTwo} />
-          </Switch>
+    const { value } = this.state;
+    if (this.props.value.view === 'Camera'){
+      return (
+        <div>
+          <MainAppBar/>
+          <Camera/>
         </div>
-      </BrowserRouter>
-    );
+      );
+    }
+    else{
+      return (
+          <div >
+            <AppBar position="static" color="default">
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                fullWidth
+              >
+                <Tab value="challenges" label="CHALLENGES"  />
+                <Tab value="map" label="MAP" />
+              </Tabs>
+            </AppBar>
+            {value === 'challenges' && <ChallengeList/>}
+            {value === 'map' && <Map/>}
+          </div>
+      );
+    }
   }
 }
 
-FullWidthTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-};
 
-function ItemOne(theme) {
+function ChallengeList(theme) {
   return (
     <Paper>
       <GameContext.Consumer>{
@@ -96,7 +103,7 @@ function ItemOne(theme) {
   }
 
 
-function ItemTwo(theme) {
+function Map(theme) {
   return (
     <Paper>
       <div>
@@ -109,4 +116,4 @@ function ItemTwo(theme) {
   );
 }
 
-export default withStyles({ withTheme: true })(FullWidthTabs);
+export default Challenges;
