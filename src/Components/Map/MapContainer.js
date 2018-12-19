@@ -3,6 +3,8 @@ import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
+//sonic gif: https://media.giphy.com/media/5Mrn3s7rQRvPO/giphy.gif
+//pikachu: https://images.newschoolers.com/images/17/00/68/70/05/687005_50w_50h_zc.gif
 
 const mapStyle = {
   width: '94vw',  //change
@@ -15,10 +17,20 @@ export class MapContainer extends React.Component {
     this.state = {
       showingInfoWindow: false,
       activeMarker: {},
-      selectedPlace: {}
+      selectedPlace: {},
+      location: ''
     }
   };
+  componentWillMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position});
 
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
+  }
   onMarkerClick = (props, marker, e) =>
       this.setState({
         selectedPlace: props,
@@ -37,7 +49,7 @@ export class MapContainer extends React.Component {
 
   render() {
     const style = {
-      width: '50vw',
+      width: '95vw',
       height: '75vh',
       'marginLeft': 'auto',
       'marginRight': 'auto'
@@ -46,6 +58,7 @@ export class MapContainer extends React.Component {
     const mapCenterLng = (this.props.value.user.user_session_boundary.here_api_format[0] + this.props.value.user.user_session_boundary.here_api_format[2]) / 2;
     return (
       <Map
+        className={"challengeMap"}
         item
         xs = { 12 }
         style = { style }
@@ -57,6 +70,28 @@ export class MapContainer extends React.Component {
           lng: mapCenterLng
         }}
       >
+        {(this.state.location !== '')
+          ?
+
+          <Marker
+            onClick={this.onMarkerClick}
+            key={11}
+            title = {"Your Location"}
+            name = {"Your Location"}
+            position = {
+              {
+                lat:this.state.location.coords.latitude,
+                lng:this.state.location.coords.longitude
+              }
+            }
+            icon={{
+              url: "https://media.giphy.com/media/5Mrn3s7rQRvPO/giphy.gif"
+            }}
+          />
+
+          :
+
+          null}
       {this.props.value.circuit.challenges.map((challenge, i) => {
           return <Marker
                     onClick={this.onMarkerClick}
@@ -81,7 +116,7 @@ export class MapContainer extends React.Component {
                       <div>
                         <h1>{this.state.selectedPlace.challengeText}</h1>
                         <h2>{this.state.selectedPlace.name}</h2>
-                        <h2>Address: {this.state.selectedPlace.address}</h2>
+                        <h2>{this.state.selectedPlace.address ? <h2>Address: {this.state.selectedPlace.address}</h2> : ''}</h2>
                       </div>
                   </InfoWindow>
           })}

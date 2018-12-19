@@ -25,10 +25,6 @@ class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
   }
-
-  componentWillMount() {
-    console.log("value of props value before mount: ", this.props.value);
-  }
   render(){
   return (
     <div>
@@ -53,8 +49,9 @@ class SimpleExpansionPanel extends React.Component{
           this.props.value.location_gate.address
           }
         </Typography>
+        <ProofButton value={this.props.value} />
         <ExpansionPanelActions>
-          <ProofButton />
+
         </ExpansionPanelActions>
       </ExpansionPanel>
     </div>

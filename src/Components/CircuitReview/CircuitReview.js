@@ -39,42 +39,40 @@ const rows = [
   createData('User Name 8', 2),
 ];
 
-function SimpleTable(props) {
-  const { classes } = props;
-
-  return (
-    <div>
-    <MainAppBar />
-    <Paper className={classes.root}>
-      <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>USER</TableCell>
-            <TableCell numeric>COMPLETED</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => {
-            return (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell numeric>{row.completed}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      <CircuitReviewButtons />
-    </Paper>
-    </div>
-  );
+class CircuitReview extends React.Component {
+  constructor () {
+    super()
+  }
+  render(){
+    return (
+      <div>
+      <Paper>
+        <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>USER</TableCell>
+              <TableCell numeric>COMPLETED</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => {
+              return (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell numeric>{row.completed}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+        <CircuitReviewButtons />
+      </Paper>
+      </div>
+    );
+  }
 }
 
-SimpleTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(SimpleTable);
+export default CircuitReview;

@@ -1,0 +1,13 @@
+h1 {
+  color: #3E51B5 !important;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+}
+body {
+  text-align: center !important;
+}
+button {
+  margin: .3% !important;
+}
+.challengeMap {
+  width: auto !important;
+}

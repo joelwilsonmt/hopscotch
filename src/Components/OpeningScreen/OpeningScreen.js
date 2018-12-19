@@ -29,11 +29,13 @@ const styles = theme => ({
   }
 });
 
-class PaperSheet extends React.Component {
+class OpeningScreen extends React.Component {
   constructor(props) {
     super();
   }
+  componentDidMount() {
 
+  }
 
 
   render(){
@@ -44,44 +46,20 @@ class PaperSheet extends React.Component {
           <Typography variant="h1" gutterBottom>
             Circuit Breaker
           </Typography>
-          <Typography variant="h3" gutterBottom>
-            Click the button below to log in
-          </Typography>
 
             <GameContext.Consumer>{
                 (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
                   <div>
                     <DialogBox value={game} />
-                    <Typography variant="h4" gutterBottom>
-                      User Name: {game.user.username}
-                    </Typography>
-                    <Typography variant="h4" gutterBottom>
-                      User ID: {game.user._id}
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      User west bound: {game.user.user_session_boundary.here_api_format[0]}
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      Current User Circuit ID: {game.user.current_circuit_id}
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      First Challenge: {game.circuit.challenges[1] ? game.circuit.challenges[1].full_challenge_text : ''}
-                    </Typography>
-                    <p>User ID: 5c0ff7c864e17777e313ac24</p>
-                    <p>User ID: 5c0ff7bc64e17777e313ac23</p>
                   </div>
                 )
               }</GameContext.Consumer>
         </Paper>
-
       </div>
     );
   }
 }
 
-PaperSheet.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 
-export default withStyles(styles)(PaperSheet);
+export default OpeningScreen;

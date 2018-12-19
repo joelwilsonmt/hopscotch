@@ -38,10 +38,11 @@ router.post('/', function (req, res) {
     //that have not started more than 2 minutes ago
     /*&& (circuit.time_started + 120000) < new Date()*/
     Circuit.find({circuit_boundaries: hereBoundary}, function(err, circuit) {
+
+    }).then(function(circuit, err){
       if(err){
         console.error(err);
       }
-    }).then(function(circuit){
       if(circuit.length < 1) {
         console.log("no real circuits");
         //return 404 if no circuits, triggers addCircuit on front end
