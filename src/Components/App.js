@@ -10,6 +10,8 @@ import OpeningScreen from "./OpeningScreen/OpeningScreen";
 import MainAppBar from "./Utilities/MainAppBar";
 import GameProvider from "./Contexts/GameContext";
 import {GameContext} from "./Contexts/GameContext";
+import { Transition } from 'react-spring'
+
 
 class App extends React.Component {
   constructor(props) {

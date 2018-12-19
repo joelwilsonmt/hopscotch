@@ -125,6 +125,20 @@ class GameProvider extends React.Component {
           });//closes set state
         });//closes .then()
     };//closes updateGameAndSetScreen
+    this.updateUserAndSetScreen = (userId, screenName) => {
+      console.log("updateUserAndSetScreen accessed w/ uid: ", userId);
+      const getUser = process.env.REACT_APP_BACK_END_SERVER + 'getUser';
+      axios.put(getUser, {userId}).then((res,err) => {
+        if(err){console.log(err);}
+        console.log('routing to screen ', screenName);
+        this.setState(
+          {
+              user: res.data,
+              screen: screenName
+          });//closes set state
+          console.log("set user state complete, user: ", this.state.user.username);
+        });//closes .then()
+    };//closes updateUserAndSetScreen
 
     this.setView = (viewName) => {
       console.log("Changing view to ", viewName);
@@ -175,7 +189,8 @@ class GameProvider extends React.Component {
         view: '',
         setScreen: this.setScreen,
         setView: this.setView,
-        updateGameAndSetScreen: this.updateGameAndSetScreen
+        updateGameAndSetScreen: this.updateGameAndSetScreen,
+        updateUserAndSetScreen : this.updateUserAndSetScreen
     };
   }
 

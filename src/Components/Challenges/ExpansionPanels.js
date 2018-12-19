@@ -49,8 +49,9 @@ class SimpleExpansionPanel extends React.Component{
           this.props.value.location_gate.address
           }
         </Typography>
+        <ProofButton value={this.props.value} />
         <ExpansionPanelActions>
-          <ProofButton />
+
         </ExpansionPanelActions>
       </ExpansionPanel>
     </div>

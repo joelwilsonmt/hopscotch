@@ -11,6 +11,7 @@ import ExpansionPanels from "./ExpansionPanels";
 import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import socketIOClient from 'socket.io-client';
+import Camera from "../Camera/Camera";
 const socket = socketIOClient('localhost:3001/');
 
 function TabContainer({ children, dir }) {
@@ -55,24 +56,34 @@ class Challenges extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { value } = this.state;
-    return (
-        <div >
-          <AppBar position="static" color="default">
-            <Tabs
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              fullWidth
-            >
-              <Tab value="challenges" label="CHALLENGES"  />
-              <Tab value="map" label="MAP" />
-            </Tabs>
-          </AppBar>
-          {value === 'challenges' && <ChallengeList/>}
-          {value === 'map' && <Map/>}
+    if (this.props.value.view === 'Camera'){
+      return (
+        <div>
+          <MainAppBar/>
+          <Camera/>
         </div>
-    );
+      );
+    }
+    else{
+      return (
+          <div >
+            <AppBar position="static" color="default">
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                fullWidth
+              >
+                <Tab value="challenges" label="CHALLENGES"  />
+                <Tab value="map" label="MAP" />
+              </Tabs>
+            </AppBar>
+            {value === 'challenges' && <ChallengeList/>}
+            {value === 'map' && <Map/>}
+          </div>
+      );
+    }
   }
 }
 

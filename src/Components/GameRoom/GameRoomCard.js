@@ -139,7 +139,6 @@ class SimpleCard extends React.Component {
               :
               <div>
                 <CircularProgress/>
-                <LinearProgress/>
               </div>
             }
           </Typography>

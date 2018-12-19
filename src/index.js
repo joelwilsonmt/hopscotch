@@ -15,6 +15,4 @@ render(
             )
         }</GameContext.Consumer>
     </GameProvider>
-
-
   , document.getElementById("root"));

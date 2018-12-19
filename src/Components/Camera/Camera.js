@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import Camera from 'react-camera';
-import CameraButtons from './CameraButtons';
 import axios from 'axios';
 import Webcam from 'react-webcam';
+import Button from '@material-ui/core/Button';
 // import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
 
@@ -12,18 +12,27 @@ export default class App extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
+      screenshotTaken: false,
       screenshot: null,
       tab: 0
     };
-    this.confirmphoto.bind(this)
+    this.confirmPhoto.bind(this)
   }
 
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
-    this.setState({ screenshot });
+    this.setState({
+      screenshot: screenshot,
+      screenshotTaken: true
+      });
   }
-
-  confirmphoto = () => {
+  resetCamera = () => {
+    this.setState({
+      screenshotTaken: false,
+      screenshot: null
+    });
+  }
+  confirmPhoto = () => {
     console.log("data: ", this.state.screenshot);
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', {screenshot:this.state.screenshot})
     .then((res)=>{
@@ -32,46 +41,48 @@ export default class App extends Component {
     .catch((err)=>{
       console.log(err);
     });
-    console.log(this)
+    console.log(this);
   }
 
   render() {
+    const videoConstraints = {
+      facingMode: "user"
+    };
+    if(this.state.screenshotTaken){
+      return(
+        <div>
+        {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+        <div>
+        <Button variant="contained" size="small" color="primary" onClick={this.confirmPhoto}>
+          Submit
+        </Button>
+        <Button variant="outlined" size="small" color="primary" onClick={this.resetCamera}>
+          Retake
+        </Button>
+        </div>
+        </div>
+      );
+    }
+    else{
     return (
       <div>
-
-        <h1>react-webcam</h1>
-
         <Webcam
           audio={false}
           screenshotFormat="image/jpeg"
           ref={node => this.webcam = node}
           screenshotQuality={.8}
+          width={375}
+          height={300}
+          videoConstraints={videoConstraints}
         />
-
-        <div>
-
-          <div className='screenshots'>
-
-            <div className='controls'>
-              <button onClick={this.handleClick}>capture</button>
-            </div>
-
-            <h2>Your Submission: </h2>
-
-            {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
-
-            <p>{this.state.screenshot}</p>
-
-            <div>
-              <button onClick={this.confirmphoto}>submit</button>
-            </div>
-
-          </div>
-
-        </div>
-
+      <div>
+        <Button variant="outlined" size="small" color="primary" onClick={this.handleClick}>
+          Capture
+        </Button>
+      </div>
       </div>
     );
+  }//closes else
   }
 }
 
