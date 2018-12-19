@@ -20,8 +20,15 @@ export default class App extends Component {
     this.confirmPhoto.bind(this)
   }
   componentWillMount() {
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position});
+      });
+
     console.log("current challenge in question", this.props.value.currentChallenge);
   }
+
+
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
     this.setState({
@@ -36,13 +43,19 @@ export default class App extends Component {
     });
   }
   confirmPhoto = () => {
-    console.log("data: ", this.state.screenshot);
+    console.log("data: ", req);
     let req = {};
     req.picture = this.state.screenshot;
-    //req.object_to_check = this.props.value.currentChallenge.object_gate
-    //req.location_to_check = this.props.value.currentChallenge.location_gate.position
-    //req.userId = this.props.value.user.userId
-    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', {screenshot:this.state.screenshot})
+    req.object_to_check = this.props.value.currentChallenge.object_gate;
+    req.location_to_check = this.props.value.currentChallenge.location_gate.position;
+    req.userId = this.props.value.user._id;
+    req.challengeId = this.props.value.currentChallenge._id;
+    req.user_position = [this.state.location.coords.latitude, this.state.location.coords.longitude];
+
+
+    console.log("data to server: ", req);
+
+    axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', req)
     .then((res)=>{
       console.log(res);
     })

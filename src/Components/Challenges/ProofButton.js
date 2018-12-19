@@ -13,7 +13,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import GameRoom from '../GameRoom/GameRoom';
-import Camera from '../Camera/Camera'
+import Camera from '../Camera/Camera';
 
 
 const styles = theme => ({
@@ -32,6 +32,7 @@ class ProofButton extends React.Component {
   }
   componentWillMount(){
     console.log("Proof button this at mount: ", this);
+
   }
   handleClick() {
     console.log("proof button clicked");
@@ -40,18 +41,21 @@ class ProofButton extends React.Component {
   render(){
     return (
       <div>
+
         <GameContext.Consumer>{
             (game) => (
         <Button size="small" justify="center"
           color="primary"
           onClick={() => {
-            game.setView('Camera');
             game.setCurrentChallenge(this.props.value);
+            game.setView('Camera');
+            
           }}
           >
           Take Picture
         </Button>
     )}</GameContext.Consumer>
+
       </div>
     );
   }
