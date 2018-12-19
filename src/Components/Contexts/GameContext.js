@@ -145,6 +145,29 @@ class GameProvider extends React.Component {
       this.setState({
           view: viewName
       });//closes set view
+    };
+    this.updateGameAndSetView = (userId, viewName) => {
+      console.log("updateGame accessed w/ uid: ", userId);
+      const updateRoute = process.env.REACT_APP_BACK_END_SERVER + 'update';
+      //must be a put request because passing a value to be searched by
+      axios.put(updateRoute, {userId}).then((res,err) => {
+        console.log("update game data handled", res.data);
+        console.log("setting user", res.data.user);
+        console.log("setting circuit", res.data.circuit);
+        console.log("Routing to screen ", viewName);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              user: res.data.user,
+              circuit: res.data.circuit,
+              view: viewName
+          });//closes set state
+        });//closes .then()
+    };//closes updateGameAndSetScreen
+    this.setCurrentChallenge = (challenge) => {
+      this.setState({
+        currentChallenge: challenge
+      });
     }
 
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
@@ -190,7 +213,9 @@ class GameProvider extends React.Component {
         setScreen: this.setScreen,
         setView: this.setView,
         updateGameAndSetScreen: this.updateGameAndSetScreen,
-        updateUserAndSetScreen : this.updateUserAndSetScreen
+        updateGameAndSetView: this.updateGameAndSetView,
+        updateUserAndSetScreen : this.updateUserAndSetScreen,
+        setCurrentChallenge: this.setCurrentChallenge
     };
   }
 

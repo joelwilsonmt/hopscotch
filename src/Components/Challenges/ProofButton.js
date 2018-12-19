@@ -6,6 +6,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import {GameContext} from "../Contexts/GameContext";
 import {
   Route,
   Link,
@@ -27,17 +28,30 @@ const styles = theme => ({
 class ProofButton extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick.bind(this);
+    //this.handleClick.bind(this);
   }
-  handleClick = () => {
-    console.log("Proof Button props value at click ", this.props.value);
+  componentWillMount(){
+    console.log("Proof button this at mount: ", this);
+  }
+  handleClick() {
+    console.log("proof button clicked");
+   console.log("Proof button this prop value at click", this.props.value);
   }
   render(){
     return (
       <div>
-        <Button size="small" color="primary" onClick={this.handleClick()}>
-          Proof
+        <GameContext.Consumer>{
+            (game) => (
+        <Button size="small" justify="center"
+          color="primary"
+          onClick={() => {
+            game.setView('Camera');
+            game.setCurrentChallenge(this.props.value);
+          }}
+          >
+          Take Picture
         </Button>
+    )}</GameContext.Consumer>
       </div>
     );
   }

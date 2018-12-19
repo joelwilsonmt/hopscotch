@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import Button from '@material-ui/core/Button';
+import {GameContext} from "../Contexts/GameContext";
 // import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
 
@@ -18,7 +19,9 @@ export default class App extends Component {
     };
     this.confirmPhoto.bind(this)
   }
-
+  componentWillMount() {
+    console.log("current challenge in question", this.props.value.currentChallenge);
+  }
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
     this.setState({
@@ -34,6 +37,11 @@ export default class App extends Component {
   }
   confirmPhoto = () => {
     console.log("data: ", this.state.screenshot);
+    let req = {};
+    req.picture = this.state.screenshot;
+    //req.object_to_check = this.props.value.currentChallenge.object_gate
+    //req.location_to_check = this.props.value.currentChallenge.location_gate.position
+    //req.userId = this.props.value.user.userId
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', {screenshot:this.state.screenshot})
     .then((res)=>{
       console.log(res);
@@ -60,6 +68,15 @@ export default class App extends Component {
           Retake
         </Button>
         </div>
+        <GameContext.Consumer>{
+            (game) => (
+        <Button variant="contained" size="small" justify="center"
+          color="secondary"
+          onClick={() => game.setView('')}
+          >
+          Back to Challenges
+        </Button>
+    )}</GameContext.Consumer>
         </div>
       );
     }
@@ -80,6 +97,15 @@ export default class App extends Component {
           Capture
         </Button>
       </div>
+      <GameContext.Consumer>{
+          (game) => (
+      <Button variant="contained" size="small" justify="center"
+        color="secondary"
+        onClick={() => game.setView('')}
+        >
+        Back to Challenges
+      </Button>
+  )}</GameContext.Consumer>
       </div>
     );
   }//closes else

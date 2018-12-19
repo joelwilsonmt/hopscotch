@@ -32,7 +32,8 @@ class Challenges extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      value: 'challenges' //sets it so that when screen opens, challenges tab has focus
+      value: 'challenges'//sets it so that when screen opens, challenges tab has focus
+
     }
   }
   componentWillMount() {
@@ -59,8 +60,10 @@ class Challenges extends React.Component {
     if (this.props.value.view === 'Camera'){
       return (
         <div>
-          <MainAppBar/>
-          <Camera/>
+          <GameContext.Consumer>{
+              (game) => (
+          <Camera value={game}/>
+          )}</GameContext.Consumer>
         </div>
       );
     }
