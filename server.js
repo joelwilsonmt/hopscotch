@@ -36,12 +36,16 @@ app.use('/update', update);
 app.use('/updateCircuit', updateCircuit);
 
 
-io.on('connection', function(socket){
+io.on('connection', function(client){
   console.log('a user connected');
+  client.on('SEND', function(data) {
+    console.log("sending message ", data);
+    io.emit('RECEIVE', data);
+  });
   //all socket actions should be taken care of here:
-  socket.on('joinRoom', function(room) {
-    socket.join(room);
-    console.log("User has joined room #", room);
+  client.on('joinRoom', function(room, user) {
+    client.join(room);
+    console.log("User " + user + " has joined room #", room);
   });
 
 
@@ -50,7 +54,7 @@ io.on('connection', function(socket){
 
 
 
-  socket.on('disconnect', function() {
+  client.on('disconnect', function() {
       console.log('User disconnected!');
     });
 });

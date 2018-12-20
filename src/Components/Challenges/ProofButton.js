@@ -31,7 +31,6 @@ class ProofButton extends React.Component {
     //this.handleClick.bind(this);
   }
   componentWillMount(){
-    console.log("Proof button this at mount: ", this);
   }
   handleClick() {
     console.log("proof button clicked");
@@ -45,8 +44,8 @@ class ProofButton extends React.Component {
         <Button size="small" justify="center"
           color="primary"
           onClick={() => {
-            game.setView('Camera');
             game.setCurrentChallenge(this.props.value);
+            game.setView('Camera');
           }}
           >
           Take Picture

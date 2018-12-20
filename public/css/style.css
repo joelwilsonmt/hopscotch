@@ -4,10 +4,30 @@ h1 {
 }
 body {
   text-align: center !important;
+  x-overflow: hidden;
+  margin: 0 !important;
 }
 button {
   margin: .3% !important;
 }
 .challengeMap {
   width: auto !important;
+}
+.chat-window {
+  width: 90%;
+  margin: auto;
+  text-align: left !important;
+
+}
+.chat-window li {
+  list-style-type: none;
+}
+.chat-messages {
+  /*color: #fff;
+  background-color: #777;*/
+  max-height: 50%;
+  padding: 1%;
+  margin: auto;
+  border: 1px solid #aaa;
+  border-radius: 5px;
 }

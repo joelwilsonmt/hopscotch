@@ -20,7 +20,7 @@ export default class App extends Component {
     this.confirmPhoto.bind(this)
   }
   componentWillMount() {
-    console.log("current challenge in question", this.props.value.currentChallenge);
+    console.log("Camera Mounted, this props value: ", this.props.value);
   }
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
