@@ -44,9 +44,9 @@ class Chat extends React.Component{
                       <ListItemIcon>
                         <Message color="primary"/>
                       </ListItemIcon>
-                      <Typography variant="p" style={{display: 'inline-block'}}>
+                      <ListItemText>
                         <strong>{message.username}</strong>: {message.message}
-                        </Typography>
+                        </ListItemText>
                     </ListItem>)
        })}
        </div>
