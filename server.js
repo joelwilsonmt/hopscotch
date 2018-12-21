@@ -43,10 +43,11 @@ io.on('connection', function(client){
 
   //all socket actions should be taken care of here:
   client.on('joinRoom', function(room, user) {
-    clientRoom = room;
-    userName = user;
-    console.log('client room set for io access: ', clientRoom);
     client.join(room);
+    io.to(room).emit('RECEIVE', {
+      username: 'System',
+      message: 'User ' + user + 'has joined the circuit'
+    });
     console.log("User " + user + " has joined room #", room);
   });
   client.on('SEND', function(data) {

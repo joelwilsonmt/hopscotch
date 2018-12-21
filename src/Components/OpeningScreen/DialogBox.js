@@ -133,10 +133,9 @@ export default class FormDialog extends React.Component {
         </Dialog>
         <Typography variant="p">
             {this.state.disableSubmit ?
-              <div>
-                Searching for Location<br/>
                 <CircularProgress />
-              </div>: ''}
+                : ''
+            }
         </Typography>
       </div>
     );

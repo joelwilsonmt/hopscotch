@@ -34,13 +34,15 @@ class Chat extends React.Component{
     this.props.chat.resetBadge();
   }
   render(){
+    let user = this.props.value.user;
+    let circuit = this.props.value.circuit;
   return (
     <div className="chat-window">
       <Typography variant="h3">
-        <strong>{this.props.value.user.username}</strong>{`'`}s Chat
+        <strong>{user.username}</strong>{`'`}s Chat
       </Typography>
       <Typography variant="h5">
-        <strong>Room: </strong>{this.props.value.circuit._id}
+        <strong>Room: </strong>{circuit._id}
       </Typography>
       <div className="chat-messages">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}

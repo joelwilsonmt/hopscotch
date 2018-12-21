@@ -26,9 +26,10 @@ class SimpleExpansionPanel extends React.Component{
     super(props);
   }
   componentWillMount() {
-    
+
   }
   render(){
+    let challenge = this.props.value;
   return (
     <div>
       <ExpansionPanel>
@@ -36,7 +37,7 @@ class SimpleExpansionPanel extends React.Component{
           <Typography>
 
             {
-            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
+            (this.props.listId+1) + ") " + challenge.full_challenge_text
             }
 
 
@@ -44,15 +45,15 @@ class SimpleExpansionPanel extends React.Component{
         </ExpansionPanelSummary>
         <Typography>
           {
-          this.props.value.location_gate.name
+          challenge.location_gate.name
           }
         </Typography>
         <Typography>
           {
-          this.props.value.location_gate.address
+          challenge.location_gate.address
           }
         </Typography>
-        <ProofButton value={this.props.value} ArrayPosition={this.props.listId}/>
+        <ProofButton value={challenge} ArrayPosition={this.props.listId}/>
       </ExpansionPanel>
     </div>
     );

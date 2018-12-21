@@ -62,8 +62,16 @@ class Challenges extends React.Component {
       });
     });//closes RECEIVE function
     this.socket.on('RECEIVE_WIN', data => {
+      var unread = this.state.unreadMessages;
       addMessage(data);
+      if(this.state.value !== 'chat'){
+        unread++;
+      }
       this.props.value.updateGame(this.props.value.user._id);
+      this.setState({
+        messageSnackBarOpen: true,
+        unreadMessages: unread
+      });
     });//closes RECEIVE_WIN function
 
     const addMessage = data => {
