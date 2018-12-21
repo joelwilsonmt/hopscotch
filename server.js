@@ -5,6 +5,9 @@ const cors = require('cors');
 //var path = require('path');
 
 var addUser = require('./routes/addUser');
+var addUserMissoulaDowntown = require('./routes/addUserMissoulaDowntown');
+var addUserMTCS = require('./routes/addUserMTCS');
+var addUserGeckoDesigns = require('./routes/addUserGeckoDesigns');
 var getUser = require('./routes/getUser');
 //var updateUserLocation = require('./routes/updateUserLocation');
 var addCircuit = require('./routes/addCircuit');
@@ -26,6 +29,9 @@ app.use(cors());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/addUser', addUser);
+app.use('/addUserMissoulaDowntown', addUserMissoulaDowntown);
+app.use('/addUserMTCS', addUserMTCS);
+app.use('/addUserGeckoDesigns', addUserGeckoDesigns);
 app.use('/getUser', getUser);
 //app.use('/updateUserLocation', updateUserLocation);
 app.use('/addCircuit', addCircuit);

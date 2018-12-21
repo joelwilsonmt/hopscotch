@@ -65,6 +65,9 @@ export default class FormDialog extends React.Component {
       latitude: this.state.location.coords.latitude
     };
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
+    const addUserMissoulaDowntown = process.env.REACT_APP_BACK_END_SERVER + 'addUserMissoulaDowntown';
+    const addUserMTCS = process.env.REACT_APP_BACK_END_SERVER + 'addUserMTCS';
+    const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
     axios.post(addUser, userObject).then((res, err) => {
