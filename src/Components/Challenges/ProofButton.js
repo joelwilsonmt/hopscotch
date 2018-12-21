@@ -13,7 +13,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import GameRoom from '../GameRoom/GameRoom';
-import Camera from '../Camera/Camera'
+import Camera from '../Camera/Camera';
 
 
 const styles = theme => ({
@@ -39,6 +39,7 @@ class ProofButton extends React.Component {
   render(){
     return (
       <div>
+
         <GameContext.Consumer>{
             (game) => (
         <Button variant="contained"
@@ -52,6 +53,7 @@ class ProofButton extends React.Component {
           Take Picture
         </Button>
     )}</GameContext.Consumer>
+
       </div>
     );
   }

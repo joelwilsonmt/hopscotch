@@ -7,7 +7,9 @@ import GameProvider from "./Components/Contexts/GameContext";
 import {GameContext} from "./Components/Contexts/GameContext";
 
 
+
 render(
+
     <GameProvider>
         <GameContext.Consumer>{
             (router) => (
@@ -15,4 +17,5 @@ render(
             )
         }</GameContext.Consumer>
     </GameProvider>
+
   , document.getElementById("root"));

@@ -13,14 +13,15 @@ import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
+
+const haversine = require('haversine');
+
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 
-
-//const socket = io('localhost:3001/');
 
 function TabContainer({ children, dir }) {
   return (
@@ -46,6 +47,11 @@ const styles = theme => ({
 class Challenges extends React.Component {
   constructor(props) {
     super();
+    this.state = {
+      value: 'challenges',//sets it so that when screen opens, challenges tab has focus
+      location: {
+        coords: []
+      }
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
     this.socket.on('RECEIVE', data => {
       var unread = this.state.unreadMessages;
@@ -112,9 +118,67 @@ class Challenges extends React.Component {
       message: '',
       messages: [],//sets it so that when screen opens, challenges tab has focus
       unreadMessages: 0
+
     }
   }
+  calcHaversine = (positions, userLocation) => {
+      let distanceArray = [];
+      let distanceOrder = [];
+      console.log("haversine args: positions: ", positions);
+      console.log("haversine args: user location: ", userLocation);
+      for (var i=0; i < positions.length; i++) {
+        let location = {
+          latitude: positions[i][0],
+          longitude: positions[i][1]
+        }
+        let user_location = {
+          longitude: userLocation.longitude,
+          latitude: userLocation.latitude
+        }
+        distanceArray.push(haversine(location, user_location));
+      }//distance Array now contains haversine distance between location and user
+
+      console.log("distance array after haversine calcs: ", distanceArray);
+
+      for(var j = 0; j < distanceArray.length; j++){
+        let low = 100;
+        let indexOfLow;
+        for (var i = 0; i < distanceArray.length; i++){
+          if(distanceArray[i] < low) {
+            low = distanceArray[i];
+            indexOfLow = i;
+          }
+        }
+        distanceOrder.push(indexOfLow);
+        distanceArray[indexOfLow] += 1000; //make it so new low is found...
+      }
+      console.log("Order of challenges after haversine: ", distanceOrder);
+      return distanceOrder;
+  }
   componentWillMount() {
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position})
+
+        console.log(this.state.location);
+        let positions = [];
+        let challenges = this.props.value.circuit.challenges;
+        for (var i = 0; i < challenges.length; i++) {
+          positions.push(challenges[i].location_gate.position);
+        }
+
+          let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
+          this.setState({
+            challengeOrder: challengeOrder
+          })
+          console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
+    socket.emit('joinRoom', this.props.value.circuit._id);
+
     //make sure to set the challenge chat username once the component mounts
     this.setState({
       username: this.props.value.user.username
@@ -134,7 +198,6 @@ class Challenges extends React.Component {
     this.setState({ value });
   };
 
-
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
@@ -148,6 +211,10 @@ class Challenges extends React.Component {
   render() {
     const { classes, theme } = styles;
     const { value } = this.state;
+
+
+
+
     if (this.props.value.view === 'Camera'){
       return (
         <div>
@@ -179,7 +246,18 @@ class Challenges extends React.Component {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
-            {value === 'challenges' && <ChallengeList/>}
+            {value === 'challenges' && <Paper>
+              {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
+                return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                        key={i} listId={i}/>
+              }) : ''}
+              {/*<GameContext.Consumer>{
+                  (game) => (
+                    game.circuit.challenges.map(function(challenge, i){
+                      return <ExpansionPanels value={challenge} key={i} listId={i} />
+                    })
+              )}</GameContext.Consumer>*/}
+            </Paper>}
             {value === 'map' && <Map/>}
             {value === 'chat' && <Paper>
               <div>

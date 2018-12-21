@@ -5,6 +5,9 @@ const cors = require('cors');
 //var path = require('path');
 
 var addUser = require('./routes/addUser');
+var addUserMissoulaDowntown = require('./routes/addUserMissoulaDowntown');
+var addUserMTCS = require('./routes/addUserMTCS');
+var addUserGeckoDesigns = require('./routes/addUserGeckoDesigns');
 var getUser = require('./routes/getUser');
 //var updateUserLocation = require('./routes/updateUserLocation');
 var addCircuit = require('./routes/addCircuit');
@@ -14,6 +17,7 @@ var getCircuits = require('./routes/getCircuits');
 var assignUserToCircuit = require('./routes/assignUserToCircuit');
 var update = require('./routes/update');
 var updateCircuit = require('./routes/updateCircuit');
+var clearCurrentCircuit = require('./routes/clearCurrentCircuit');
 
 var app = express();
 var http = require('http').Server(app);
@@ -25,6 +29,9 @@ app.use(cors());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/addUser', addUser);
+app.use('/addUserMissoulaDowntown', addUserMissoulaDowntown);
+app.use('/addUserMTCS', addUserMTCS);
+app.use('/addUserGeckoDesigns', addUserGeckoDesigns);
 app.use('/getUser', getUser);
 //app.use('/updateUserLocation', updateUserLocation);
 app.use('/addCircuit', addCircuit);
@@ -34,6 +41,7 @@ app.use('/getCircuits', getCircuits);
 app.use('/assignUserToCircuit', assignUserToCircuit);
 app.use('/update', update);
 app.use('/updateCircuit', updateCircuit);
+app.use('/clearCurrentCircuit', clearCurrentCircuit);
 
 var clientRoom = 'not set';
 var userName = 'username not set'
