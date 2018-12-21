@@ -26,10 +26,10 @@ function MainAppBar(props) {
                 <MenuButton value={route}/>
               )
           }</GameContext.Consumer>
-          <Typography variant="h4" color="inherit">
+          <Typography variant="subtitle1: 'h6'" color="inherit">
             CIRCUIT BREAKER
           </Typography>
-          <Typography variant="h5" color="inherit">
+          <Typography variant="subtitle1: 'h6'" color="inherit">
             <GameContext.Consumer>{
                 (game) => ( //can be rewreitten as (userProviderState)
                     <span>{game.user.username}</span>
