@@ -87,13 +87,7 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-      <Typography variant="p">
-          {this.state.disableSubmit ?
-            <div>
-              Searching for Location<br/>
-              <CircularProgress />
-            </div>: ''}
-      </Typography>
+
       <Button variant="contained"
         color="primary"
         disabled={this.state.disableSubmit}
@@ -137,6 +131,13 @@ export default class FormDialog extends React.Component {
 
           </DialogActions>
         </Dialog>
+        <Typography variant="p">
+            {this.state.disableSubmit ?
+              <div>
+                Searching for Location<br/>
+                <CircularProgress />
+              </div>: ''}
+        </Typography>
       </div>
     );
   }

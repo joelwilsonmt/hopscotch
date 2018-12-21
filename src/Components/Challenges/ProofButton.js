@@ -41,7 +41,8 @@ class ProofButton extends React.Component {
       <div>
         <GameContext.Consumer>{
             (game) => (
-        <Button size="small" justify="center"
+        <Button variant="contained"
+          size="small" justify="center"
           color="primary"
           onClick={() => {
             game.setCurrentChallenge(this.props.value);

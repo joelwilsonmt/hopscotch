@@ -40,6 +40,9 @@ class Challenges extends React.Component {
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
     this.socket.on('RECEIVE', data => {
       addMessage(data);
+      if (data.username === this.state.username){
+        return;
+      }
       this.setState({
         open: true
       })
@@ -101,7 +104,7 @@ class Challenges extends React.Component {
 
 
   //for snackbar:
-  handleClose = (event, reason) => {
+  closeSnackBar = (event, reason) => {
     this.setState({ open: false });
   };
 
@@ -152,7 +155,7 @@ class Challenges extends React.Component {
           }}
           open={this.state.open}
           autoHideDuration={6000}
-          onClose={this.handleClose}
+          onClose={this.closeSnackBar}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
@@ -163,7 +166,7 @@ class Challenges extends React.Component {
               key="close"
               aria-label="Close"
               color="inherit"
-              onClick={this.handleClose}
+              onClick={this.closeSnackBar}
             >
               <CloseIcon />
             </IconButton>,

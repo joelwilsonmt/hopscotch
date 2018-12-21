@@ -22,9 +22,9 @@ button {
 
 }
 .opening-screen div{
-  position: relative;
+  /*position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%);*/
 }
 .logo {
   padding: 5% 0;
