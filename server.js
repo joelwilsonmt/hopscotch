@@ -14,6 +14,7 @@ var getCircuits = require('./routes/getCircuits');
 var assignUserToCircuit = require('./routes/assignUserToCircuit');
 var update = require('./routes/update');
 var updateCircuit = require('./routes/updateCircuit');
+var clearCurrentCircuit = require('./routes/clearCurrentCircuit');
 
 var app = express();
 var http = require('http').Server(app);
@@ -34,6 +35,7 @@ app.use('/getCircuits', getCircuits);
 app.use('/assignUserToCircuit', assignUserToCircuit);
 app.use('/update', update);
 app.use('/updateCircuit', updateCircuit);
+app.use('/clearCurrentCircuit', clearCurrentCircuit);
 
 
 io.on('connection', function(socket){

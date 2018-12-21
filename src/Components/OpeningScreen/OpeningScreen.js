@@ -16,7 +16,9 @@ import {
 } from 'react-router-dom';
 
 
+
 const styles = theme => ({
+
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
@@ -26,8 +28,11 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  }
+  },
+
 });
+
+
 
 class OpeningScreen extends React.Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
+
 /*
 The GameContext context is a React context object that has a
 Provider component and a Consumer component
@@ -42,6 +43,7 @@ The syntax is (condition to test) ? <span>Render if true</span> : <span>Render i
 
 
 */
+
 
 
 export var GameContext = React.createContext();
@@ -96,6 +98,24 @@ class GameProvider extends React.Component {
               circuit: res.data
           });//closes set state
           console.log("set state of circuit complete, circuit id: ", this.state.circuit._id);
+        });//closes .then()
+    };//closes updateCircuit
+
+    this.clearCurrentCircuit = (userId) => {
+      console.log("clearCurrentCircuit accessed w/ uid: ", userId);
+      const clearCurrentCircuit = process.env.REACT_APP_BACK_END_SERVER + 'clearCurrentCircuit';
+      //must be a put request because passing a value to be searched by
+      axios.put(clearCurrentCircuit, {userId}).then((res,err) => {
+        console.log("clearCurrentCircuit complete, for user id#", res.data);
+        if(err){console.log(err);}
+        this.setState(
+          {
+              circuit: '',
+              user: {
+                current_circuit_id: null
+              }
+          });//closes set state
+          console.log("circuit id cleared in server and state");
         });//closes .then()
     };//closes updateCircuit
 
@@ -215,7 +235,8 @@ class GameProvider extends React.Component {
         updateGameAndSetScreen: this.updateGameAndSetScreen,
         updateGameAndSetView: this.updateGameAndSetView,
         updateUserAndSetScreen : this.updateUserAndSetScreen,
-        setCurrentChallenge: this.setCurrentChallenge
+        setCurrentChallenge: this.setCurrentChallenge,
+        clearCurrentCircuit: this.clearCurrentCircuit
     };
   }
 

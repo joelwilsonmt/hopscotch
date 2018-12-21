@@ -5,9 +5,11 @@ import RouterProvider from "./Components/Contexts/RouterContext";
 import {RouterContext} from "./Components/Contexts/RouterContext";
 import GameProvider from "./Components/Contexts/GameContext";
 import {GameContext} from "./Components/Contexts/GameContext";
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 
 render(
+
     <GameProvider>
         <GameContext.Consumer>{
             (router) => (
@@ -15,4 +17,5 @@ render(
             )
         }</GameContext.Consumer>
     </GameProvider>
+
   , document.getElementById("root"));
