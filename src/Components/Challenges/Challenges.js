@@ -13,6 +13,11 @@ import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
+
 //const socket = io('localhost:3001/');
 
 function TabContainer({ children, dir }) {
@@ -33,8 +38,11 @@ class Challenges extends React.Component {
   constructor(props) {
     super();
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
-    this.socket.on('RECEIVE', function(data) {
+    this.socket.on('RECEIVE', data => {
       addMessage(data);
+      this.setState({
+        open: true
+      })
     });
     const addMessage = data => {
       this.setState({
@@ -59,6 +67,7 @@ class Challenges extends React.Component {
     };
     this.state = {
       value: 'challenges',
+      open: false,
       //chat stuff:
       username: 'Username not set',
       message: '',
@@ -88,6 +97,12 @@ class Challenges extends React.Component {
 
   handleChangeIndex = index => {
     this.setState({ value: index });
+  };
+
+
+  //for snackbar:
+  handleClose = (event, reason) => {
+    this.setState({ open: false });
   };
 
   render() {
@@ -129,6 +144,32 @@ class Challenges extends React.Component {
                 )}</GameContext.Consumer>
               </div>
             </Paper>}
+            {(this.state.messages.length > 0) ?
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">
+          <strong>{this.state.messages[this.state.messages.length-1].username}</strong>:   {this.state.messages[this.state.messages.length-1].message}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />: ''}
+
           </div>
       );
     }
