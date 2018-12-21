@@ -43,13 +43,31 @@ app.use('/update', update);
 app.use('/updateCircuit', updateCircuit);
 app.use('/clearCurrentCircuit', clearCurrentCircuit);
 
-
-io.on('connection', function(socket){
+var clientRoom = 'not set';
+var userName = 'username not set'
+console.log('client room not set: ' + clientRoom);
+io.on('connection', function(client){
   console.log('a user connected');
+
   //all socket actions should be taken care of here:
-  socket.on('joinRoom', function(room) {
-    socket.join(room);
-    console.log("User has joined room #", room);
+  client.on('joinRoom', function(room, user) {
+    clientRoom = room;
+    userName = user;
+    console.log('client room set for io access: ', clientRoom);
+    client.join(room);
+    console.log("User " + user + " has joined room #", room);
+  });
+  client.on('SEND', function(data) {
+    console.log("sending message ", data);
+    io.to(data.room).emit('RECEIVE', data);
+  });
+  //custom events
+  client.on('CHALLENGE_COMPLETE', function(data) {
+    console.log("challenge complete by ", data);
+    io.to(data.room).emit('RECEIVE_WIN', {
+      username: 'System',
+      message: 'Challenge completed by ' + data.username
+    });
   });
 
 
@@ -58,11 +76,10 @@ io.on('connection', function(socket){
 
 
 
-  socket.on('disconnect', function() {
+  client.on('disconnect', function() {
       console.log('User disconnected!');
     });
-});
-
+});//closes io
 
 http.listen(3001, function(){
   console.log('listening on *:3001');

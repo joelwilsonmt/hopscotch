@@ -42,10 +42,11 @@ class OpeningScreen extends React.Component {
 
   render(){
     return (
-      <div>
-        <Paper
-          elevation={6} root="#212121">
-          <Typography variant="h1" color='#212121' gutterBottom>
+
+        <Paper className="opening-screen"
+          elevation={1}>
+          <div>
+          <Typography variant="h1" gutterBottom className="logo">
             Circuit Breaker
           </Typography>
 
@@ -56,6 +57,7 @@ class OpeningScreen extends React.Component {
                   </div>
                 )
               }</GameContext.Consumer>
+          </div>
         </Paper>
       </div>
     );
