@@ -28,7 +28,6 @@ class SimpleExpansionPanel extends React.Component{
     super(props);
   }
   componentWillMount() {
-    console.log("This props value at Expansion Panel Mount:", this.props.value);
   }
   render(){
   return (
