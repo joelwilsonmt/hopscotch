@@ -12,25 +12,27 @@ var atob = require('atob');
 // const client = new vision.ImageAnnotatorClient();
 var Blob = require('blob');
 
-function isWithinWinDistance(locationGateCoords,userCoords, unit, winDistance){
+function isWithinWinDistance(locationGateCoords, userCoords, unit, winDistance){
   var start = {};
-  start.latitude = userCoords[1];
-  start.longitude = userCoords[0];
+  start.latitude = userCoords[0];
+  start.longitude = userCoords[1];
   var end = {};
   end.latitude = locationGateCoords[0];
   end.longitude = locationGateCoords[1];
   var distance = haversine(start, end, {unit: unit});
   if(distance < winDistance) {
-    return true; //user is verified at the location!
+    console.log("User is in the right place!");
+    // return true; //user is verified at the location!
   }
   else {
-    return false; //user is not within winDistance miles of poi
+    ("User is not within the required distance of the challenge location!");
+    // return false; //user is not within winDistance miles of poi
   }
   //this distance is returned as the crow flies:
   //return distance + " " + unit +"s";
 }
 
-function pictureIsValid(pictureFile) {
+function pictureIsValid(pictureFile, wordToCheck) {
 
   function getBinary(base64Image) {
 
@@ -41,7 +43,6 @@ function pictureIsValid(pictureFile) {
      for (var i = 0; i < length; i++) {
        ua[i] = binaryImg.charCodeAt(i);
       }
-
       return ab;
   }
 
@@ -83,24 +84,38 @@ function pictureIsValid(pictureFile) {
       var val = labelObjectArray[key]["Name"];
       justTheLabels.push(val);
     });
-    console.log("Array of just the AWS labels only: ", justTheLabels);
+    // console.log("Array of just the AWS labels only: ", justTheLabels);
+
+
+    // convert all words toLowerCase()
+    var lowRidingLabels = [];
+    for (var i = 0; i < justTheLabels.length; i++) {
+      lowRidingLabels.push(justTheLabels[i].toLowerCase());
+    }
+    lowRidingLabels.sort();
 
 
     // Loop through this array of names to find match with object_to_check
-    var checkWord = "Face"; // Need to fix this to use check_word from front end request object
+    var checkWord = wordToCheck;
     var found = false;
-    for (var i = 0; i < justTheLabels.length; i++) {
-      if (checkWord === justTheLabels[i]) {
-        found = true;
-        break;
-      }
-    }
-    if (found) {
-      console.log("Congrats! There is a match with", checkWord, "in the following list of acceptable words", justTheLabels);
-    } else {
-      console.log("Sorry, there is no match with", checkWord, "in the following list of acceptable words", justTheLabels);
-    }
 
+    if (lowRidingLabels.includes("face") && lowRidingLabels.includes(checkWord)) {
+      found = true;
+    }
+    console.log("List of detected objects in user's photo: ", lowRidingLabels);
+
+    // for (var i = 0; i < justTheLabels.length; i++) {
+    //   if (checkWord === justTheLabels[i].toLowerCase()) {
+    //     found = true;
+    //     break;
+    //   }
+    // }
+
+    if (found) {
+      console.log("Congrats! User took an acceptable selfie with a", checkWord, "!");
+    } else {
+      console.log("Sorry, there is no match with", checkWord, "in the following list of detected objects, OR this isn't a selfie: ", lowRidingLabels);
+    }
   })
   .catch(function(err){
     console.error(err);
@@ -109,12 +124,19 @@ function pictureIsValid(pictureFile) {
 };
 
 router.put('/', function (req, res) {
-  console.log("submitting challenge at " +new Date());
+
+  console.log("Submitting challenge at " + new Date());
+
   var data = req.body;
   // console.log("data passed type:", data.screenshot);
 
-  var test = pictureIsValid(data.screenshot);
+  var testWord = pictureIsValid(data.screenshot, data.check_word);
+
+  var testPlace = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 200);
+
   res.sendStatus(200).send(/*picture is valid && location is valid*/);
+
+
 }); //closes router.put
 
 module.exports = router;
