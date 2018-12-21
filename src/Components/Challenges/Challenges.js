@@ -143,14 +143,15 @@ class Challenges extends React.Component {
             </AppBar>
             {value === 'challenges' && <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
-                return <p>{challenge}</p>
+                return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                        key={i} listId={i}/>
               }) : ''}
-              <GameContext.Consumer>{
+              {/*<GameContext.Consumer>{
                   (game) => (
                     game.circuit.challenges.map(function(challenge, i){
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
-              )}</GameContext.Consumer>
+              )}</GameContext.Consumer>*/}
             </Paper>}
             {value === 'map' && <Map/>}
           </div>
