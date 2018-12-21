@@ -26,7 +26,7 @@ class Chat extends React.Component{
     super(props);
     this.onFormChange = (e) => {
         this.props.chat.onFormChange(e.target.value);
-        
+
     }
   }
   componentWillMount() {
@@ -36,8 +36,8 @@ class Chat extends React.Component{
   render(){
   return (
     <div className="chat-window">
-      <Typography variant="h5">
-        {this.props.value.user.username}{`'`}s Chat
+      <Typography variant="h3">
+        <strong>{this.props.value.user.username}</strong>{`'`}s Chat
       </Typography>
       <div className="chat-messages">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}

@@ -23,8 +23,8 @@ function MainAppBar(props) {
                 <MenuButton value={route}/>
               )
           }</GameContext.Consumer>
-          <Typography variant="h4" color="inherit">
-            CIRCUIT BREAKER
+        <Typography variant="h3" color="inherit">
+            Circuit Breaker
           </Typography>
           <Typography variant="h5" color="inherit">
             <GameContext.Consumer>{

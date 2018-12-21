@@ -208,6 +208,9 @@ class Challenges extends React.Component {
 function ChallengeList(theme) {
   return (
     <Paper>
+      <Typography variant="h3">
+        Challenge List
+      </Typography>
       <GameContext.Consumer>{
           (game) => (
             game.circuit.challenges.map(function(challenge, i){
@@ -223,6 +226,9 @@ function ChallengeList(theme) {
 function Map(theme) {
   return (
     <Paper>
+      <Typography variant="h3">
+        Map
+      </Typography>
       <div>
         <GameContext.Consumer>{
             (game) => (
