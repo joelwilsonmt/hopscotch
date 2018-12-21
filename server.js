@@ -54,7 +54,7 @@ io.on('connection', function(client){
     client.join(room);
     io.to(room).emit('RECEIVE', {
       username: 'System',
-      message: 'User ' + user + 'has joined the circuit'
+      message: 'User ' + user + ' has joined the circuit'
     });
     console.log("User " + user + " has joined room #", room);
   });

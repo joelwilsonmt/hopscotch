@@ -13,14 +13,12 @@ import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
-
-const haversine = require('haversine');
-
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
+const haversine = require('haversine');
 
 
 function TabContainer({ children, dir }) {
@@ -52,6 +50,7 @@ class Challenges extends React.Component {
       location: {
         coords: []
       }
+    };
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
     this.socket.on('RECEIVE', data => {
       var unread = this.state.unreadMessages;
@@ -185,8 +184,6 @@ class Challenges extends React.Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
-    socket.emit('joinRoom', this.props.value.circuit._id);
-
     //make sure to set the challenge chat username once the component mounts
     this.setState({
       username: this.props.value.user.username
