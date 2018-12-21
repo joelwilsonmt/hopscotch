@@ -35,17 +35,31 @@ app.use('/assignUserToCircuit', assignUserToCircuit);
 app.use('/update', update);
 app.use('/updateCircuit', updateCircuit);
 
-
+var clientRoom = 'not set';
+var userName = 'username not set'
+console.log('client room not set: ' + clientRoom);
 io.on('connection', function(client){
   console.log('a user connected');
-  client.on('SEND', function(data) {
-    console.log("sending message ", data);
-    io.emit('RECEIVE', data);
-  });
+
   //all socket actions should be taken care of here:
   client.on('joinRoom', function(room, user) {
+    clientRoom = room;
+    userName = user;
+    console.log('client room set for io access: ', clientRoom);
     client.join(room);
     console.log("User " + user + " has joined room #", room);
+  });
+  client.on('SEND', function(data) {
+    console.log("sending message ", data);
+    io.to(data.room).emit('RECEIVE', data);
+  });
+  //custom events
+  client.on('CHALLENGE_COMPLETE', function(data) {
+    console.log("challenge complete by ", data);
+    io.to(data.room).emit('RECEIVE_WIN', {
+      username: 'System',
+      message: 'Challenge completed by ' + data.username
+    });
   });
 
 
@@ -57,8 +71,7 @@ io.on('connection', function(client){
   client.on('disconnect', function() {
       console.log('User disconnected!');
     });
-});
-
+});//closes io
 
 http.listen(3001, function(){
   console.log('listening on *:3001');

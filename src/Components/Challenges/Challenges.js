@@ -60,7 +60,12 @@ class Challenges extends React.Component {
         messageSnackBarOpen: true,
         unreadMessages: unread
       });
-    });
+    });//closes RECEIVE function
+    this.socket.on('RECEIVE_WIN', data => {
+      addMessage(data);
+      this.props.value.updateGame(this.props.value.user._id);
+    });//closes RECEIVE_WIN function
+
     const addMessage = data => {
       this.setState({
         messages: [...this.state.messages, data]
@@ -74,7 +79,11 @@ class Challenges extends React.Component {
     this.sendMessage = (e) => {
       console.log("sending message to server");
       e.preventDefault();
+      if(this.state.message === ''){
+        return;
+      }
       this.socket.emit('SEND', {
+        room: this.props.value.circuit._id,
         username: this.state.username,
         message: this.state.message
       });
@@ -82,6 +91,14 @@ class Challenges extends React.Component {
         message: ''
       });
     };
+    this.sendWin = () => {
+      console.log("sending win to server");
+      this.socket.emit('CHALLENGE_COMPLETE', {
+        room: this.props.value.circuit._id,
+        username: this.state.username
+      });
+
+    }
     this.onFormChange = (e) => {
         this.setState({
           message: e

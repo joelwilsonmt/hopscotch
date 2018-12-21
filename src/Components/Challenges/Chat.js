@@ -39,6 +39,9 @@ class Chat extends React.Component{
       <Typography variant="h3">
         <strong>{this.props.value.user.username}</strong>{`'`}s Chat
       </Typography>
+      <Typography variant="h5">
+        <strong>Room: </strong>{this.props.value.circuit._id}
+      </Typography>
       <div className="chat-messages">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
       {this.props.chat.state.messages.map(function(message, i){
@@ -67,6 +70,8 @@ class Chat extends React.Component{
       <Button variant="contained" size="medium" justify="center"
           color="primary" type="submit">Send</Button>
       </form>
+      <Button variant="contained" size="medium" justify="center"
+          color="primary" onClick={this.props.chat.sendWin}>Win Challenge Event</Button>
     </div>
     );
   }
