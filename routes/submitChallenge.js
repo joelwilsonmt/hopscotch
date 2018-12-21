@@ -21,11 +21,11 @@ function isWithinWinDistance(locationGateCoords, userCoords, unit, winDistance){
   end.longitude = locationGateCoords[1];
   var distance = haversine(start, end, {unit: unit});
   if(distance < winDistance) {
-    console.log("User is in the right place!");
+    console.log("CONGRATS! User is in the right place!");
     // return true; //user is verified at the location!
   }
   else {
-    ("User is not within the required distance of the challenge location!");
+    console.log("SORRY! User is not within the required distance of the challenge location!");
     // return false; //user is not within winDistance miles of poi
   }
   //this distance is returned as the crow flies:
@@ -49,12 +49,14 @@ function pictureIsValid(pictureFile, wordToCheck) {
   var base64Image = pictureFile.split("data:image/jpeg;base64,")[1];
   var imageBytes = getBinary(base64Image);
 
+  // AWS credentials for Detect labels API
   AWS.config.update({
     accessKeyId: process.env.ACCESS_KEY,
     secretAccessKey: process.env.ACCESS_SECRET,
     region: 'us-west-2'
   });
 
+  // Detecting Labels
   let rekognition = new AWS.Rekognition();
 
   rekognition.detectLabels({
@@ -76,7 +78,6 @@ function pictureIsValid(pictureFile, wordToCheck) {
     })
     // console.log("An array of the Label objects: ", labelObjectArray);
 
-
     // Converting array of label objects to array of just the names of the labels
     // (Still very hacky. I'm sure there's a way more elegant way to do this...)
     var justTheLabels = [];
@@ -86,14 +87,12 @@ function pictureIsValid(pictureFile, wordToCheck) {
     });
     // console.log("Array of just the AWS labels only: ", justTheLabels);
 
-
-    // convert all words toLowerCase()
+    // convert all returned labels to lowercase to facilitate match searching
     var lowRidingLabels = [];
     for (var i = 0; i < justTheLabels.length; i++) {
       lowRidingLabels.push(justTheLabels[i].toLowerCase());
     }
     lowRidingLabels.sort();
-
 
     // Loop through this array of names to find match with object_to_check
     var checkWord = wordToCheck;
@@ -104,17 +103,10 @@ function pictureIsValid(pictureFile, wordToCheck) {
     }
     console.log("List of detected objects in user's photo: ", lowRidingLabels);
 
-    // for (var i = 0; i < justTheLabels.length; i++) {
-    //   if (checkWord === justTheLabels[i].toLowerCase()) {
-    //     found = true;
-    //     break;
-    //   }
-    // }
-
     if (found) {
-      console.log("Congrats! User took an acceptable selfie with a", checkWord, "!");
+      console.log("CONGRATS! User took an acceptable selfie with a", checkWord, "!");
     } else {
-      console.log("Sorry, there is no match with", checkWord, "in the following list of detected objects, OR this isn't a selfie: ", lowRidingLabels);
+      console.log("SORRY, there is no match with", checkWord, "in the following detected items, OR photo is not a selfie: ", lowRidingLabels);
     }
   })
   .catch(function(err){
