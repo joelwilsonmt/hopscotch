@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
+
 /*
 The GameContext context is a React context object that has a
 Provider component and a Consumer component
@@ -42,6 +43,7 @@ The syntax is (condition to test) ? <span>Render if true</span> : <span>Render i
 
 
 */
+
 
 
 export var GameContext = React.createContext();
