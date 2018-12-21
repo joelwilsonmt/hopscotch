@@ -51,7 +51,7 @@ class SimpleExpansionPanel extends React.Component{
         </Typography>
         <Typography>
           {
-          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, ' ')
+          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
         </Typography>
         <ProofButton value={this.props.value} ArrayPosition={this.props.listId}/>

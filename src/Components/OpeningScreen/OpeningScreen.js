@@ -6,9 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import Grid from '@material-ui/core/Grid';
 import {GameContext} from "../Contexts/GameContext";
-
-
-
 import {
   Route,
   Link,
@@ -17,17 +14,17 @@ import {
 
 
 
+
 const styles = theme => ({
 
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    paddingTop: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 10
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 22,
     textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
 
 });
@@ -47,8 +44,8 @@ class OpeningScreen extends React.Component {
     return (
       <div>
         <Paper
-          elevation={1}>
-          <Typography variant="h1" gutterBottom>
+          elevation={6} root="#212121">
+          <Typography variant="h1" color='#212121' gutterBottom>
             Circuit Breaker
           </Typography>
 
