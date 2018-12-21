@@ -26,10 +26,12 @@ class Chat extends React.Component{
     super(props);
     this.onFormChange = (e) => {
         this.props.chat.onFormChange(e.target.value);
+        
     }
   }
   componentWillMount() {
     console.log("Chat Room Mounted, room #", this.props.value.circuit._id);
+    this.props.chat.resetBadge();
   }
   render(){
   return (

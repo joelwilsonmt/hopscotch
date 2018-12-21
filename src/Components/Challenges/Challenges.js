@@ -17,6 +17,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
+
 
 //const socket = io('localhost:3001/');
 
@@ -32,26 +34,43 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
   dir: PropTypes.string.isRequired
 };
-
+const styles = theme => ({
+  margin: {
+    margin: theme.spacing.unit * 2,
+  },
+  padding: {
+    padding: `0 ${theme.spacing.unit * 2}px`,
+  },
+});
 
 class Challenges extends React.Component {
   constructor(props) {
     super();
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
     this.socket.on('RECEIVE', data => {
+      var unread = this.state.unreadMessages;
       addMessage(data);
       if (data.username === this.state.username){
         return;
       }
+      if(this.state.value !== 'chat'){
+        unread++;
+      }
       this.setState({
-        open: true
-      })
+        messageSnackBarOpen: true,
+        unreadMessages: unread
+      });
     });
     const addMessage = data => {
       this.setState({
         messages: [...this.state.messages, data]
       });
     };
+    this.resetBadge = () => {
+      this.setState({
+        unreadMessages: 0
+      });
+    }
     this.sendMessage = (e) => {
       console.log("sending message to server");
       e.preventDefault();
@@ -70,11 +89,12 @@ class Challenges extends React.Component {
     };
     this.state = {
       value: 'challenges',
-      open: false,
+      messageSnackBarOpen: false,
       //chat stuff:
       username: 'Username not set',
       message: '',
-      messages: []//sets it so that when screen opens, challenges tab has focus
+      messages: [],//sets it so that when screen opens, challenges tab has focus
+      unreadMessages: 0
     }
   }
   componentWillMount() {
@@ -105,11 +125,11 @@ class Challenges extends React.Component {
 
   //for snackbar:
   closeSnackBar = (event, reason) => {
-    this.setState({ open: false });
+    this.setState({ messageSnackBarOpen: false });
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme } = styles;
     const { value } = this.state;
     if (this.props.value.view === 'Camera'){
       return (
@@ -134,7 +154,12 @@ class Challenges extends React.Component {
               >
                 <Tab value="challenges" label="CHALLENGES"  />
                 <Tab value="map" label="MAP" />
-                <Tab value="chat" label="CHAT" />
+                {(this.state.unreadMessages > 0) ?
+                <Tab value="chat" label={
+                    <Badge className="chat-badge" color="secondary" badgeContent={this.state.unreadMessages}>
+                      CHAT
+                    </Badge>}/> :
+                <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
             {value === 'challenges' && <ChallengeList/>}
@@ -153,7 +178,7 @@ class Challenges extends React.Component {
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={this.state.open}
+          open={this.state.messageSnackBarOpen}
           autoHideDuration={6000}
           onClose={this.closeSnackBar}
           ContentProps={{
