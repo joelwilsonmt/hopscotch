@@ -104,7 +104,7 @@ export class MapContainer extends React.Component {
                       }
                     }
                     name = {challenge.location_gate.name}
-                    address = {challenge.location_gate.address}
+                    address = {challenge.location_gate.address.replace(/<br\s*\/?>/gi, '. ')}
                     challengeText = {challenge.full_challenge_text}
                   />
         })}

@@ -19,6 +19,8 @@ const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular
   }
+
+
 });
 
 class SimpleExpansionPanel extends React.Component{
@@ -50,7 +52,7 @@ class SimpleExpansionPanel extends React.Component{
         </Typography>
         <Typography>
           {
-          challenge.location_gate.address
+          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
         </Typography>
         <ProofButton value={challenge} ArrayPosition={this.props.listId}/>

@@ -6,9 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import Grid from '@material-ui/core/Grid';
 import {GameContext} from "../Contexts/GameContext";
-
-
-
 import {
   Route,
   Link,
@@ -16,18 +13,23 @@ import {
 } from 'react-router-dom';
 
 
+
+
 const styles = theme => ({
+
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    paddingTop: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 10
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 22,
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }
+  },
+
 });
+
+
 
 class OpeningScreen extends React.Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class OpeningScreen extends React.Component {
 
   render(){
     return (
-      <div   >
+
         <Paper className="opening-screen"
           elevation={1}>
           <div>
