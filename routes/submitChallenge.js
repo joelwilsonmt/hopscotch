@@ -75,36 +75,21 @@ router.put('/', function (req, res) {
     MinConfidence: 50
   })
   .promise().then(function(res){
-    var responseData = res;
-    console.log("Number of AWS responses: ", responseData.Labels.length);
     let labelNames = [];
-    for (var i = 0; i < responseData.Labels.length; i++) {
-      labelNames.push(responseData.Labels[i].Name.toLowerCase());
+    for (var i = 0; i < res.Labels.length; i++) {
+      labelNames.push(res.Labels[i].Name.toLowerCase());
     }
-    console.log("label names after loop: ", labelNames);
-    var found = false;
-    let newWord = 'beard';
-    if (labelNames.includes("face")) {
-      console.log("Face found in photo!!!!!!!");
-    }
-    if (labelNames.includes(newWord)){
-      console.log("Word to check " + newWord +" found in photo!");
-    }
-    if (labelNames.includes("face") && labelNames.includes(newWord)) {
-      found = true;
-    }
-    if (found && distanceWin) {
-      console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", newWord, "!");
+    if (labelNames.includes("face") && labelNames.includes(wordToCheck) && distanceWin) {
+      console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", wordToCheck, "!");
       return true; // This is the "true" I want to refer to the whole entire pictureIsValid function
     } else {
-      console.log("SORRY, there is no match with", newWord, "in the following detected items, OR photo is not a selfie: ", labelNames);
+      console.log("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
       return false;
     }
   })
   .catch(function(err){
     console.error(err);
   });
-  console.log("location condition on all fail: ", distanceWin);
 
   // Check to see if the user's ID appears in all other challenges of that same circuit. If so, tell the front end that the user broke the circuit, and game is over.
 
