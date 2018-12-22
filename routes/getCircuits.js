@@ -29,11 +29,13 @@ router.post('/', function (req, res) {
   }
   var hereBoundary;
   //search the user by provided id, then use the boundary to search circuits
-  User.findById(userId, function (err, user) {
+  User.findById(userId)
+  .then(function(user, err){
+    if(err) {
+      console.log(err);
+    }
+    console.log("getCircuit User ID Located... " + userId);
     hereBoundary = user.user_session_boundary.here_api_format;
-  })
-  .then(function(){
-    console.log("getCircuit User ID Located... " + userId)
     //check if there are circuits in user boundary
     //that have not started more than 2 minutes ago
     /*&& (circuit.time_started + 120000) < new Date()*/
