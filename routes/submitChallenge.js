@@ -33,20 +33,29 @@ function isWithinWinDistance(locationGateCoords, userCoords, unit, winDistance){
   //this distance is returned as the crow flies:
   //return distance + " " + unit +"s";
 }
+function getBinary(base64Image) {
+   var binaryImg = atob(base64Image);
+   var length = binaryImg.length;
+   var ab = new ArrayBuffer(length);
+   var ua = new Uint8Array(ab);
+   for (var i = 0; i < length; i++) {
+     ua[i] = binaryImg.charCodeAt(i);
+    }
+    return ab;
+}
+router.put('/', function (req, res) {
 
-function pictureIsValid(pictureFile, wordToCheck) {
+  console.log("Submitting challenge at " + new Date());
 
-  function getBinary(base64Image) {
-     var binaryImg = atob(base64Image);
-     var length = binaryImg.length;
-     var ab = new ArrayBuffer(length);
-     var ua = new Uint8Array(ab);
-     for (var i = 0; i < length; i++) {
-       ua[i] = binaryImg.charCodeAt(i);
-      }
-      return ab;
-  }
-
+  var data = req.body;
+  var query = data.challengeId;
+  var update = {
+    id_users_completed: [data.userId]
+  };
+  var options = {new: true};
+  var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 40000);
+  var pictureFile = data.screenshot;
+  var wordToCheck = data.check_word;
   var base64Image = pictureFile.split("data:image/jpeg;base64,")[1];
   var imageBytes = getBinary(base64Image);
 
@@ -67,92 +76,35 @@ function pictureIsValid(pictureFile, wordToCheck) {
   })
   .promise().then(function(res){
     var responseData = res;
-    // console.log("AWS response (this is a JSON array) :", responseData);
-
-    // Converting AWS response (JSON array) to an array of the label objects
-    var labelObjectArray = [];
-    Object.keys(responseData.Labels).forEach(function(key){
-      var item = responseData.Labels[key];
-      labelObjectArray.push(item);
-    })
-    // console.log("An array of the Label objects: ", labelObjectArray);
-
-    // Converting array of label objects to array of just the names of the labels
-    var justTheLabels = [];
-    Object.keys(labelObjectArray).forEach(function(key) {
-      var val = labelObjectArray[key]["Name"];
-      justTheLabels.push(val);
-    });
-    // console.log("Array of just the AWS labels only: ", justTheLabels);
-
-    // convert all returned labels to lowercase to facilitate match searching
-    var lowRidingLabels = [];
-    for (var i = 0; i < justTheLabels.length; i++) {
-      lowRidingLabels.push(justTheLabels[i].toLowerCase());
+    console.log("Number of AWS responses: ", responseData.Labels.length);
+    let labelNames = [];
+    for (var i = 0; i < responseData.Labels.length; i++) {
+      labelNames.push(responseData.Labels[i].Name.toLowerCase());
     }
-    lowRidingLabels.sort();
-
-    // Loop through this array of names to find match with object_to_check
-    var checkWord = wordToCheck;
+    console.log("label names after loop: ", labelNames);
     var found = false;
-    if (lowRidingLabels.includes("face") && lowRidingLabels.includes(checkWord)) {
+    let newWord = 'beard';
+    if (labelNames.includes("face")) {
+      console.log("Face found in photo!!!!!!!");
+    }
+    if (labelNames.includes(newWord)){
+      console.log("Word to check " + newWord +" found in photo!");
+    }
+    if (labelNames.includes("face") && labelNames.includes(newWord)) {
       found = true;
     }
-    console.log("List of detected objects in user's photo: ", lowRidingLabels);
-    if (found) {
-      console.log("CONGRATS! User took an acceptable selfie with a", checkWord, "!");
+    if (found && distanceWin) {
+      console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", newWord, "!");
       return true; // This is the "true" I want to refer to the whole entire pictureIsValid function
     } else {
-      console.log("SORRY, there is no match with", checkWord, "in the following detected items, OR photo is not a selfie: ", lowRidingLabels);
+      console.log("SORRY, there is no match with", newWord, "in the following detected items, OR photo is not a selfie: ", labelNames);
       return false;
     }
   })
   .catch(function(err){
     console.error(err);
   });
-
-};
-
-router.put('/', function (req, res) {
-
-  console.log("Submitting challenge at " + new Date());
-
-  var data = req.body;
-  var query = data.challengeId;
-  var update = {
-    id_users_completed: [data.userId]
-  };
-  var options = {new: true};
-
-  var testWord = pictureIsValid(data.screenshot, data.check_word);
-  var testPlace = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 4000);
-
-  // Add user id to the list of users who have completed that particular challenge
-  // if (testWord && testPlace) {
-  //   console.log("Both things are true!");
-  //   Circuit.findByIdAndUpdate(data.challengeId, {id_users_completed : data.userId}, {upsert: true, new: true}, function(err, user){
-  //     if (err) {console.log(err);}
-  //     console.log("Added user to list of users who have completed this challenge!");
-  //     res.status(200).send(user);
-  //   });
-  // }
-
-  if (testPlace && testWord) {
-    console.log("Both location and picture requirements met!");
-    // Circuit.findByIdAndUpdate(
-    //   query, //_id
-    //   update, // new long and lat
-    //   options, //add if doesn't exist
-    //   function(err, documents){
-    //   if(err){
-    //     console.log(err);
-    //   } else{
-    //    res.send(data);
-    //    console.log(data);
-    //   }
-      res.sendStatus(200).send(/*picture is valid && location is valid*/);
-    // });
-  }
+  console.log("location condition on all fail: ", distanceWin);
 
   // Check to see if the user's ID appears in all other challenges of that same circuit. If so, tell the front end that the user broke the circuit, and game is over.
 
