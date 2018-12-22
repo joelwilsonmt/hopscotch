@@ -40,7 +40,7 @@ class SimpleExpansionPanel extends React.Component{
 
             {
             (this.props.listId+1) + ") " + challenge.full_challenge_text
-            }
+          } <strong>{(this.props.distance-1000).toFixed(1)} Miles away</strong>
 
 
           </Typography>
@@ -48,7 +48,7 @@ class SimpleExpansionPanel extends React.Component{
         <Typography>
           {
           challenge.location_gate.name
-          }
+        }
         </Typography>
         <Typography>
           {
