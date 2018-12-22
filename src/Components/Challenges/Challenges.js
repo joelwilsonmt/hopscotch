@@ -146,9 +146,12 @@ class Challenges extends React.Component {
           latitude: userLocation.latitude
         }
         distanceArray.push(haversine(location, user_location));
-      }//distance Array now contains haversine distance between location and user
 
-      console.log("distance array after haversine calcs: ", distanceArray);
+      }//distance Array now contains haversine distance between location and user
+      this.setState({
+        distances: distanceArray
+      });
+      console.log("distance array after haversine calcs: ", this.state.distances);
 
       for(var j = 0; j < distanceArray.length; j++){
         let low = 100;
@@ -263,6 +266,7 @@ class Challenges extends React.Component {
               <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                    distance={this.state.distances[challenge]}
                         key={i} listId={i}/>
               }) : <CircularProgress />}
               {/*<GameContext.Consumer>{
