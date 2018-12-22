@@ -22,10 +22,12 @@ function isWithinWinDistance(locationGateCoords, userCoords, unit, winDistance){
   var distance = haversine(start, end, {unit: unit});
   if(distance < winDistance) {
     console.log("CONGRATS! User is in the right place!");
+    return true;
     // return true; //user is verified at the location!
   }
   else {
     console.log("SORRY! User is not within the required distance of the challenge location!");
+    return false;
     // return false; //user is not within winDistance miles of poi
   }
   //this distance is returned as the crow flies:
@@ -105,8 +107,10 @@ function pictureIsValid(pictureFile, wordToCheck) {
 
     if (found) {
       console.log("CONGRATS! User took an acceptable selfie with a", checkWord, "!");
+      return true;
     } else {
       console.log("SORRY, there is no match with", checkWord, "in the following detected items, OR photo is not a selfie: ", lowRidingLabels);
+      return false;
     }
   })
   .catch(function(err){
@@ -118,15 +122,28 @@ function pictureIsValid(pictureFile, wordToCheck) {
 router.put('/', function (req, res) {
 
   console.log("Submitting challenge at " + new Date());
-
   var data = req.body;
   // console.log("data passed type:", data.screenshot);
 
   var testWord = pictureIsValid(data.screenshot, data.check_word);
+  var testPlace = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 4000);
+  // res.sendStatus(200).send(/*picture is valid && location is valid*/);
 
-  var testPlace = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 200);
+  // Add user id to the list of users who have completed that particuular challenge
+  if (testWord && testPlace) {
+    console.log("Both things are true!");
+    Circuit.findByIdAndUpdate(data.challengeId, {id_users_completed : data.userId}, {upsert: true, new: true}, function(err, user){
+      if (err) {console.log(err);}
+      console.log("Added user to list of users who have completed this challenge!");
+      res.status(200).send(user);
+    });
+  }
 
-  res.sendStatus(200).send(/*picture is valid && location is valid*/);
+  // Check to see if the user's ID appears in all other challenges of that same circuit. If so, tell the front end that the user broke the circuit, and game is over.
+
+
+
+
 
 
 }); //closes router.put
