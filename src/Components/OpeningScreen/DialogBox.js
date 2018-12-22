@@ -7,7 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {UserContext} from "../Contexts/UserContext";
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
@@ -23,7 +24,8 @@ export default class FormDialog extends React.Component {
       open: false,
       userNameInputValue: '',
       idSearch: '',
-      _id: ''
+      _id: '',
+      disableSubmit: true
     };
   }
   // getUserLocation = () => {
@@ -32,7 +34,10 @@ export default class FormDialog extends React.Component {
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position})
+        this.setState({
+          location:position,
+          disableSubmit: false
+        })
 
         console.log(this.state.location);
       });
@@ -85,7 +90,10 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-      <Button variant="contained" color="primary"
+
+      <Button variant="contained"
+        color="primary"
+        disabled={this.state.disableSubmit}
         Button onClick={this.handleClickOpen}>
         Get Started!
         </Button>
@@ -94,6 +102,7 @@ export default class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
+
           <DialogTitle id="form-dialog-title">Who Are You</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -116,15 +125,22 @@ export default class FormDialog extends React.Component {
 
             <Button
               color="primary"
+
               onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
                 }}>
               Submit
-            </Button>
+            </Button><br/>
 
           </DialogActions>
         </Dialog>
+        <Typography variant="p">
+            {this.state.disableSubmit ?
+                <CircularProgress />
+                : ''
+            }
+        </Typography>
       </div>
     );
   }
