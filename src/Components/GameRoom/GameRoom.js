@@ -46,14 +46,6 @@ class GameRoom extends Component {
                  </div>
                 )
             }</GameContext.Consumer>
-            <GameContext.Consumer>{
-                (game) => (
-                    <Typography variant="h5" component="h3" align="center">
-                      {game.circuit._id ? 'Game Joined: '+ game.circuit._id:
-                      'No game joined yet'}
-                    </Typography>
-
-                )}</GameContext.Consumer>
         </Paper>
       </div>
     );//end return

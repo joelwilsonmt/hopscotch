@@ -11,6 +11,7 @@ import ExpansionPanels from "./ExpansionPanels";
 import Chat from "./Chat";
 import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
 import Snackbar from '@material-ui/core/Snackbar';
@@ -128,6 +129,8 @@ class Challenges extends React.Component {
 
     }
   }
+  /*-------------------------------this function returns position with
+  [0] being the closest and [9] being the furthest--------------------------*/
   calcHaversine = (positions, userLocation) => {
       let distanceArray = [];
       let distanceOrder = [];
@@ -162,8 +165,9 @@ class Challenges extends React.Component {
       console.log("Order of challenges after haversine: ", distanceOrder);
       return distanceOrder;
   }
-  componentWillMount() {
-
+  /*---------------------------this function gets user location and calls the haversine
+  function above to set in state a new order to display the challenges-----------*/
+  orderChallengesByDistance = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({location:position})
@@ -184,6 +188,10 @@ class Challenges extends React.Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
+  }
+  componentWillMount() {
+    //get user location and order challenges:
+    this.orderChallengesByDistance();
     //make sure to set the challenge chat username once the component mounts
     this.setState({
       username: this.props.value.user.username
@@ -251,18 +259,23 @@ class Challenges extends React.Component {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
-            {value === 'challenges' && <Paper>
+            {value === 'challenges' &&
+              <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
                         key={i} listId={i}/>
-              }) : ''}
+              }) : <CircularProgress />}
               {/*<GameContext.Consumer>{
                   (game) => (
                     game.circuit.challenges.map(function(challenge, i){
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
-            </Paper>}
+              <Button variant="contained"
+                size="small" justify="center"
+                color="primary"
+                onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+              </Paper>}
             {value === 'map' && <Map/>}
             {value === 'chat' && <Paper>
               <div>

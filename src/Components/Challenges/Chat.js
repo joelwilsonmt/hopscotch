@@ -44,7 +44,7 @@ class Chat extends React.Component{
       <Typography variant="h5">
         <strong>Room: </strong>{circuit._id}
       </Typography>
-      <div className="chat-messages">
+      <div className="chat-messages" id="messages-container">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
       {this.props.chat.state.messages.map(function(message, i){
          return (<ListItem key={i}>
