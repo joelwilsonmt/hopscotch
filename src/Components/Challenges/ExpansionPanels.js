@@ -26,9 +26,16 @@ const styles = theme => ({
 class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      withinDistance: false
+    };
   }
   componentWillMount() {
-
+    if((this.props.distance-1000).toFixed(1) < 1) {
+      this.setState({
+        withinDistance: true
+      });
+    }
   }
   render(){
     let challenge = this.props.value;
@@ -55,7 +62,12 @@ class SimpleExpansionPanel extends React.Component{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
         </Typography>
-        <ProofButton value={challenge} ArrayPosition={this.props.listId}/>
+        <Typography>
+        { this.state.withinDistance ? <strong>You are within 1 mile of the objective! Take a Picture</strong>
+          :
+          <strong>You cannot submit! Get within 1 mile of the objective!</strong>}
+        </Typography>
+        <ProofButton disabled={!this.state.withinDistance} value={challenge} ArrayPosition={this.props.listId}/>
       </ExpansionPanel>
     </div>
     );
