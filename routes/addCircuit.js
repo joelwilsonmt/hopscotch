@@ -60,7 +60,29 @@ router.post('/', function (req, res) {
             challengeLimit = places.length;
           }
           for(var i = 0; i < challengeLimit; i++) {
-            var words = ['key', 'flower', 'clock', 'newspaper', 'wallet', 'soda can', 'carrot', 'banana', 'CD of Bjork\'s Utopia', 'watch', 'magnet', 'CD', 'shoe','flag'];
+            var words = [
+              'art',
+              'beer bottle',
+              'can',
+              'document',
+              'drawing',
+              'fork',
+              'frisbee',
+              'glass',
+              'guitar',
+              'key',
+              'knife',
+              'marker',
+              'mobile phone',
+              'orange',
+              'pizza',
+              'plant',
+              'scissors',
+              'spoon',
+              'tool',
+              'thumbs up',
+              'yogurt'
+            ];
             var objectGate = words[Math.floor(Math.random()*words.length)];
             var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';
             sets_challenges[i] = {
