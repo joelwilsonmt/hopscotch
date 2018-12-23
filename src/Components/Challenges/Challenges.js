@@ -36,9 +36,62 @@ class Challenges extends React.Component {
 
     }
   }
+  calcHaversine = (positions, userLocation) => {
+      let distanceArray = [];
+      let distanceOrder = [];
+      console.log("haversine args: positions: ", positions);
+      console.log("haversine args: user location: ", userLocation);
+      for (var i=0; i < positions.length; i++) {
+        let location = {
+          latitude: positions[i][0],
+          longitude: positions[i][1]
+        }
+        let user_location = {
+          longitude: userLocation.longitude,
+          latitude: userLocation.latitude
+        }
+        distanceArray.push(haversine(location, user_location));
+      }//distance Array now contains haversine distance between location and user
+
+      console.log("distance array after haversine calcs: ", distanceArray);
+
+      for(var j = 0; j < distanceArray.length; j++){
+        let low = 100;
+        let indexOfLow;
+        for (var i = 0; i < distanceArray.length; i++){
+          if(distanceArray[i] < low) {
+            low = distanceArray[i];
+            indexOfLow = i;
+          }
+        }
+        distanceOrder.push(indexOfLow);
+        distanceArray[indexOfLow] += 1000; //make it so new low is found...
+      }
+      console.log("Order of challenges after haversine: ", distanceOrder);
+      return distanceOrder;
+  }
   componentWillMount() {
-    console.log("this value at challenges mount: ", this)
-    socket.emit('joinRoom', this.props.value.circuit._id);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position})
+
+        console.log(this.state.location);
+        let positions = [];
+        let challenges = this.props.value.circuit.challenges;
+        for (var i = 0; i < challenges.length; i++) {
+          positions.push(challenges[i].location_gate.position);
+        }
+
+          let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
+          this.setState({
+            challengeOrder: challengeOrder
+          })
+          console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
 
   }
   componentWillUnmount() {
