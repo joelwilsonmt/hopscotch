@@ -12,7 +12,9 @@ import MapContainer from "../Map/MapContainer";
 import {GameContext} from "../Contexts/GameContext";
 import socketIOClient from 'socket.io-client';
 import Camera from "../Camera/Camera";
-const socket = socketIOClient('localhost:3001/');
+import CircularProgress from "@material-ui/core/CircularProgress";
+const haversine = require('haversine')
+
 
 function TabContainer({ children, dir }) {
   return (
@@ -95,7 +97,7 @@ class Challenges extends React.Component {
 
   }
   componentWillUnmount() {
-    socket.disconnect();
+    //socket.disconnect();
     //socket.emit('joinRoom', this.props.value.user.current_circuit_id);
   }
   handleChange = (event, value) => {
@@ -135,7 +137,14 @@ class Challenges extends React.Component {
                 <Tab value="map" label="MAP" />
               </Tabs>
             </AppBar>
-            {value === 'challenges' && <ChallengeList/>}
+            {value === 'challenges' &&
+              <Paper>
+              {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
+                return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                    distance={this.state.distances[challenge]}
+                        key={i} listId={i}/>
+                    }) : <CircularProgress />  }
+                  </Paper>}
             {value === 'map' && <Map/>}
           </div>
       );
