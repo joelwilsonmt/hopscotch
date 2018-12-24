@@ -144,6 +144,7 @@ class Challenges extends React.Component {
       },
       updateCurrentUserLocation: this.updateCurrentUserLocation
     }
+  }
 
 
   /*-------------------------------this function returns position with
@@ -184,7 +185,7 @@ class Challenges extends React.Component {
 
       console.log("Order of challenges after haversine: ", distanceOrder);
       return distanceOrder;
-  }
+    }
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -206,28 +207,13 @@ class Challenges extends React.Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
+    this.setState({
+      username: this.props.value.user.username
+    });
+    //this.orderChallengesByDistance();
   }
   componentDidMount() {
-      }//distance Array now contains haversine distance between location and user
-      this.setState({
-        distances: distanceArray
-      });
-      console.log("distance array after haversine calcs: ", this.state.distances);
 
-      for(var j = 0; j < distanceArray.length; j++){
-        let low = 100;
-        let indexOfLow;
-        for (var i = 0; i < distanceArray.length; i++){
-          if(distanceArray[i] < low) {
-            low = distanceArray[i];
-            indexOfLow = i;
-          }
-        }
-        distanceOrder.push(indexOfLow);
-        distanceArray[indexOfLow] += 1000; //make it so new low is found...
-      }
-      console.log("Order of challenges after haversine: ", distanceOrder);
-      return distanceOrder;
   }
   /*---------------------------this function gets user location and calls the haversine
   function above to set in state a new order to display the challenges-----------*/
@@ -252,14 +238,6 @@ class Challenges extends React.Component {
     } else {
       console.error("Browser does not support Geolocation");
     }
-  }
-  componentWillMount() {
-    //get user location and order challenges:
-    this.orderChallengesByDistance();
-    //make sure to set the challenge chat username once the component mounts
-    this.setState({
-      username: this.props.value.user.username
-    });
   }
   componentDidMount() {
     //join the room via the socket instance living in Challenge's state
