@@ -45,9 +45,10 @@ class ProofButton extends React.Component {
         <Button variant="contained"
           size="small" justify="center"
           color="primary"
-          disabled={this.props.disabled}
+          disabled={this.props.isWithinDistance}
+
           onClick={() => {
-            game.setCurrentChallenge(this.props.value);
+            game.setCurrentChallenge(this.props.value, this.props.order);
             game.setView('Camera');
           }}
           >

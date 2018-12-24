@@ -46,10 +46,23 @@ const styles = theme => ({
 class Challenges extends React.Component {
   constructor(props) {
     super();
-    this.state = {
-      value: 'challenges',//sets it so that when screen opens, challenges tab has focus
-      location: {
-        coords: []
+    this.updateCurrentUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.setState({location:position})
+          let positions = [];
+          let challenges = this.props.value.circuit.challenges;
+          for (var i = 0; i < challenges.length; i++) {
+            positions.push(challenges[i].location_gate.position);
+          }
+
+            let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
+            this.setState({
+              challengeOrder: challengeOrder
+            });
+          });
+      } else {
+        console.error("Browser does not support Geolocation");
       }
     };
     this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
@@ -119,16 +132,20 @@ class Challenges extends React.Component {
         })
     };
     this.state = {
-      value: 'challenges',
       messageSnackBarOpen: false,
       //chat stuff:
       username: 'Username not set',
       message: '',
       messages: [],//sets it so that when screen opens, challenges tab has focus
-      unreadMessages: 0
-
+      unreadMessages: 0,
+      value: 'challenges',//sets it so that when screen opens, challenges tab has focus
+      location: {
+        coords: []
+      },
+      updateCurrentUserLocation: this.updateCurrentUserLocation
     }
-  }
+
+
   /*-------------------------------this function returns position with
   [0] being the closest and [9] being the furthest--------------------------*/
   calcHaversine = (positions, userLocation) => {
@@ -146,7 +163,51 @@ class Challenges extends React.Component {
           latitude: userLocation.latitude
         }
         distanceArray.push(haversine(location, user_location));
+      }//distance Array now contains haversine distance between location and user
+      this.setState({
+        distanceArray: distanceArray
+      });
 
+
+      for(var j = 0; j < distanceArray.length; j++){
+        let low = 100;
+        let indexOfLow;
+        for (var i = 0; i < distanceArray.length; i++){
+          if(distanceArray[i] < low) {
+            low = distanceArray[i];
+            indexOfLow = i;
+          }
+        }
+        distanceOrder.push(indexOfLow);
+        distanceArray[indexOfLow] += 1000; //make it so new low is found...
+      }
+
+      console.log("Order of challenges after haversine: ", distanceOrder);
+      return distanceOrder;
+  }
+  componentWillMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position})
+
+        console.log(this.state.location);
+        let positions = [];
+        let challenges = this.props.value.circuit.challenges;
+        for (var i = 0; i < challenges.length; i++) {
+          positions.push(challenges[i].location_gate.position);
+        }
+
+          let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
+          this.setState({
+            challengeOrder: challengeOrder
+          })
+          console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
+  }
+  componentDidMount() {
       }//distance Array now contains haversine distance between location and user
       this.setState({
         distances: distanceArray
@@ -262,12 +323,12 @@ class Challenges extends React.Component {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
-            {value === 'challenges' &&
-              <Paper>
+            {value === 'challenges' && <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
-                    distance={this.state.distances[challenge]}
-                        key={i} listId={i}/>
+                        distance={this.state.distanceArray[challenge]-1000}
+                        updateDistance={this.state.updateCurrentUserLocation}
+                        key={i} listId={i} order={challenge}/>
               }) : <CircularProgress />}
               {/*<GameContext.Consumer>{
                   (game) => (
@@ -319,24 +380,6 @@ class Challenges extends React.Component {
       );
     }
   }
-}
-
-
-function ChallengeList(theme) {
-  return (
-    <Paper>
-      <Typography variant="h3">
-        Challenge List
-      </Typography>
-      <GameContext.Consumer>{
-          (game) => (
-            game.circuit.challenges.map(function(challenge, i){
-              return <ExpansionPanels value={challenge} key={i} listId={i} />
-            })
-      )}</GameContext.Consumer>
-    </Paper>
-
-  );
 }
 
 

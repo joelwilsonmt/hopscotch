@@ -26,16 +26,19 @@ const styles = theme => ({
 class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      withinDistance: false
-    };
+    this.state = ({
+      isWithinDistance: false
+    })
   }
   componentWillMount() {
-    if((this.props.distance-1000).toFixed(1) < 1) {
+    this.props.updateDistance();
+    if((this.props.distance-1000) < 2) {
       this.setState({
-        withinDistance: true
+        isWithinDistance: true
       });
     }
+    console.log("expansion panel order at mount: ", this.props.order);
+
   }
   render(){
     let challenge = this.props.value;
@@ -46,8 +49,18 @@ class SimpleExpansionPanel extends React.Component{
           <Typography>
 
             {
-            (this.props.listId+1) + ") " + challenge.full_challenge_text
-          } <strong>{(this.props.distance-1000).toFixed(1)} Miles away</strong>
+
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text + " "
+            }
+
+
+
+          </Typography>
+          <Typography>
+            Distance:<strong>
+            {
+            (this.props.distance).toFixed(2)
+          }</strong>: order: {this.props.order}
 
 
           </Typography>
@@ -63,11 +76,11 @@ class SimpleExpansionPanel extends React.Component{
           }
         </Typography>
         <Typography>
-        { this.state.withinDistance ? <strong>You are within 1 mile of the objective! Take a Picture</strong>
-          :
-          <strong>You cannot submit! Get within 1 mile of the objective!</strong>}
+          {
+            (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
+          }
         </Typography>
-        <ProofButton disabled={!this.state.withinDistance} value={challenge} ArrayPosition={this.props.listId}/>
+        <ProofButton value={this.props.value} order={this.props.order}/>
       </ExpansionPanel>
     </div>
     );
