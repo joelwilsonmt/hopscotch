@@ -56,7 +56,7 @@ class SimpleCard extends React.Component {
     var userId = this.props.value.user._id;
     var roomName = '';
     //get a list of circuits that match a user's boundary:
-    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {_id: userId}).then(
+    axios.post(process.env.REACT_APP_BACK_END_SERVER + 'getCircuits/', {userId: userId}).then(
       (res) => {
         var circuit = res.data;
         console.log("server returned circuit info: ", circuit);
