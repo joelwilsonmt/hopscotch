@@ -46,21 +46,21 @@ class SimpleExpansionPanel extends React.Component{
     <div>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>
+          <Typography variant="h6">
 
             {
 
-            (this.props.listId+1) + ") " + this.props.value.full_challenge_text + " "
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
 
 
 
-          </Typography>
-          <Typography>
-            Distance:<strong>
+          </Typography><br/>
+        <Typography variant="p">
+            <strong>
             {
             (this.props.distance).toFixed(2)
-          }</strong>: order: {this.props.order}
+          }</strong> miles away
 
 
           </Typography>

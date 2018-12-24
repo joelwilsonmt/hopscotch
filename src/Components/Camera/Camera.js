@@ -30,6 +30,9 @@ export default class App extends Component {
     console.log("current challenge in question", this.props.value.currentChallenge);
 
   }
+  componentWillUnmount() {
+    this.props.value.setView('');
+  }
 
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot()
