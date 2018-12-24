@@ -47,7 +47,6 @@ function getBinary(base64Image) {
 router.put('/', function (req, res) {
 
   console.log("Submitting challenge at " + new Date());
-
   var data = req.body;
   var challengeId = data.challengeId;
   var options = {new: true};
@@ -100,12 +99,22 @@ router.put('/', function (req, res) {
           console.log("number of completed after check: ", completedNumber);
           if (completedNumber === winNumber){
             console.log("User has completed all challenges");
+            res.status(200).send({
+              message: "User has completed all challenges",
+              userCompleted: true,
+              circuitComplete: true
+            });
           }
+          res.status(200).send({
+            message: "User has completed challenge" + data.challengeIndex,
+            userCompleted: true,
+            circuitComplete: false
+          });
         });
-      return true; // This is the "true" I want to refer to the whole entire pictureIsValid function
+
     } else {
       console.log("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
-      return false;
+      res.status(404).send("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
     }
   })
   .catch(function(err){
