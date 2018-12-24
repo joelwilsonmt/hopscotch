@@ -55,7 +55,7 @@ router.post('/', function (req, res) {
           var sets_challenges = [];
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
-          var challengeLimit = 10;
+          var challengeLimit = 10; //set to number of challenges you want...
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
@@ -70,7 +70,6 @@ router.post('/', function (req, res) {
               'frisbee',
               'glass',
               'guitar',
-              'key',
               'knife',
               'marker',
               'mobile phone',

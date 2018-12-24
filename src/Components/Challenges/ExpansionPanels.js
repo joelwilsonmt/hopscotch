@@ -26,9 +26,19 @@ const styles = theme => ({
 class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
+    this.state = ({
+      isWithinDistance: false
+    })
   }
   componentWillMount() {
-    console.log("This props value at Expansion Panel Mount:", this.props.value);
+    this.props.updateDistance();
+    if((this.props.distance-1000) < 2) {
+      this.setState({
+        isWithinDistance: true
+      });
+    }
+    console.log("expansion panel order at mount: ", this.props.order);
+
   }
   render(){
   return (
@@ -38,8 +48,16 @@ class SimpleExpansionPanel extends React.Component{
           <Typography>
 
             {
-            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text + " "
             }
+
+
+          </Typography>
+          <Typography>
+            Distance:<strong>
+            {
+            (this.props.distance).toFixed(2)
+          }</strong>: order: {this.props.order}
 
 
           </Typography>
@@ -54,7 +72,12 @@ class SimpleExpansionPanel extends React.Component{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
         </Typography>
-        <ProofButton value={this.props.value} ArrayPosition={this.props.listId}/>
+        <Typography>
+          {
+            (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
+          }
+        </Typography>
+        <ProofButton value={this.props.value} order={this.props.order}/>
       </ExpansionPanel>
     </div>
     );

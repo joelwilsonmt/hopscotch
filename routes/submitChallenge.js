@@ -43,15 +43,13 @@ function getBinary(base64Image) {
     }
     return ab;
 }
+
 router.put('/', function (req, res) {
 
   console.log("Submitting challenge at " + new Date());
 
   var data = req.body;
-  var query = data.challengeId;
-  var update = {
-    id_users_completed: [data.userId]
-  };
+  var challengeId = data.challengeId;
   var options = {new: true};
   var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 40000);
   var pictureFile = data.screenshot;
@@ -79,8 +77,31 @@ router.put('/', function (req, res) {
     for (var i = 0; i < res.Labels.length; i++) {
       labelNames.push(res.Labels[i].Name.toLowerCase());
     }
-    if (labelNames.includes("face") && labelNames.includes(wordToCheck) && distanceWin) {
+    if (labelNames.includes("face") && labelNames.includes(data.check_word) && distanceWin) {
       console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", wordToCheck, "!");
+    //TODO: add user Id to list of users who have completed challenge in question (data.challengeId)
+    console.log("circuit id passed:", data.circuitId);
+    console.log("challenge index to check on back end: ", data.challengeIndex);
+    //let update = {challenges[data.challengeIndex].id_users_completed: 'new value'}
+    Circuit.findById(data.circuitId)
+    .then(function(circuit, err){
+          console.log(err);
+          circuit.challenges[data.challengeIndex].id_users_completed.push(data.userId);
+          circuit.save();
+          console.log('id of users completed in circuit in question', circuit.challenges[data.challengeIndex].id_users_completed);
+          let winNumber = circuit.challenges.length;
+          console.log("number of wins needed: ", winNumber);
+          let completedNumber = 0;
+          for (var i = 0; i < circuit.challenges.length; i++){
+            if (circuit.challenges[i].id_users_completed.includes(data.userId)){
+              completedNumber++;
+            }
+          }
+          console.log("number of completed after check: ", completedNumber);
+          if (completedNumber === winNumber){
+            console.log("User has completed all challenges");
+          }
+        });
       return true; // This is the "true" I want to refer to the whole entire pictureIsValid function
     } else {
       console.log("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
