@@ -42,13 +42,14 @@ class ProofButton extends React.Component {
 
         <GameContext.Consumer>{
             (game) => (
-        <Button size="small" justify="center"
+        <Button variant="contained"
+          size="small" justify="center"
           color="primary"
           disabled={this.props.isWithinDistance}
+
           onClick={() => {
             game.setCurrentChallenge(this.props.value, this.props.order);
             game.setView('Camera');
-
           }}
           >
           Take Picture

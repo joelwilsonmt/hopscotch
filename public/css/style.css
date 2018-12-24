@@ -2,12 +2,70 @@ h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
+html,
+body {
+    height: 100%;
+}
 body {
   text-align: center !important;
+  x-overflow: hidden;
+  margin: 0 !important;
 }
 button {
   margin: .3% !important;
 }
+#root {
+  height: 100% !important;
+}
+.opening-screen {
+  height: 80vh !important;
+
+}
+.opening-screen div{
+  /*position: relative;
+  top: 50%;
+  transform: translateY(-50%);*/
+}
+.logo {
+  padding: 5% 0;
+}
 .challengeMap {
   width: auto !important;
+}
+.chat-window {
+  width: 90%;
+  margin: auto;
+  text-align: left !important;
+
+}
+.chat-window li {
+  list-style-type: none;
+}
+.chat-messages {
+  /*color: #fff;
+  background-color: #777;*/
+  max-height: 50%;
+  padding: 1%;
+  margin: auto;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  height : 35vh;
+  overflow:auto;
+}
+/*chat badge*/
+.chat-badge span {
+  position: relative !important;
+  right: -15px !important;
+}
+
+/*see if I can get circuit looking bg*/
+.MuiAppBar-colorPrimary-8 {
+  /*background-image: url('https://i.pinimg.com/originals/99/89/fd/9989fddb2ba58e5612a037689b35e49f.gif');
+  background-image: url('https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif');
+  background-image: url('https://media.giphy.com/media/ko7twHhomhk8E/giphy.gif');
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 }

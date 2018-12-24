@@ -102,7 +102,6 @@ export default class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-
           <DialogTitle id="form-dialog-title">Who Are You</DialogTitle>
           <DialogContent>
             <DialogContentText>

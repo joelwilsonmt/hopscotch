@@ -14,7 +14,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 const theme = createMuiTheme({
-  palette: {
+  /*palette: {
 
     Secondary: {
       light: '#8664ea',
@@ -32,7 +32,7 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: '-apple-system',
   },
-});
+*/});
 
 
 

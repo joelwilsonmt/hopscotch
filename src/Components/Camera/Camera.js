@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import Button from '@material-ui/core/Button';
+import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
 // import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
@@ -27,6 +28,7 @@ export default class App extends Component {
       });
 
     console.log("current challenge in question", this.props.value.currentChallenge);
+
   }
 
   handleClick = () => {
@@ -72,6 +74,7 @@ export default class App extends Component {
     const videoConstraints = {
       facingMode: "user"
     };
+    let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
         <div>
@@ -108,6 +111,9 @@ export default class App extends Component {
           height={300}
           videoConstraints={videoConstraints}
         />
+      <Typography variant="h5">
+        {currentChallenge.full_challenge_text}
+      </Typography>
       <div>
         <Button variant="outlined" size="small" color="primary" onClick={this.handleClick}>
           Capture

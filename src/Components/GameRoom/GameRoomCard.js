@@ -130,18 +130,18 @@ class SimpleCard extends React.Component {
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
           </Typography>
-          <Typography variant="h6" component="h2" align="center">
+
             {
               this.state.foundCircuit.challenges
               ?
-              "Circuit Found with " + this.state.foundCircuit.challenges.length +
-              " Challenges"
-              :
               <div>
-                <CircularProgress/>
+              <Typography variant="h6" align="center">Circuit Found with  {this.state.foundCircuit.challenges.length} Challenges</Typography>
+              <Typography variant="p" align="center">id: {this.state.foundCircuit._id}</Typography>
               </div>
+              :
+              <CircularProgress/>
             }
-          </Typography>
+
         </CardContent>
         <CardActions>
           {this.state.circuitFound ?

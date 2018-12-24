@@ -26,8 +26,9 @@ function MainAppBar(props) {
                 <MenuButton value={route}/>
               )
           }</GameContext.Consumer>
-          <Typography variant="subtitle1: 'h6'" color="inherit">
-            CIRCUIT BREAKER
+
+        <Typography variant="h3" color="inherit">
+            Circuit Breaker
           </Typography>
           <Typography variant="subtitle1: 'h6'" color="inherit">
             <GameContext.Consumer>{

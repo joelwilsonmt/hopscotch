@@ -42,13 +42,12 @@ class OpeningScreen extends React.Component {
 
   render(){
     return (
-      <div>
-        <Paper
-          elevation={6} root="#212121">
-          <Typography variant="h1" color='#212121' gutterBottom>
+
+        <Paper className="opening-screen"
+          elevation={1}>
+          <Typography variant="h1" gutterBottom className="logo">
             Circuit Breaker
           </Typography>
-
             <GameContext.Consumer>{
                 (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
                   <div>
@@ -57,7 +56,6 @@ class OpeningScreen extends React.Component {
                 )
               }</GameContext.Consumer>
         </Paper>
-      </div>
     );
   }
 }
