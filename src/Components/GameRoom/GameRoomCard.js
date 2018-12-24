@@ -76,7 +76,7 @@ class SimpleCard extends React.Component {
         console.error("error", err);
         if(userId !== ''){
           console.log("Get circuits failed, creating circuit in database");
-          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {_id: userId}).then(
+          axios.post(process.env.REACT_APP_BACK_END_SERVER + 'addCircuit/', {userId: userId}).then(
           (res) => {
             var newCircuit = res.data;
             console.log("add circuit successful: ", newCircuit);
