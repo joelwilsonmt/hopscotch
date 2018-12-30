@@ -84,7 +84,7 @@ router.put('/', function (req, res) {
     //let update = {challenges[data.challengeIndex].id_users_completed: 'new value'}
     Circuit.findById(data.circuitId)
     .then(function(circuit, err){
-          console.log(err);
+          if(err){console.log(err);}
           circuit.challenges[data.challengeIndex].id_users_completed.push(data.userId);
           circuit.save();
           console.log('id of users completed in circuit in question', circuit.challenges[data.challengeIndex].id_users_completed);
@@ -99,22 +99,22 @@ router.put('/', function (req, res) {
           console.log("number of completed after check: ", completedNumber);
           if (completedNumber === winNumber){
             console.log("User has completed all challenges");
-            res.status(200).send({
+            /*res.status(200).send({
               message: "User has completed all challenges",
               userCompleted: true,
               circuitComplete: true
-            });
+            });*/
           }
-          res.status(200).send({
+          /*res.status(200).send({
             message: "User has completed challenge" + data.challengeIndex,
             userCompleted: true,
             circuitComplete: false
-          });
+          });*/
         });
 
     } else {
-      console.log("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
-      res.status(404).send("SORRY, there is no match with", wordToCheck, "in the following detected items, OR photo is not a selfie: ", labelNames);
+      console.log("SORRY, there is no match with", wordToCheck, "in the following items, OR photo is not a selfie: ", labelNames);
+      //res.status(404).send("SORRY, there is no match with", wordToCheck, "in the following items, OR photo is not a selfie: ", labelNames);
     }
   })
   .catch(function(err){
