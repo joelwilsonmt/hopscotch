@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-// import Camera from 'react-camera';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import Button from '@material-ui/core/Button';
 import {GameContext} from "../Contexts/GameContext";
-// import 'react-html5-camera-photo/build/css/index.css'
 require('dotenv').config();
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -21,11 +18,9 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position});
-      });
-
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({location:position});
+    });
     console.log("current challenge in question", this.props.value.currentChallenge);
   }
 
@@ -34,7 +29,7 @@ export default class App extends Component {
     this.setState({
       screenshot: screenshot,
       screenshotTaken: true
-      });
+    });
   }
 
   resetCamera = () => {
@@ -85,55 +80,70 @@ export default class App extends Component {
       return(
         <div>
         {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
-        <div>
-        <Button variant="contained" size="small" color="primary" onClick={this.confirmPhoto}>
-          Submit
-        </Button>
-        <Button variant="outlined" size="small" color="primary" onClick={this.resetCamera}>
-          Retake
-        </Button>
-        </div>
-        <GameContext.Consumer>{
+          <div>
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={this.confirmPhoto}>
+              Submit
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={this.resetCamera}>
+              Retake
+            </Button>
+          </div>
+          <GameContext.Consumer>{
             (game) => (
-        <Button variant="contained" size="small" justify="center"
-          color="secondary"
-          onClick={() => game.setView('')}
-          >
-          Back to Challenges
-        </Button>
-    )}</GameContext.Consumer>
+              <Button
+                variant="contained"
+                size="small"
+                justify="center"
+                color="primary"
+                onClick={() => game.setView('')}>
+                Back to Challenges
+              </Button>
+          )}</GameContext.Consumer>
         </div>
       );
     }
     else{
-    return (
-      <div>
-        <Webcam
-          audio={false}
-          screenshotFormat="image/jpeg"
-          ref={node => this.webcam = node}
-          screenshotQuality={.8}
-          width={375}
-          height={300}
-          videoConstraints={videoConstraints}
-        />
-      <div>
-        <Button variant="outlined" size="small" color="primary" onClick={this.handleClick}>
-          Capture
-        </Button>
-      </div>
-      <GameContext.Consumer>{
-          (game) => (
-      <Button variant="contained" size="small" justify="center"
-        color="secondary"
-        onClick={() => game.setView('')}
-        >
-        Back to Challenges
-      </Button>
-  )}</GameContext.Consumer>
-      </div>
-    );
-  }//closes else
+      return (
+        <div>
+          <Webcam
+            audio={false}
+            screenshotFormat="image/jpeg"
+            ref={node => this.webcam = node}
+            screenshotQuality={.8}
+            width={375}
+            height={300}
+            videoConstraints={videoConstraints}
+          />
+          <div>
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={this.handleClick}>
+              Capture
+            </Button>
+          </div>
+          <GameContext.Consumer>{
+            (game) => (
+              <Button
+                variant="contained"
+                size="small"
+                justify="center"
+                color="primary"
+                onClick={() => game.setView('')}>
+                Back to Challenges
+              </Button>
+          )}</GameContext.Consumer>
+        </div>
+      );
+    }//closes else
   }
 }
 

@@ -1,12 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import GameRoom from "../GameRoom/GameRoom";
-import {GameContext} from "../Contexts/GameContext";
 
 class SimpleMenu extends React.Component {
   state = {
@@ -20,25 +16,29 @@ class SimpleMenu extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
   routeHome = () => {
     this.props.value.setScreen('OpeningScreen');
   }
+
   routeGameRoom = () => {
     this.props.value.setScreen('GameRoom');
   }
+
   routeChallenges = () => {
     this.props.value.setScreen('Challenges');
   }
+
   routeCamera = () => {
     this.props.value.setScreen('Camera');
   }
+
   routeCircuitReview = () => {
     this.props.value.setScreen('CircuitReview');
   }
 
   render() {
     const { anchorEl } = this.state;
-
     return (
       <div>
         <IconButton
@@ -54,44 +54,45 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-
-        <MenuItem onClick={
+          <MenuItem onClick={
             (event) => {
               this.handleClose();
               this.routeHome();
             }}>
-            Home
-        </MenuItem>
-        <MenuItem onClick={
+            HOME
+          </MenuItem>
+
+          <MenuItem onClick={
             (event) => {
               this.handleClose();
               this.routeGameRoom();
             }}>
-            Game Room
-        </MenuItem>
+            GAME ROOM
+          </MenuItem>
 
-        <MenuItem onClick={
+          <MenuItem onClick={
             (event) => {
               this.handleClose();
               this.routeChallenges();
             }}>
-            Challenges
-        </MenuItem>
+            CHALLENGES
+          </MenuItem>
 
-        <MenuItem onClick={
+          <MenuItem onClick={
             (event) => {
               this.handleClose();
               this.routeCamera();
             }}>
-            Camera
-        </MenuItem>
-        <MenuItem onClick={
+            CAMERA
+          </MenuItem>
+
+          <MenuItem onClick={
             (event) => {
               this.handleClose();
               this.routeCircuitReview();
             }}>
-            Circuit Review
-        </MenuItem>
+            CIRCUIT REVIEW
+          </MenuItem>
         </Menu>
       </div>
     );

@@ -1,20 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import {GameContext} from "../Contexts/GameContext";
-import {
-  Route,
-  Link,
-  BrowserRouter as Router,
-} from 'react-router-dom';
 import GameRoom from '../GameRoom/GameRoom';
 import Camera from '../Camera/Camera';
-
 
 const styles = theme => ({
   button: {
@@ -30,6 +18,7 @@ class ProofButton extends React.Component {
     super(props);
     //this.handleClick.bind(this);
   }
+
   componentWillMount(){
     console.log("Proof button this at mount: ", this);
 
@@ -38,24 +27,26 @@ class ProofButton extends React.Component {
     console.log("proof button clicked");
    console.log("Proof button this prop value at click", this.props.value);
   }
+
   render(){
     return (
       <div>
-
         <GameContext.Consumer>{
-            (game) => (
-        <Button size="small" justify="center"
-          color="primary"
-          onClick={() => {
-            game.setCurrentChallenge(this.props.value);
-            game.setView('Camera');
-            
-          }}
-          >
-          Take Picture
-        </Button>
-    )}</GameContext.Consumer>
-
+          (game) => (
+            <Button
+              variant="outlined"
+              size="small"
+              justify="center"
+              color="primary"
+              onClick={() => {
+                game.setCurrentChallenge(this.props.value);
+                game.setView('Camera');
+              }}
+            >
+            Take Picture
+            </Button>
+          )
+        }</GameContext.Consumer>
       </div>
     );
   }

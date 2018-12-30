@@ -1,5 +1,4 @@
 import React from "react";
-//import CountDown from "../Utilities/CountDown";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,16 +9,14 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import {GameContext} from "../Contexts/GameContext";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
 
 /*
-
-When a user navigates to the Game Room, it mounts this SimpleCard which makes server calls and handles errors to be able to check against the user's boundary to set a matching circuit in state. If no matching circuits are found, a circuit is created and its corresponding data is set in state to the the this.state.foundCircuit object
-
+When a user navigates to the Game Room, it mounts this SimpleCard which makes
+server calls and handles errors to be able to check against the user's boundary
+to set a matching circuit in state. If no matching circuits are found, a circuit
+is created and its corresponding data is set in state to the the
+this.state.foundCircuit object
 */
-
-
 
 const styles = {
   card: {

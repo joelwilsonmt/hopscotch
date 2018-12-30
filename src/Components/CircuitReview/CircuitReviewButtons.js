@@ -21,7 +21,6 @@ function ButtonSizes(props) {
           <Button variant="contained" size="small" color="primary" className={classes.margin}>
             LOG OUT
           </Button>
-
       </div>
     </div>
   );

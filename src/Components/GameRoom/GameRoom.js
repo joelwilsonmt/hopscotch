@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
-import MainAppBar from "../Utilities/MainAppBar";
-import axios from "axios";
 import {UserContext} from "../Contexts/UserContext";
 import {GameContext} from "../Contexts/GameContext";
 var dotenv = require('dotenv').config();
-
 
 const styles = theme => ({
   root: {
