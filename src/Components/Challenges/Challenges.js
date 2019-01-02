@@ -362,17 +362,12 @@ class Challenges extends React.Component {
 
 function Map(theme) {
   return (
-    <Paper>
-      <Typography variant="h3">
-        Map
-      </Typography>
       <div>
         <GameContext.Consumer>{
             (game) => (
         <MapContainer value={game}/>
         )}</GameContext.Consumer>
       </div>
-    </Paper>
   );
 }
 function ChatF(props) {

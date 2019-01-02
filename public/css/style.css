@@ -7,6 +7,10 @@ h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
+.white {
+  color: #FF7400 !important;
+  background: rgba(0,0,0,.75);
+}
 .challengeMap {
   width: auto !important;
 }
@@ -19,7 +23,7 @@ html {
     background: transparent;  /* optional: just make scrollbar invisible */
 }
 .screen {
-  padding: 5% 0;
+  /* padding: 5% 0; */
   text-align: center;
 }
 .padder {

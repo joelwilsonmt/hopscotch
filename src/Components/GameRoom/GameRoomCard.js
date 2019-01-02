@@ -122,7 +122,7 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <Card className="screen">
+      <div className="screen">
         <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
@@ -133,7 +133,6 @@ class SimpleCard extends React.Component {
               ?
               <div>
               <Typography variant="h6" align="center">Circuit Found with  {this.state.foundCircuit.challenges.length} Challenges</Typography>
-              <Typography variant="p" align="center">id: {this.state.foundCircuit._id}</Typography>
               </div>
               :
               <CircularProgress/>
@@ -149,14 +148,14 @@ class SimpleCard extends React.Component {
               size="small"
               justify="center"
               color="primary"
-              className="center"
+              className="animated pulse infinite center"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
         )}</GameContext.Consumer>: ''}
         </CardActions>
-      </Card>
+      </div>
     );
   }
 }
