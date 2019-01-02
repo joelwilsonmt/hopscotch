@@ -6,7 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {UserContext} from "../Contexts/UserContext";
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
@@ -21,7 +22,8 @@ export default class FormDialog extends React.Component {
       open: false,
       userNameInputValue: '',
       idSearch: '',
-      _id: ''
+      _id: '',
+      disableSubmit: true
     };
   }
   // getUserLocation = () => {
@@ -30,7 +32,11 @@ export default class FormDialog extends React.Component {
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position})
+        this.setState({
+          location:position,
+          disableSubmit: false
+        })
+
         console.log(this.state.location);
       });
     } else {
@@ -66,6 +72,9 @@ export default class FormDialog extends React.Component {
       latitude: this.state.location.coords.latitude
     };
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
+    const addUserMissoulaDowntown = process.env.REACT_APP_BACK_END_SERVER + 'addUserMissoulaDowntown';
+    const addUserMTCS = process.env.REACT_APP_BACK_END_SERVER + 'addUserMTCS';
+    const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
     axios.post(addUser, userObject).then((res, err) => {
@@ -83,9 +92,12 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="contained" color="primary"
-          Button onClick={this.handleClickOpen}>
-          GET STARTED!
+
+      <Button variant="contained"
+        color="primary"
+        disabled={this.state.disableSubmit}
+        Button onClick={this.handleClickOpen}>
+        Get Started!
         </Button>
         <Dialog
           open={this.state.open}
@@ -114,17 +126,17 @@ export default class FormDialog extends React.Component {
                 this.handleClose()
                 this.submitUserToServer()
                 }}>
-              SUBMIT
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="small"
-              onClick={this.handleClose}>
-              CANCEL
-            </Button>
+              Submit
+            </Button><br/>
+
           </DialogActions>
         </Dialog>
+        <Typography variant="p">
+            {this.state.disableSubmit ?
+                <CircularProgress />
+                : ''
+            }
+        </Typography>
       </div>
     );
   }

@@ -24,38 +24,65 @@ const styles = theme => ({
 class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
+    this.state = ({
+      isWithinDistance: false
+    })
   }
 
   componentWillMount() {
-    console.log("This props value at Expansion Panel Mount:", this.props.value);
+    this.props.updateDistance();
+    if((this.props.distance-1000) < 2) {
+      this.setState({
+        isWithinDistance: true
+      });
+    }
+    console.log("expansion panel order at mount: ", this.props.order);
+
   }
 
   render(){
-    return (
-      <div>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>
-              {
-              (this.props.listId+1) + ") " + this.props.value.full_challenge_text
-              }
-            </Typography>
-          </ExpansionPanelSummary>
-          <div className="center">
-          <Typography>
+    let challenge = this.props.value;
+  return (
+    <div>
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">
+
             {
-            this.props.value.location_gate.name
+
+            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
-          </Typography>
-          <Typography>
+
+
+
+          </Typography><br/>
+        <Typography variant="p">
+            <strong>
             {
-            this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
-            }
+            (this.props.distance).toFixed(2)
+          }</strong> miles away
+
+
           </Typography>
-          <ProofButton value={this.props.value} ArrayPosition={this.props.listId}/>
-          </div>
-        </ExpansionPanel>
-      </div>
+        </ExpansionPanelSummary>
+        <Typography>
+          {
+          challenge.location_gate.name
+        }
+        </Typography>
+        <Typography>
+          {
+          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
+          }
+        </Typography>
+        <Typography>
+          {
+            (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
+          }
+        </Typography>
+        <ProofButton value={this.props.value} order={this.props.order}/>
+      </ExpansionPanel>
+    </div>
     );
   }
 }

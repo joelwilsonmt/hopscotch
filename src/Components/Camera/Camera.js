@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import Button from '@material-ui/core/Button';
+import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
 require('dotenv').config();
 
@@ -22,6 +23,10 @@ export default class App extends Component {
       this.setState({location:position});
     });
     console.log("current challenge in question", this.props.value.currentChallenge);
+
+  }
+  componentWillUnmount() {
+    this.props.value.setView('');
   }
 
   handleClick = () => {
@@ -41,27 +46,18 @@ export default class App extends Component {
 
   confirmPhoto = () => {
     // console.log("data: ", req);
+    console.log("current challenge index: ", this.props.value.currentChallengeIndex);
     let req = {
       screenshot: this.state.screenshot,
       check_word: this.props.value.currentChallenge.object_gate,
       location_to_check: this.props.value.currentChallenge.location_gate.position,
       userId: this.props.value.user._id,
-      challengeId: this.props.value.currentChallenge._id,
+      circuitId: this.props.value.circuit._id,
+      challengeIndex: this.props.value.currentChallengeIndex,
       user_position: [this.state.location.coords.latitude, this.state.location.coords.longitude]
     };
-
-/*
-    let req = {};
-    req.picture = this.state.screenshot;
-    req.object_to_check = this.props.value.currentChallenge.object_gate;
-    req.location_to_check = this.props.value.currentChallenge.location_gate.position;
-    req.userId = this.props.value.user._id;
-    req.challengeId = this.props.value.currentChallenge._id;
-    req.user_position = [this.state.location.coords.latitude, this.state.location.coords.longitude];
-*/
-
     // console.log("data to server: ", req);
-
+    console.log("the challenge ID in question: ", this.props.value.currentChallenge._id)
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', req)
     .then((res)=>{
       // console.log(res);
@@ -76,6 +72,7 @@ export default class App extends Component {
     const videoConstraints = {
       facingMode: "user"
     };
+    let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
         <div>

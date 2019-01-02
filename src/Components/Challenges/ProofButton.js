@@ -20,8 +20,6 @@ class ProofButton extends React.Component {
   }
 
   componentWillMount(){
-    console.log("Proof button this at mount: ", this);
-
   }
   handleClick() {
     console.log("proof button clicked");
@@ -32,21 +30,21 @@ class ProofButton extends React.Component {
     return (
       <div>
         <GameContext.Consumer>{
-          (game) => (
-            <Button
-              variant="contained"
-              size="small"
-              justify="center"
-              color="primary"
-              onClick={() => {
-                game.setCurrentChallenge(this.props.value);
-                game.setView('Camera');
-              }}
-            >
-            Take Picture
-            </Button>
-          )
-        }</GameContext.Consumer>
+            (game) => (
+        <Button variant="contained"
+          size="small" justify="center"
+          color="primary"
+          disabled={this.props.isWithinDistance}
+
+          onClick={() => {
+            game.setCurrentChallenge(this.props.value, this.props.order);
+            game.setView('Camera');
+          }}
+          >
+          Take Picture
+        </Button>
+    )}</GameContext.Consumer>
+
       </div>
     );
   }
