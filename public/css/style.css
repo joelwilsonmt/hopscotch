@@ -1,13 +1,32 @@
+body {
+    margin: 0;
+  	padding: 0;
+  	border: 0;
+}
 h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-}
-body {
-  text-align: center !important;
 }
 button {
   margin: .3% !important;
 }
 .challengeMap {
   width: auto !important;
+}
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+.map-wrapper {
+  width: 100%;
+  height: 80%;
+
 }
