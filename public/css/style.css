@@ -25,8 +25,27 @@ html {
 ::-webkit-scrollbar-thumb {
     background: #FF0000;
 }
+/*
 .map-wrapper {
   width: 100%;
   height: 80%;
-
+}*/
+.screen {
+  padding: 5% 0;
+  text-align: center;
 }
+.padder {
+  padding: 2.5% 0;
+}
+.center {
+  text-align: center !important;
+  margin: auto !important;
+}
+.logo {
+  -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

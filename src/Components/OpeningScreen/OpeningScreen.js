@@ -3,6 +3,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DialogBox from "./DialogBox"
 import {GameContext} from "../Contexts/GameContext";
+import Grow from '@material-ui/core/Grow';
+
 
 // const styles = theme => ({
 //
@@ -26,11 +28,12 @@ class OpeningScreen extends React.Component {
   }
   render(){
     return (
-      <div height="100hv">
-        <Paper>
-          <Typography variant="h4">
+       <Grow in={true} timeout={1000}>
+        <Paper className="screen">
+          <Typography variant="h2">
             CIRCUIT BREAKER
           </Typography>
+          <img className="padder logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSlnF-3VO2FwapvDmPfhYVk3nIe-1vLRizD4Nv-LZVK3_zl4RZ"/>
           <GameContext.Consumer>{
             (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
               <div>
@@ -39,7 +42,7 @@ class OpeningScreen extends React.Component {
             )
           }</GameContext.Consumer>
         </Paper>
-      </div>
+      </Grow>
     );
   }
 }

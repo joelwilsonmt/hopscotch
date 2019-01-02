@@ -122,7 +122,7 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card className="screen">
         <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
@@ -149,6 +149,7 @@ class SimpleCard extends React.Component {
               size="small"
               justify="center"
               color="primary"
+              className="center"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit

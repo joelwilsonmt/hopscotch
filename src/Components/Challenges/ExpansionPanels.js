@@ -41,6 +41,7 @@ class SimpleExpansionPanel extends React.Component{
               }
             </Typography>
           </ExpansionPanelSummary>
+          <div className="center">
           <Typography>
             {
             this.props.value.location_gate.name
@@ -52,6 +53,7 @@ class SimpleExpansionPanel extends React.Component{
             }
           </Typography>
           <ProofButton value={this.props.value} ArrayPosition={this.props.listId}/>
+          </div>
         </ExpansionPanel>
       </div>
     );

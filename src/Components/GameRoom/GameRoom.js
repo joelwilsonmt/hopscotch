@@ -18,27 +18,16 @@ class GameRoom extends Component {
       <div>
         <Paper elevation={1}>
           <br />
-          <Typography variant="h5" component="h3" align="center">
+          <Typography variant="h1" component="h3" align="center">
             GAME ROOM
           </Typography>
           <GameContext.Consumer>{
               (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
                 <div>
-                  <Typography variant="h4" gutterBottom>
-                    User Name: {game.user.username}
-                  </Typography>
                    <GameRoomCard value={game}/>
                  </div>
                 )
             }</GameContext.Consumer>
-            <GameContext.Consumer>{
-                (game) => (
-                    <Typography variant="h5" component="h3" align="center">
-                      {game.circuit._id ? 'Game Joined: '+ game.circuit._id:
-                      'No game joined yet'}
-                    </Typography>
-
-                )}</GameContext.Consumer>
         </Paper>
       </div>
     );//end return
