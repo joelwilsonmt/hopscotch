@@ -16,6 +16,7 @@ function LetterAvatars(props) {
   const { classes } = props;
   return (
     <Grid container justify="flex-end" alignItems="flex-end">
+      <img className="avatar-logo" src="https://clipground.com/images/clipart-globes-maps-4.png" width="40"/>
       <GameContext.Consumer>{ (session) => (
         <Avatar className={classes.avatar}>
           {session.user.username[0]}
