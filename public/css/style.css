@@ -7,18 +7,6 @@ h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
-<<<<<<< HEAD
-=======
-html,
-body {
-    height: 100%;
-}
-body {
-  text-align: center !important;
-  x-overflow: hidden;
-  margin: 0 !important;
-}
->>>>>>> chat
 button {
   margin: .3% !important;
 }
@@ -40,7 +28,6 @@ button {
 .challengeMap {
   width: auto !important;
 }
-<<<<<<< HEAD
 html {
     overflow: scroll;
     overflow-x: hidden;
@@ -88,7 +75,6 @@ h2 {
   -webkit-animation:spin 1s linear infinite;
     -moz-animation:spin 1s linear infinite;
     animation:spin 1s linear infinite;
-=======
 .chat-window {
   width: 90%;
   margin: auto;
@@ -125,5 +111,4 @@ h2 {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;*/
->>>>>>> chat
 }
