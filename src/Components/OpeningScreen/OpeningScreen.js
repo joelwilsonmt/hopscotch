@@ -36,7 +36,7 @@ class OpeningScreen extends React.Component {
           <img className="padder logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSlnF-3VO2FwapvDmPfhYVk3nIe-1vLRizD4Nv-LZVK3_zl4RZ"/>
           <GameContext.Consumer>{
             (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
-              <div>
+              <div className="animated pulse infinite">
                 <DialogBox value={game} />
               </div>
             )

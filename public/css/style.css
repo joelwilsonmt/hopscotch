@@ -62,15 +62,3 @@ h2 {
   position: relative !important;
   right: -15px !important;
 }
-
-/*see if I can get circuit looking bg*/
-.MuiAppBar-colorPrimary-8 {
-  /*background-image: url('https://i.pinimg.com/originals/99/89/fd/9989fddb2ba58e5612a037689b35e49f.gif');
-  background-image: url('https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif');
-  background-image: url('https://media.giphy.com/media/ko7twHhomhk8E/giphy.gif');
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;*/
-}
