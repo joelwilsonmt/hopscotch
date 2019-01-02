@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    document.body.style.backgroundImage = `url(${Background})`;
+    //document.body.style.backgroundImage = `url(${Background})`;
   }
 
   render() {

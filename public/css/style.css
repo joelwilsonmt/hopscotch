@@ -1,3 +1,9 @@
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+    background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;
+    background-size: cover;
+}
 body {
     margin: 0 !important;
   	padding: 0 !important;
@@ -8,26 +14,22 @@ h1 {
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
 .white {
-  color: #FF7400 !important;
-  background: rgba(0,0,0,.75);
+  color: #fff !important;
 }
 .challengeMap {
   width: auto !important;
 }
-html {
-    overflow: scroll;
-    overflow-x: hidden;
-}
+
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
 }
 .screen {
-  /* padding: 5% 0; */
+  padding: 5% 0;
   text-align: center;
 }
 .padder {
-  padding: 10% 0 !important;
+  padding: 5% 0 !important;
 }
 .center {
   text-align: center !important;
