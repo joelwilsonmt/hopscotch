@@ -22,15 +22,8 @@ function MainAppBar(props) {
             )
           }</GameContext.Consumer>
 
-        <Typography variant="h3" color="inherit">
+        <Typography variant="h5" color="inherit">
             Circuit Breaker
-          </Typography>
-          <Typography variant="subtitle1: 'h6'" color="inherit">
-            <GameContext.Consumer>{
-                (game) => ( //can be rewreitten as (userProviderState)
-                    <span>{game.user.username}</span>
-                )
-              }</GameContext.Consumer>
           </Typography>
           <Avatar />
         </Toolbar>

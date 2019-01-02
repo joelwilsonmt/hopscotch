@@ -199,7 +199,7 @@ class GameProvider extends React.Component {
         //the Provider's passed value={this.state} .updateUser(userId) method
         //is accessed
         user: {
-          username: 'Not logged in',
+          username: '',
           _id: '',
           current_user_location: {
             type: "",
