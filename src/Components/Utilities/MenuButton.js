@@ -37,6 +37,18 @@ class SimpleMenu extends React.Component {
     this.props.value.setScreen('CircuitReview');
   }
 
+  routeHome = () => {
+    this.props.value.setScreen('OpeningScreen');
+  }
+
+  // restartGame = () => {
+  //   this.setState({
+  //     userNameInputValue: '',
+  //     idSearch: '',
+  //     _id: ''
+  //   });
+  // }
+
   render() {
     const { anchorEl } = this.state;
     return (
@@ -93,6 +105,16 @@ class SimpleMenu extends React.Component {
             }}>
             CIRCUIT REVIEW
           </MenuItem>
+
+          <MenuItem onClick={
+            (event) => {
+              this.handleClose();
+              this.routeHome();
+              // this.restartGame.bind(this)
+            }}>
+            LOG OUT
+          </MenuItem>
+
         </Menu>
       </div>
     );

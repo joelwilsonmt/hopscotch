@@ -34,7 +34,7 @@ class ProofButton extends React.Component {
         <GameContext.Consumer>{
           (game) => (
             <Button
-              variant="outlined"
+              variant="contained"
               size="small"
               justify="center"
               color="primary"

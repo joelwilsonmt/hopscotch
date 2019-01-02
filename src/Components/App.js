@@ -7,12 +7,13 @@ import Camera from "./Camera/Camera";
 import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
 import MainAppBar from "./Utilities/MainAppBar";
+import NoPage from "./Utilities/NoPage";
 // import GameProvider from "./Contexts/GameContext";
 // import {GameContext} from "./Contexts/GameContext";
 import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Background from './Images/circuit4.jpg';
-   
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -102,7 +103,7 @@ class App extends React.Component {
         <div>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
-            <h1>Sorry, Cannot Find Page</h1>
+            <NoPage />
           </MuiThemeProvider>
         </div>
       );

@@ -79,7 +79,7 @@ export default class App extends Component {
     if(this.state.screenshotTaken){
       return(
         <div>
-        {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+        {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
             <Button
               variant="contained"
