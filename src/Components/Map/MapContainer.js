@@ -6,11 +6,6 @@ import {GameContext} from "../Contexts/GameContext";
 //sonic gif: https://media.giphy.com/media/5Mrn3s7rQRvPO/giphy.gif
 //pikachu: https://images.newschoolers.com/images/17/00/68/70/05/687005_50w_50h_zc.gif
 
-const mapStyle = {
-  width: '94vw',  //change
-  height: '60vh'  //change
-};
-
 export class MapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +44,8 @@ export class MapContainer extends React.Component {
 
   render() {
     const style = {
-      width: '95vw',
+      flex: 1,
+      width: '100vw',
       height: '75vh',
       'marginLeft': 'auto',
       'marginRight': 'auto'
@@ -57,6 +53,7 @@ export class MapContainer extends React.Component {
     const mapCenterLat = (this.props.value.user.user_session_boundary.here_api_format[1] + this.props.value.user.user_session_boundary.here_api_format[3]) / 2;
     const mapCenterLng = (this.props.value.user.user_session_boundary.here_api_format[0] + this.props.value.user.user_session_boundary.here_api_format[2]) / 2;
     return (
+      <div className="map-wrapper">
       <Map
         className={"challengeMap"}
         item
@@ -121,6 +118,7 @@ export class MapContainer extends React.Component {
                   </InfoWindow>
           })}
       </Map>
+      </div>
     );
   }
 }

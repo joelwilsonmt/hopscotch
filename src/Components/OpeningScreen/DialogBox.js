@@ -1,18 +1,17 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from "@material-ui/core/styles";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {UserContext} from "../Contexts/UserContext";
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
-import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
-import GameRoom from "../GameRoom/GameRoom";
+
 var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
 
@@ -23,7 +22,8 @@ export default class FormDialog extends React.Component {
       open: false,
       userNameInputValue: '',
       idSearch: '',
-      _id: ''
+      _id: '',
+      disableSubmit: true
     };
   }
   // getUserLocation = () => {
@@ -32,7 +32,10 @@ export default class FormDialog extends React.Component {
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position})
+        this.setState({
+          location:position,
+          disableSubmit: false
+        })
 
         console.log(this.state.location);
       });
@@ -40,6 +43,7 @@ export default class FormDialog extends React.Component {
       console.error("Browser does not support Geolocation");
     }
   }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -47,16 +51,19 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   updateUserNameInputValue = (e) => {
     this.setState({
-            userNameInputValue: e.target.value
-        });
+      userNameInputValue: e.target.value
+    });
   }
+
   updateIdSearchValue = (e) => {
     this.setState({
-            idSearch: e.target.value
-        });
+      idSearch: e.target.value
+    });
   }
+
   submitUserToServer = () => {
     console.log("add user accessed for " + this.state.userNameInputValue);
     var userObject = {
@@ -65,6 +72,9 @@ export default class FormDialog extends React.Component {
       latitude: this.state.location.coords.latitude
     };
     const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
+    const addUserMissoulaDowntown = process.env.REACT_APP_BACK_END_SERVER + 'addUserMissoulaDowntown';
+    const addUserMTCS = process.env.REACT_APP_BACK_END_SERVER + 'addUserMTCS';
+    const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
     axios.post(addUser, userObject).then((res, err) => {
@@ -82,7 +92,10 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-      <Button variant="contained" color="primary"
+
+      <Button variant="contained"
+        color="primary"
+        disabled={this.state.disableSubmit}
         Button onClick={this.handleClickOpen}>
         Get Started!
         </Button>
@@ -91,37 +104,39 @@ export default class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Who Are You</DialogTitle>
+          <DialogTitle id="form-dialog-title">ENTER USER NAME</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Please give us a user name!
-            </DialogContentText>
             <TextField
               value={this.state.userNameInputValue}
               onChange={this.updateUserNameInputValue}
               autoFocus
               margin="dense"
               id="name"
-              label="Name"
+              label="NAME"
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-
             <Button
+              variant="contained"
               color="primary"
+              size="small"
+              justify="center"
               onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()
                 }}>
               Submit
-            </Button>
+            </Button><br/>
 
           </DialogActions>
         </Dialog>
+        <Typography variant="p">
+            {this.state.disableSubmit ?
+                <CircularProgress />
+                : ''
+            }
+        </Typography>
       </div>
     );
   }

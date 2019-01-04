@@ -184,10 +184,12 @@ class GameProvider extends React.Component {
           });//closes set state
         });//closes .then()
     };//closes updateGameAndSetScreen
-    this.setCurrentChallenge = (challenge) => {
+    this.setCurrentChallenge = (challenge, index) => {
       this.setState({
-        currentChallenge: challenge
+        currentChallenge: challenge,
+        currentChallengeIndex: index
       });
+      console.log("currentChallengeIndex set to ", index);
     }
 
     //filling in the constructor with placeholders so react doesn't crash trying to render null data:
@@ -197,7 +199,7 @@ class GameProvider extends React.Component {
         //the Provider's passed value={this.state} .updateUser(userId) method
         //is accessed
         user: {
-          username: 'Not logged in',
+          username: '',
           _id: '',
           current_user_location: {
             type: "",
