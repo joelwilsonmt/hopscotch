@@ -29,9 +29,7 @@ class SimpleExpansionPanel extends React.Component{
       disabled: false
     })
   }
-/*if (this.props.value.id_users_completed.includes(this.props.value.user._id)){
-setState(disabled : true)
-}*/
+
   componentWillMount() {
     this.props.updateDistance();
     if((this.props.distance-1000) < 2) {
@@ -39,8 +37,12 @@ setState(disabled : true)
         isWithinDistance: true
       });
     }
-    console.log("expansion panel order at mount: ", this.props.order);
+    console.log("Id users completed", this.props.value.id_users_completed);
+    console.log("Checking against user Id", this.props.user_id);
 
+    if (this.props.value.id_users_completed.includes(this.props.user_id)){
+    this.setState({disabled : true});
+    }
   }
 
   render(){

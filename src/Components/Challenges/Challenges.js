@@ -125,6 +125,17 @@ class Challenges extends React.Component {
       });
 
     }
+
+    this.circuitComplete = () => {
+      this.socket.emit('CIRCUIT_COMPLETE', {
+        room: this.props.value.circuit._id
+      });
+    }
+
+    this.socket.on('RECEIVE_CIRCUIT_COMPLETE') {
+      this.props.value.updateGameAndSetScreen(this.props.value.user._id, "CircuitReview" )
+    }
+
     this.onFormChange = (e) => {
         this.setState({
           message: e
@@ -232,7 +243,7 @@ class Challenges extends React.Component {
           this.setState({
             challengeOrder: challengeOrder
           })
-          console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+          // console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
       });
     } else {
       console.error("Browser does not support Geolocation");
@@ -304,6 +315,7 @@ class Challenges extends React.Component {
             {value === 'challenges' && <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                        user_id={this.props.value.user._id}
                         distance={this.state.distanceArray[challenge]-1000}
                         updateDistance={this.state.updateCurrentUserLocation}
                         key={i} listId={i} order={challenge}/>

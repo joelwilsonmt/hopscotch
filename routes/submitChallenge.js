@@ -132,7 +132,7 @@ router.put('/', function (req, res) {
     res.status(404).send();
   });
 
-  // Check to see if the user's ID appears in all other challenges of that same circuit. If so, tell the front end that the user broke the circuit, and game is over.
+  
 
 
 
