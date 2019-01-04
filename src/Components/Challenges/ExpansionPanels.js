@@ -61,9 +61,8 @@ class SimpleExpansionPanel extends React.Component{
             {
             (this.props.distance).toFixed(2)
           }</strong> miles away
-
-
           </Typography>
+
         </ExpansionPanelSummary>
         <Typography>
           {
@@ -80,7 +79,9 @@ class SimpleExpansionPanel extends React.Component{
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
+
         <ProofButton value={this.props.value} order={this.props.order}/>
+
       </ExpansionPanel>
     </div>
     );
