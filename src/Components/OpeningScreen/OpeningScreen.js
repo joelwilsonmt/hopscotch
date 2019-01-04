@@ -23,12 +23,18 @@ import WorldGif from './world-trans.png'
 class OpeningScreen extends React.Component {
   constructor(props) {
     super();
+    this.state = {
+      willGrow: true
+    };
   }
-  componentDidMount() {
+  componentWillUnmount() {
+    this.setState({
+      willGrow: false
+    });
   }
   render(){
     return (
-       <Grow in={true} timeout={1000}>
+       <Grow in={this.state.willGrow} timeout={1000}>
         <div className="screen">
           <Typography className="white" variant="h2">
             CIRCUIT BREAKER

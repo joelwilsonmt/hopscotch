@@ -30,6 +30,7 @@ export default class FormDialog extends React.Component {
   //
   // }
   componentWillMount() {
+    console.log("Getting user location");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({

@@ -45,7 +45,6 @@ function getBinary(base64Image) {
 }
 
 router.put('/', function (req, res) {
-
   console.log("Submitting challenge at " + new Date());
   var data = req.body;
   var challengeId = data.challengeId;
@@ -71,10 +70,10 @@ router.put('/', function (req, res) {
     },
     MinConfidence: 50
   })
-  .promise().then(function(res){
+  .promise().then(function(result){
     let labelNames = [];
-    for (var i = 0; i < res.Labels.length; i++) {
-      labelNames.push(res.Labels[i].Name.toLowerCase());
+    for (var i = 0; i < result.Labels.length; i++) {
+      labelNames.push(result.Labels[i].Name.toLowerCase());
     }
     if (labelNames.includes("face") && labelNames.includes(data.check_word) && distanceWin) {
       console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", wordToCheck, "!");
@@ -99,11 +98,18 @@ router.put('/', function (req, res) {
           console.log("number of completed after check: ", completedNumber);
           if (completedNumber === winNumber){
             console.log("User has completed all challenges");
-            /*res.status(200).send({
-              message: "User has completed all challenges",
-              userCompleted: true,
-              circuitComplete: true
-            });*/
+            res.status(200).send(
+            {circuitComplete: true,
+            challengeComplete: false,
+            objectGate: false,
+            locationGate: true});
+          }
+          else {
+            res.status(200).send(
+            {circuitComplete: false,
+            challengeComplete: true,
+            objectGate: false,
+            locationGate: true});
           }
           /*res.status(200).send({
             message: "User has completed challenge" + data.challengeIndex,
@@ -114,11 +120,16 @@ router.put('/', function (req, res) {
 
     } else {
       console.log("SORRY, there is no match with", wordToCheck, "in the following items, OR photo is not a selfie: ", labelNames);
-      //res.status(404).send("SORRY, there is no match with", wordToCheck, "in the following items, OR photo is not a selfie: ", labelNames);
+      res.status(200).send(
+      {circuitComplete: false,
+      challengeComplete: false,
+      objectGate: false,
+      locationGate: true});
     }
   })
   .catch(function(err){
     console.error(err);
+    res.status(404).send();
   });
 
   // Check to see if the user's ID appears in all other challenges of that same circuit. If so, tell the front end that the user broke the circuit, and game is over.
