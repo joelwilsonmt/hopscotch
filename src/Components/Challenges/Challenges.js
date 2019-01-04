@@ -274,7 +274,7 @@ class Challenges extends React.Component {
         <div>
           <GameContext.Consumer>{
             (game) => (
-              <Camera value={game}/>
+              <Camera value={game} socket={this}/>
             )}
           </GameContext.Consumer>
         </div>

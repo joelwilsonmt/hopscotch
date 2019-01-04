@@ -44,7 +44,7 @@ app.use('/updateCircuit', updateCircuit);
 app.use('/clearCurrentCircuit', clearCurrentCircuit);
 
 var clientRoom = 'not set';
-var userName = 'username not set'
+var userName = 'username not set';
 console.log('client room not set: ' + clientRoom);
 io.on('connection', function(client){
   console.log('a user connected');

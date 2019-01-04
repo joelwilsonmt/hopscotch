@@ -30,11 +30,13 @@ export default class App extends Component {
   }
 
   componentWillMount() {
+    console.log(this);
     navigator.geolocation.getCurrentPosition((position) => {
       this.setState({location:position});
     });
     console.log("current challenge in question", this.props.value.currentChallenge);
-
+    console.log("socket methods etc: ", this.props.socket);
+    //put this.props.socket.sendWin() in axios put for win
   }
   componentWillUnmount() {
     this.props.value.setView('');
@@ -46,6 +48,7 @@ export default class App extends Component {
       screenshot: screenshot,
       screenshotTaken: true
     });
+
   }
 
   resetCamera = () => {
@@ -81,7 +84,8 @@ export default class App extends Component {
         console.log("challenge complete!");
           this.setState({
           challengeCompleteOpen: true
-        })
+        });
+        this.props.socket.sendWin();
       }
       else {
         this.setState({

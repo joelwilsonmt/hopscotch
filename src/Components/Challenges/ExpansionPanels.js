@@ -25,10 +25,13 @@ class SimpleExpansionPanel extends React.Component{
   constructor(props) {
     super(props);
     this.state = ({
-      isWithinDistance: false
+      isWithinDistance: false,
+      disabled: false
     })
   }
-
+/*if (this.props.value.id_users_completed.includes(this.props.value.user._id)){
+setState(disabled : true)
+}*/
   componentWillMount() {
     this.props.updateDistance();
     if((this.props.distance-1000) < 2) {
@@ -44,7 +47,7 @@ class SimpleExpansionPanel extends React.Component{
     let challenge = this.props.value;
   return (
     <div>
-      <ExpansionPanel>
+      <ExpansionPanel disabled={this.state.disabled}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6">
 
