@@ -84,6 +84,7 @@ class Challenges extends React.Component {
       if(this.state.value !== 'chat'){
         unread++;
       }
+      console.log("updating game after receiving win");
       this.props.value.updateGame(this.props.value.user._id);
       this.setState({
         messageSnackBarOpen: true,

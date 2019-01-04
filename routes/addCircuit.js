@@ -92,7 +92,8 @@ router.post('/', function (req, res) {
                 category: places[i].category.id
                 },
               object_gate: objectGate,
-              full_challenge_text: fullText
+              full_challenge_text: fullText,
+              id_users_completed: ''
             };
           }
           //create the new circuit
