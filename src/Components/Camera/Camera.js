@@ -222,7 +222,7 @@ export default class App extends Component {
             audio={false}
             screenshotFormat="image/jpeg"
             ref={node => this.webcam = node}
-            screenshotQuality={.8}
+            screenshotQuality={1}
             width={375}
             height={300}
             videoConstraints={videoConstraints}
