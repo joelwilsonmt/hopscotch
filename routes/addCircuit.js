@@ -55,33 +55,37 @@ router.post('/', function (req, res) {
           var sets_challenges = [];
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
-          var challengeLimit = 10; //set to number of challenges you want...
+          var challengeLimit = 2; //set to number of challenges you want...
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
           for(var i = 0; i < challengeLimit; i++) {
-            var words = [
-              'art',
-              'beer bottle',
-              'can',
-              'document',
-              'drawing',
-              'fork',
-              'frisbee',
-              'glass',
-              'guitar',
-              'knife',
-              'marker',
-              'mobile phone',
-              'orange',
-              'pizza',
-              'plant',
-              'scissors',
-              'spoon',
-              'tool',
-              'thumbs up',
-              'yogurt'
-            ];
+            // var words = [
+            //   'art',
+            //   'beer bottle',
+            //   'can',
+            //   'document',
+            //   'drawing',
+            //   'fork',
+            //   'frisbee',
+            //   'glass',
+            //   'guitar',
+            //   'knife',
+            //   'marker',
+            //   'mobile phone',
+            //   'orange',
+            //   'pizza',
+            //   'plant',
+            //   'scissors',
+            //   'spoon',
+            //   'tool',
+            //   'thumbs up',
+            //   'yogurt'
+            // ];
+             var words = [
+               'thumbs up',
+               'fork'
+             ];
             var objectGate = words[Math.floor(Math.random()*words.length)];
             var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';
             sets_challenges[i] = {

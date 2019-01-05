@@ -132,9 +132,9 @@ class Challenges extends React.Component {
       });
     }
 
-    this.socket.on('RECEIVE_CIRCUIT_COMPLETE') {
+    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () =>  {
       this.props.value.updateGameAndSetScreen(this.props.value.user._id, "CircuitReview" )
-    }
+    })
 
     this.onFormChange = (e) => {
         this.setState({

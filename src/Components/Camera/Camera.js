@@ -86,6 +86,7 @@ export default class App extends Component {
       if(res.data.circuitComplete){
         console.log("circuit complete!");
         //socket event disconnect all`
+        this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
       }
       else if(res.data.challengeComplete){
         //socket event update all (RECEIVE_WIN)
