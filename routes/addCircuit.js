@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
     //so use findbyId() for data._id
     //here requires a west, south, east, north boundary
     var apiBoundingBox, circuitBoundaries;
-    User.findById(data._id, function (err, user) {
+    User.findById(data.userId, function (err, user) {
       if(err){
         console.error(err);
         return;

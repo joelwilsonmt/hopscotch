@@ -10,6 +10,12 @@ import Typography from "@material-ui/core/Typography";
 import MainAppBar from "../Utilities/MainAppBar";
 import CircuitReviewButtons from "./CircuitReviewButtons";
 import {GameContext} from "../Contexts/GameContext";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   root: {
@@ -22,23 +28,6 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, completed) {
-  id += 1;
-  return { name, completed };
-}
-
-const rows = [
-  createData('User Name 1', 2),
-  createData('User Name 2', 2),
-  createData('User Name 3', 2),
-  createData('User Name 4', 2),
-  createData('User Name 5', 2),
-  createData('User Name 6', 2),
-  createData('User Name 7', 2),
-  createData('User Name 8', 2),
-];
-
 class CircuitReview extends React.Component {
   constructor () {
     super()
@@ -48,44 +37,19 @@ class CircuitReview extends React.Component {
       <div>
       <Paper>
         <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
-      <ul>
+    <List>
       <GameContext.Consumer>{
           (game) => (
             game.circuit.challenges.map(function(challenge, i){
-              return <li key={i}> value={challenge.full_challenge_text} number={challenge.id_users_completed.length}  listId={i} </li>
+              return <ListItem>
+                    <ListItemText
+                      primary={challenge.full_challenge_text}
+                      secondary={challenge.id_users_completed ? 'Number of users who completed this challenge: ' + challenge.id_users_completed.length : null}
+                    />
+                </ListItem>
             })
       )}</GameContext.Consumer>
-      </ul>
-
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>USER</TableCell>
-              <TableCell numeric>COMPLETED</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-          {/*  <GameContext.Consumer>{
-              (game) => (
-          <p> {game.user.username}</p>
-          )}</GameContext.Consumer>*/}
-
-        {/*<GameContext.Consumer> {
-           (game) => (
-             game.circuit.challenges.map(function(challenge, i) {
-               return <TableRow key={i}>
-                  <TableCell component="th" scope="row">
-                     {challenge.full_challenge_text}
-                   </TableCell>
-                   <TableCell numeric>{challenge.id_users_completed.length}</TableCell>
-                 </TableRow>
-
-             })
-           )
-         }
-            </GameContext.Consumer>*/}
-          </TableBody>
-        </Table>
+  </List>
         <CircuitReviewButtons />
       </Paper>
       </div>

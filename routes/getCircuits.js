@@ -21,7 +21,7 @@ later on, socket.on('disconnect') {
 router.post('/', function (req, res) {
   console.log("-------------------------new getting circuits @ "+new Date()+"---------------------------");
   var data = req.body;
-  var userId = data._id;
+  var userId = data.userId;
   if(userId == ''){
     console.log("Incorrect User ID - no value");
     res.status(404).send();
