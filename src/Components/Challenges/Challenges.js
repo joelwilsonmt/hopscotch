@@ -92,6 +92,7 @@ class Challenges extends React.Component {
       });
     });//closes RECEIVE_WIN function
 
+
     const addMessage = data => {
       this.setState({
         messages: [...this.state.messages, data]
@@ -131,10 +132,9 @@ class Challenges extends React.Component {
         room: this.props.value.circuit._id
       });
     }
-
-    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () =>  {
-      this.props.value.updateGameAndSetScreen(this.props.value.user._id, "CircuitReview" )
-    })
+    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
+      this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+    });//closes RECEIVE_WIN function
 
     this.onFormChange = (e) => {
         this.setState({

@@ -101,19 +101,18 @@ class GameProvider extends React.Component {
         });//closes .then()
     };//closes updateCircuit
 
-    this.clearCurrentCircuit = (userId) => {
-      console.log("clearCurrentCircuit accessed w/ uid: ", userId);
-      const clearCurrentCircuit = process.env.REACT_APP_BACK_END_SERVER + 'clearCurrentCircuit';
+    this.clearCurrentCircuitAndSetScreen = (userId, screenName) => {
+      console.log("clearCurrentCircuitAndSetScreen accessed w/ uid: ", userId);
+      const clearCurrentCircuitAndSetScreen = process.env.REACT_APP_BACK_END_SERVER + 'clearCurrentCircuit';
       //must be a put request because passing a value to be searched by
-      axios.put(clearCurrentCircuit, {userId}).then((res,err) => {
-        console.log("clearCurrentCircuit complete, for user id#", res.data);
+      axios.put(clearCurrentCircuitAndSetScreen, {userId}).then((res,err) => {
+        console.log("clearCurrentCircuitAndSetScreen complete, for user id#", res.data);
         if(err){console.log(err);}
         this.setState(
           {
               circuit: '',
-              user: {
-                current_circuit_id: null
-              }
+              user: res.data,
+              screen: screenName
           });//closes set state
           console.log("circuit id cleared in server and state");
         });//closes .then()
@@ -238,7 +237,7 @@ class GameProvider extends React.Component {
         updateGameAndSetView: this.updateGameAndSetView,
         updateUserAndSetScreen : this.updateUserAndSetScreen,
         setCurrentChallenge: this.setCurrentChallenge,
-        clearCurrentCircuit: this.clearCurrentCircuit
+        clearCurrentCircuitAndSetScreen: this.clearCurrentCircuitAndSetScreen
     };
   }
 
