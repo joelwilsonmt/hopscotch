@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
-// import Camera from 'react-camera';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import Button from '@material-ui/core/Button';
+import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
-// import 'react-html5-camera-photo/build/css/index.css'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 require('dotenv').config();
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       screenshotTaken: false,
       screenshot: null,
-      tab: 0
+      tab: 0,
+      challengeCompleteOpen: false,
+      challengeRejectedOpen: false
     };
     this.confirmPhoto.bind(this)
   }
 
   componentWillMount() {
-
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position});
-      });
-
+    console.log(this);
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({location:position});
+    });
     console.log("current challenge in question", this.props.value.currentChallenge);
+    console.log("socket methods etc: ", this.props.socket);
+    //put this.props.socket.sendWin() in axios put for win
+  }
+  componentWillUnmount() {
+    this.props.value.setView('');
   }
 
   handleClick = () => {
@@ -34,8 +47,17 @@ export default class App extends Component {
     this.setState({
       screenshot: screenshot,
       screenshotTaken: true
-      });
+    });
+
   }
+
+  handleClose = () => {
+    this.setState({
+      challengeRejectedOpen: false
+    });
+    this.resetCamera();
+  }
+
 
   resetCamera = () => {
     this.setState({
@@ -60,10 +82,28 @@ export default class App extends Component {
     console.log("the challenge ID in question: ", this.props.value.currentChallenge._id)
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', req)
     .then((res)=>{
-      // console.log(res);
+      console.log(res);
+      if(res.data.circuitComplete){
+        console.log("circuit complete!");
+        //socket event disconnect all`
+        this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
+      }
+      else if(res.data.challengeComplete){
+        //socket event update all (RECEIVE_WIN)
+        console.log("challenge complete!");
+          this.setState({
+          challengeCompleteOpen: true
+        });
+        this.props.socket.sendWin();
+      }
+      else {
+        this.setState({
+          challengeRejectedOpen: true
+        })
+      }
     })
     .catch((err)=>{
-      // console.log(err);
+      console.log(err);
     });
     // console.log(this);
   }
@@ -72,59 +112,134 @@ export default class App extends Component {
     const videoConstraints = {
       facingMode: "user"
     };
+    let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
         <div>
-        {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
-        <div>
-        <Button variant="contained" size="small" color="primary" onClick={this.confirmPhoto}>
-          Submit
-        </Button>
-        <Button variant="outlined" size="small" color="primary" onClick={this.resetCamera}>
-          Retake
-        </Button>
-        </div>
-        <GameContext.Consumer>{
+        {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
+          <div>
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={this.confirmPhoto}>
+              Submit
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={this.resetCamera}>
+              Retake
+            </Button>
+          </div>
+          <GameContext.Consumer>{
             (game) => (
-        <Button variant="contained" size="small" justify="center"
-          color="secondary"
-          onClick={() => game.setView('')}
-          >
-          Back to Challenges
-        </Button>
-    )}</GameContext.Consumer>
-        </div>
+              <Button
+                variant="contained"
+                size="small"
+                justify="center"
+                color="primary"
+                onClick={() => game.setView('')}>
+                Back to Challenges
+              </Button>
+          )}</GameContext.Consumer>
+        <Dialog
+          open={this.state.challengeCompleteOpen}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"That's A Great Picture!"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Picture and Location Confirmed!
+              Well Played!
+              Keep it Going!
+            </DialogContentText>
+          </DialogContent>
+          <GameContext.Consumer>{
+            (game) => (
+          <DialogActions>
+            <Button onClick={() => game.setView('Challenges')} color="primary">
+              Back to Challenges
+            </Button>
+          </DialogActions>
+        )}</GameContext.Consumer>
+        </Dialog>
+        <Dialog
+          open={this.state.challengeRejectedOpen}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"We May Have Missed Something!"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              We are sorry to say that something doesn't match up!
+              Make sure you have the correct item!
+              Make sure you are in the correct place!
+              Try taking the picture again.
+            </DialogContentText>
+          </DialogContent>
+          <GameContext.Consumer>{
+            (game) => (
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Try Again
+            </Button>
+            <Button onClick={() => game.setView('Challenges')} color="primary">
+              Back to Challenges
+            </Button>
+
+          </DialogActions>
+          )}</GameContext.Consumer>
+        </Dialog>
+      </div>
       );
     }
     else{
-    return (
-      <div>
-        <Webcam
-          audio={false}
-          screenshotFormat="image/jpeg"
-          ref={node => this.webcam = node}
-          screenshotQuality={.8}
-          width={375}
-          height={300}
-          videoConstraints={videoConstraints}
-        />
-      <div>
-        <Button variant="outlined" size="small" color="primary" onClick={this.handleClick}>
-          Capture
-        </Button>
-      </div>
-      <GameContext.Consumer>{
-          (game) => (
-      <Button variant="contained" size="small" justify="center"
-        color="secondary"
-        onClick={() => game.setView('')}
-        >
-        Back to Challenges
-      </Button>
-  )}</GameContext.Consumer>
-      </div>
-    );
-  }//closes else
+      return (
+        <div>
+          <Webcam
+            audio={false}
+            screenshotFormat="image/jpeg"
+            ref={node => this.webcam = node}
+            screenshotQuality={.8}
+            width={375}
+            height={300}
+            videoConstraints={videoConstraints}
+          />
+          <div>
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={this.handleClick}>
+              Capture
+            </Button>
+          </div>
+          <GameContext.Consumer>{
+            (game) => (
+              <Button
+                variant="contained"
+                size="small"
+                justify="center"
+                color="primary"
+                onClick={() => game.setView('')}>
+                Back to Challenges
+              </Button>
+          )}</GameContext.Consumer>
+        </div>
+      );
+    }//closes else
   }
 }
 

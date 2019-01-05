@@ -1,13 +1,70 @@
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+    background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;
+    background-size: cover;
+}
+body {
+    margin: 0 !important;
+  	padding: 0 !important;
+  	border: 0 !important;
+}
 h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
-body {
-  text-align: center !important;
-}
-button {
-  margin: .3% !important;
+.white {
+  color: #fff !important;
 }
 .challengeMap {
   width: auto !important;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+.screen {
+  padding: 5% 0;
+  text-align: center;
+}
+.padder {
+  padding: 5% 0 !important;
+}
+.center {
+  text-align: center !important;
+  margin: auto !important;
+}
+.logo {
+  width: 50%;
+  max-width: 200px;
+  -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    z-index: -100 !important;
+}
+h2 {
+  z-index: 1;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+.chat-window li {
+  list-style-type: none;
+}
+.chat-messages {
+  /*color: #fff;
+  background-color: #777;*/
+  max-height: 50%;
+  padding: 1%;
+  margin: auto;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  height : 35vh;
+  overflow:auto;
+}
+/*chat badge*/
+.chat-badge span {
+  position: relative !important;
+  right: -15px !important;
 }

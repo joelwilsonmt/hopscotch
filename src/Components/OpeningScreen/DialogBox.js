@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from "@material-ui/core/styles";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,8 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {GameContext} from "../Contexts/GameContext";
 
 import axios from "axios";
-import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
-import GameRoom from "../GameRoom/GameRoom";
+
 var dotenv = require('dotenv').config();
 const BACK_END_SERVER = 'http://localhost:3001/';
 
@@ -32,6 +30,7 @@ export default class FormDialog extends React.Component {
   //
   // }
   componentWillMount() {
+    console.log("Getting user location");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({
@@ -45,6 +44,7 @@ export default class FormDialog extends React.Component {
       console.error("Browser does not support Geolocation");
     }
   }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -52,16 +52,19 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   updateUserNameInputValue = (e) => {
     this.setState({
-            userNameInputValue: e.target.value
-        });
+      userNameInputValue: e.target.value
+    });
   }
+
   updateIdSearchValue = (e) => {
     this.setState({
-            idSearch: e.target.value
-        });
+      idSearch: e.target.value
+    });
   }
+
   submitUserToServer = () => {
     console.log("add user accessed for " + this.state.userNameInputValue);
     var userObject = {
@@ -102,30 +105,24 @@ export default class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-
-          <DialogTitle id="form-dialog-title">Who Are You</DialogTitle>
+          <DialogTitle id="form-dialog-title">ENTER USER NAME</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Please give us a user name!
-            </DialogContentText>
             <TextField
               value={this.state.userNameInputValue}
               onChange={this.updateUserNameInputValue}
               autoFocus
               margin="dense"
               id="name"
-              label="Name"
+              label="NAME"
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-
             <Button
+              variant="contained"
               color="primary"
-
+              size="small"
+              justify="center"
               onClick={() => {
                 this.handleClose()
                 this.submitUserToServer()

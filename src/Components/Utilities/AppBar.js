@@ -32,7 +32,7 @@ function ButtonAppBar(props) {
         <Toolbar>
           <MenuButton />
           <Typography variant="h4" color="inherit" className={classes.grow}>
-            CIRCUIT BREAKER
+            CIRCUITBREAKER
           </Typography>
           <Typography variant="h5" color="inherit">
             <GameContext.Consumer>{
@@ -41,7 +41,6 @@ function ButtonAppBar(props) {
                 )
               }</GameContext.Consumer>
           </Typography>
-
           <Avatar />
         </Toolbar>
       </AppBar>

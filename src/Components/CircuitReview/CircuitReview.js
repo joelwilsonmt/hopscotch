@@ -1,15 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import ExpansionPanels from "../Challenges/ExpansionPanels";
 import Typography from "@material-ui/core/Typography";
 import MainAppBar from "../Utilities/MainAppBar";
 import CircuitReviewButtons from "./CircuitReviewButtons";
+import {GameContext} from "../Contexts/GameContext";
 
 const styles = theme => ({
   root: {
@@ -48,6 +48,15 @@ class CircuitReview extends React.Component {
       <div>
       <Paper>
         <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
+      <ul>
+      <GameContext.Consumer>{
+          (game) => (
+            game.circuit.challenges.map(function(challenge, i){
+              return <li key={i}> value={challenge.full_challenge_text} number={challenge.id_users_completed.length}  listId={i} </li>
+            })
+      )}</GameContext.Consumer>
+      </ul>
+
         <Table>
           <TableHead>
             <TableRow>
@@ -56,16 +65,25 @@ class CircuitReview extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => {
-              return (
-                <TableRow key={row.id}>
+          {/*  <GameContext.Consumer>{
+              (game) => (
+          <p> {game.user.username}</p>
+          )}</GameContext.Consumer>*/}
+
+        {/*<GameContext.Consumer> {
+           (game) => (
+             game.circuit.challenges.map(function(challenge, i) {
+               return <TableRow key={i}>
                   <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell numeric>{row.completed}</TableCell>
-                </TableRow>
-              );
-            })}
+                     {challenge.full_challenge_text}
+                   </TableCell>
+                   <TableCell numeric>{challenge.id_users_completed.length}</TableCell>
+                 </TableRow>
+
+             })
+           )
+         }
+            </GameContext.Consumer>*/}
           </TableBody>
         </Table>
         <CircuitReviewButtons />

@@ -1,5 +1,4 @@
 import React from "react";
-//import CountDown from "../Utilities/CountDown";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,16 +9,14 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import {GameContext} from "../Contexts/GameContext";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
 
 /*
-
-When a user navigates to the Game Room, it mounts this SimpleCard which makes server calls and handles errors to be able to check against the user's boundary to set a matching circuit in state. If no matching circuits are found, a circuit is created and its corresponding data is set in state to the the this.state.foundCircuit object
-
+When a user navigates to the Game Room, it mounts this SimpleCard which makes
+server calls and handles errors to be able to check against the user's boundary
+to set a matching circuit in state. If no matching circuits are found, a circuit
+is created and its corresponding data is set in state to the the
+this.state.foundCircuit object
 */
-
-
 
 const styles = {
   card: {
@@ -125,37 +122,40 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <Card>
+      <div className="screen">
         <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
           </Typography>
-          <Typography variant="h6" component="h2" align="center">
+
             {
               this.state.foundCircuit.challenges
               ?
-              "Circuit Found with " + this.state.foundCircuit.challenges.length +
-              " Challenges"
-              :
               <div>
-                <CircularProgress/>
+              <Typography variant="h6" align="center">Circuit Found with  {this.state.foundCircuit.challenges.length} Challenges</Typography>
               </div>
+              :
+              <CircularProgress/>
             }
-          </Typography>
+
         </CardContent>
         <CardActions>
           {this.state.circuitFound ?
             <GameContext.Consumer>{
                 (game) => (
-            <Button size="small" justify="center"
+            <Button
+              variant="contained"
+              size="small"
+              justify="center"
               color="primary"
+              className="animated pulse infinite center"
               onClick={() => this.handleJoin(game)}
               >
               Join Circuit
             </Button>
         )}</GameContext.Consumer>: ''}
         </CardActions>
-      </Card>
+      </div>
     );
   }
 }
