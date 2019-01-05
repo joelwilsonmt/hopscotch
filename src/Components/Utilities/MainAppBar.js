@@ -16,12 +16,6 @@ function MainAppBar(props) {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <GameContext.Consumer>{
-            (route) => (
-              <MenuButton value={route}/>
-            )
-          }</GameContext.Consumer>
-
         <Typography variant="h5" color="inherit">
             Circuit Breaker
           </Typography>

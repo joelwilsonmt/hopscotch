@@ -55,7 +55,7 @@ router.post('/', function (req, res) {
           var sets_challenges = [];
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
-          var challengeLimit = 1; //set to number of challenges you want...
+          var challengeLimit = 5; //set to number of challenges you want...
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
@@ -83,7 +83,15 @@ router.post('/', function (req, res) {
             //   'yogurt'
             // ];
              var words = [
-               'thumbs up'
+               'thumbs up',
+               'pen',
+               'mobile phone',
+               'frisbee',
+               'document',
+               'cup',
+               'marker',
+               'beer',
+               'can'
              ];
             var objectGate = words[Math.floor(Math.random()*words.length)];
             var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';

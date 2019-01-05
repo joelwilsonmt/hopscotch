@@ -24,18 +24,26 @@ export default class App extends Component {
       screenshot: null,
       tab: 0,
       challengeCompleteOpen: false,
-      challengeRejectedOpen: false
+      challengeRejectedOpen: false,
+      disableSubmit: true
     };
     this.confirmPhoto.bind(this)
   }
 
   componentWillMount() {
-    console.log(this);
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({location:position});
-    });
-    console.log("current challenge in question", this.props.value.currentChallenge);
-    console.log("socket methods etc: ", this.props.socket);
+    console.log("Getting user location");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          location:position,
+          disableSubmit: false
+        })
+
+        console.log(this.state.location);
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
+    }
     //put this.props.socket.sendWin() in axios put for win
   }
   componentWillUnmount() {
@@ -86,6 +94,7 @@ export default class App extends Component {
       if(res.data.circuitComplete){
         console.log("circuit complete!");
         //socket event disconnect all`
+        this.props.socket.circuitComplete();
         this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
       }
       else if(res.data.challengeComplete){
@@ -122,6 +131,7 @@ export default class App extends Component {
               variant="contained"
               size="small"
               color="secondary"
+              disabled={this.state.disableSubmit}
               onClick={this.confirmPhoto}>
               Submit
             </Button>
