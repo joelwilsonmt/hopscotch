@@ -50,7 +50,10 @@ class CircuitReview extends React.Component {
             })
       )}</GameContext.Consumer>
   </List>
-        <CircuitReviewButtons />
+  <GameContext.Consumer>{
+      (game) => (
+        <CircuitReviewButtons value={game}/>
+          )}</GameContext.Consumer>
       </Paper>
       </div>
     );

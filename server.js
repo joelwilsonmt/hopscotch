@@ -85,13 +85,7 @@ io.on('connection', function(client){
       console.log('User disconnected!');
     });
 });//closes io
-let port;
-if(!process.env.PRODUCTION){
-  port = 3001;
-}else{
-  port = process.env.PORT
-}
-
+let port = process.env.PORT || 3001;
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });

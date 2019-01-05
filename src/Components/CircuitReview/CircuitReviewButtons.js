@@ -10,20 +10,30 @@ const styles = theme => ({
   },
 });
 
-function ButtonSizes(props) {
-  const { classes } = props;
+class ButtonSizes extends React.Component {
+  constructor () {
+    super()
+  }
+  componentWillMount() {
+    console.log(this.props.value);
+  }
+  handleClick = () => {
+    //clear current user circuit
+    //delete circuit
+    //change to screen
+    this.props.value.clearCurrentCircuitAndSetScreen(this.props.value.user._id, 'GameRoom');
+  }
+  render(){
   return (
     <div>
       <div>
-          <Button variant="contained" size="small" color="primary" className={classes.margin}>
+          <Button variant="contained" onClick={this.handleClick} size="small" color="primary">
             JOIN NEW CIRCUIT
-          </Button>
-          <Button variant="contained" size="small" color="primary" className={classes.margin}>
-            LOG OUT
           </Button>
       </div>
     </div>
   );
+  }
 }
 
 ButtonSizes.propTypes = {

@@ -18,15 +18,23 @@ router.put('/', function (req, res) {
   var data = req.body.userId;
   //console.log("req body " + req.body + " @ " + new Date());
   console.log("searching by " + JSON.stringify(req.body));
-  User.findByIdAndUpdate(data, {current_circuit_id: null})
-    .then(function (user, err) {
-          if(err) {
-            console.log(err);
-            return;
-          }
-          console.log("User " + user.username + "'s current_circuit_id cleared");
-          res.status(200).send(user._id);
-    }); //closes then
+  User.findById(data).then((user, err) => {
+    console.log("user information to clear with: ", user.current_circuit_id);
+    Circuit.findByIdAndRemove(user.current_circuit_id, function(res) {
+      console.log("current circuit removed");
+    });
+    User.findByIdAndUpdate(user._id, {current_circuit_id: null})
+      .then(function (user, err) {
+            if(err) {
+              console.log(err);
+              return;
+            }
+            console.log("User " + user.username + "'s current_circuit_id cleared");
+            res.status(200).send(user);
+      }); //closes then
+
+  })//closes then function
+
 }); //closes router.put
 
 module.exports = router;
