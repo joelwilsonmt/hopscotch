@@ -5,12 +5,15 @@ import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
 import Dialog from '@material-ui/core/Dialog';
+import Grid from "@material-ui/core/Grid";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 require('dotenv').config();
+
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
@@ -162,25 +165,32 @@ export default class App extends Component {
               </DialogActions>
             </Dialog>
 
-
+            <div class="center">
             <Button
+              className="animated pulse infinite center"
+              justify="center"
               variant="contained"
               size="small"
               color="secondary"
               disabled={this.state.disableSubmit}
-              onClick={this.confirmPhoto}>
+              onClick={this.confirmPhoto}
+              >
               Submit
             </Button>
             <Button
+             justify="center"
               variant="contained"
               size="small"
               onClick={this.resetCamera}>
               Retake
             </Button>
+            </div>
           </div>
           <GameContext.Consumer>{
             (game) => (
+              <div class='center'>
               <Button
+                justify="center"
                 variant="contained"
                 size="small"
                 justify="center"
@@ -188,6 +198,7 @@ export default class App extends Component {
                 onClick={() => game.setView('')}>
                 Back to Challenges
               </Button>
+              </div>
           )}</GameContext.Consumer>
         <Dialog
           open={this.state.challengeCompleteOpen}
@@ -253,7 +264,11 @@ export default class App extends Component {
     }
     else{
       return (
-        <div>
+
+        <div class="center">
+        <h2 className="white">
+        {this.props.value.currentChallenge.full_challenge_text}
+        </h2>
           <Webcam
             audio={false}
             screenshotFormat="image/jpeg"
@@ -263,8 +278,10 @@ export default class App extends Component {
             height={300}
             videoConstraints={videoConstraints}
           />
-          <div>
+
+          <div class="center">
             <Button
+              className="animated pulse infinite center"
               variant="contained"
               size="small"
               color="secondary"
@@ -274,6 +291,7 @@ export default class App extends Component {
           </div>
           <GameContext.Consumer>{
             (game) => (
+              <div class="center">
               <Button
                 variant="contained"
                 size="small"
@@ -282,8 +300,10 @@ export default class App extends Component {
                 onClick={() => game.setView('')}>
                 Back to Challenges
               </Button>
+              </div>
           )}</GameContext.Consumer>
         </div>
+
       );
     }//closes else
   }

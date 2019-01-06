@@ -11,6 +11,7 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
+  justifyContent: 'center',
 });
 
 class ProofButton extends React.Component {
@@ -33,7 +34,9 @@ class ProofButton extends React.Component {
             (game) => (
         <Button variant="contained"
           size="small" justify="center"
+          alignItems="flex-center"
           color="primary"
+          className="animated pulse infinite center"
           disabled={this.props.isWithinDistance}
 
           onClick={() => {
