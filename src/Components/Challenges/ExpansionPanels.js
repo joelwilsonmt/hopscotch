@@ -29,7 +29,7 @@ class SimpleExpansionPanel extends React.Component{
     super(props);
     this.state = ({
       isWithinDistance: false,
-      disabled: false
+      disabled: false,
     })
   }
 
