@@ -45,8 +45,7 @@ class CircuitReview extends React.Component {
   render(){
     console.log("this props value render: ", this.props.value);
     return (
-      <div>
-      <Paper>
+      <div class="screen white">
         <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
         <List>
           <GameContext.Consumer>{
@@ -54,7 +53,7 @@ class CircuitReview extends React.Component {
                 game.circuit.challenges.map(function(challenge, i){
                   return <ListItem>
                         <ListItemText
-                          primary={challenge.full_challenge_text}
+                          primary={`${i}) ${challenge.full_challenge_text}`}
                           secondary={`Number of users who completed this challenge: ${challenge.id_users_completed.length-1}`}/>
                     </ListItem>
                 })
@@ -64,7 +63,6 @@ class CircuitReview extends React.Component {
             (game) => (
               <CircuitReviewButtons value={game}/>
         )}</GameContext.Consumer>
-      </Paper>
       </div>
     );
   }

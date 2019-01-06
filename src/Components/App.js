@@ -18,7 +18,8 @@ import {GameContext} from "./Contexts/GameContext";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#448AFF',
+    //  main: '#448AFF',
+      main: '#555',
       contrastText: '#eeeeee',
     },
     secondary: {

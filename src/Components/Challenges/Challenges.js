@@ -363,12 +363,14 @@ this.onFormChange = (e) => {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
+
             <Grid item xs={12}>
               <Typography variant="h4" className="white">
               {this.state.username}
               </Typography>
             </Grid>
             {value === 'challenges' && <Paper>
+
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
                         userId={this.props.value.user._id}
@@ -383,20 +385,21 @@ this.onFormChange = (e) => {
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
+              <div className="center">
               <Button variant="contained"
                 size="small" justify="center"
                 color="primary"
                 onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </Paper>}
+              </div>
+              </div>
+            }
             {value === 'map' && <Map/>}
-            {value === 'chat' && <Paper>
-              <div>
+            {value === 'chat' &&
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
                 )}</GameContext.Consumer>
-              </div>
-            </Paper>}
+            }
             {(this.state.messages.length > 0) ?
         <Snackbar
           anchorOrigin={{
@@ -442,14 +445,14 @@ function Map(theme) {
 }
 function ChatF(props) {
   return (
-    <Paper>
-      <div>
+
+      <div className="screen">
         <GameContext.Consumer>{
             (game) => (
         <Chat chat={props.chat} value={game}/>
         )}</GameContext.Consumer>
       </div>
-    </Paper>
+
   );
 }
 
