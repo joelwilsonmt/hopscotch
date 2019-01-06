@@ -48,7 +48,7 @@ class SimpleCard extends React.Component {
                   }
   }
   componentWillMount() {
-
+    this.props.value.clearCircuitState();
     //var userId = this.props.context.userId;
     var userId = this.props.value.user._id;
     var roomName = '';

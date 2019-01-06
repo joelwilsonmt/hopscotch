@@ -75,6 +75,9 @@ class SimpleExpansionPanel extends React.Component{
         }
         </Typography>
         <Typography>
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
+        </Typography>
+        <Typography>
           {
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }

@@ -307,9 +307,6 @@ this.onFormChange = (e) => {
     const { classes, theme } = styles;
     const { value } = this.state;
 
-
-
-
     if (this.props.value.view === 'Camera'){
       return (
         <div>
@@ -370,7 +367,8 @@ this.onFormChange = (e) => {
                         userId={this.props.value.user._id}
                         distance={this.state.distanceArray[challenge]-1000}
                         updateDistance={this.state.updateCurrentUserLocation}
-                        key={i} listId={i} order={challenge}/>
+                        key={i} listId={i} order={challenge}
+                        />
               }) : <CircularProgress />}
               {/*<GameContext.Consumer>{
                   (game) => (
@@ -404,8 +402,8 @@ this.onFormChange = (e) => {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">
-          <strong>{this.state.messages[this.state.messages.length-1].username}</strong>:   {this.state.messages[this.state.messages.length-1].message}</span>}
+          message={
+          <span id="message-id"><strong>{this.state.messages[this.state.messages.length-1].username}</strong>:   {this.state.messages[this.state.messages.length-1].message}</span>}
           action={[
             <IconButton
               key="close"

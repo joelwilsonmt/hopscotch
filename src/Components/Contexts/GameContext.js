@@ -111,7 +111,7 @@ class GameProvider extends React.Component {
           {
               user: res.data
           });//closes set state
-          console.log("circuit id cleared in server and state");
+          console.log("circuit id cleared in server");
         });//closes .then()
     }
     this.clearCircuitState = () => {
@@ -119,7 +119,8 @@ class GameProvider extends React.Component {
         {
           circuit: ''
         }
-      )
+      );
+      console.log("circuit id cleared in game state");
     }
     this.clearCurrentCircuitAndSetScreen = (userId, screenName) => {
       console.log("clearCurrentCircuitAndSetScreen accessed w/ uid: ", userId);

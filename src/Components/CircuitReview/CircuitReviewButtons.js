@@ -15,7 +15,7 @@ class ButtonSizes extends React.Component {
     super()
   }
   componentWillMount() {
-    console.log(this.props.value);
+    //console.log(this.props.value);
   }
   handleClick = () => {
     //clear current user circuit
