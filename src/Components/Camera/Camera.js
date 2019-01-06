@@ -165,7 +165,7 @@ export default class App extends Component {
               </DialogActions>
             </Dialog>
 
-
+            <div class="center">
             <Button
               className="animated pulse infinite center"
               justify="center"
@@ -184,6 +184,7 @@ export default class App extends Component {
               onClick={this.resetCamera}>
               Retake
             </Button>
+            </div>
           </div>
           <GameContext.Consumer>{
             (game) => (
