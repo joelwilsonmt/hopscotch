@@ -140,7 +140,7 @@ export default class App extends Component {
     let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
-        <div>
+        <div class="center">
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
             <Dialog
@@ -275,7 +275,7 @@ export default class App extends Component {
             audio={false}
             screenshotFormat="image/jpeg"
             ref={node => this.webcam = node}
-            screenshotQuality={.9}
+            screenshotQuality={.8}
             width={375}
             height={300}
             videoConstraints={videoConstraints}
