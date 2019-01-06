@@ -75,7 +75,7 @@ router.put('/', function (req, res) {
     for (var i = 0; i < result.Labels.length; i++) {
       labelNames.push(result.Labels[i].Name.toLowerCase());
     }
-    if (labelNames.includes("face") && labelNames.includes(data.check_word) && distanceWin) {
+    if (labelNames.includes("human" || "face") && labelNames.includes(data.check_word) && distanceWin) {
       console.log("CONGRATS! User is within boundary and took an acceptable selfie with a", wordToCheck, "!");
     //TODO: add user Id to list of users who have completed challenge in question (data.challengeId)
     console.log("circuit id passed:", data.circuitId);

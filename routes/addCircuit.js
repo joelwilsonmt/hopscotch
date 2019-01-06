@@ -55,7 +55,7 @@ router.post('/', function (req, res) {
           var sets_challenges = [];
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
-          var challengeLimit = 5; //set to number of challenges you want...
+          var challengeLimit = 3; //set to number of challenges you want...
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
@@ -84,13 +84,10 @@ router.post('/', function (req, res) {
             // ];
              var words = [
                'thumbs up',
-               'pen',
                'mobile phone',
                'frisbee',
-               'document',
                'cup',
-               'marker',
-               'beer',
+               'alcohol',
                'can'
              ];
             var objectGate = words[Math.floor(Math.random()*words.length)];
