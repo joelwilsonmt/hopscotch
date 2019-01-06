@@ -87,7 +87,6 @@ export default class FormDialog extends React.Component {
         //this.props.value.setScreen('GameRoom');
         this.props.value.updateUserAndSetScreen(res.data, 'GameRoom');
     });/*.then(() => {
-
     });*/
   }
 
@@ -131,9 +130,9 @@ export default class FormDialog extends React.Component {
               color="primary"
               size="small"
               justify="center"
-              onClick={() => {
+              onClick={(e) => {
                 this.handleClose()
-                this.submitUserToServer()
+                this.submitUserToServer(e)
                 }}>
               Submit
             </Button><br/>

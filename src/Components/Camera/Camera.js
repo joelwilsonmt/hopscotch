@@ -140,7 +140,7 @@ export default class App extends Component {
     let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
-        <div>
+        <div class='center'>
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
             <Dialog
