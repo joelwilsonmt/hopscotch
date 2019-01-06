@@ -32,14 +32,20 @@ export default class FormDialog extends React.Component {
   componentWillMount() {
     console.log("Getting user location");
     if (navigator.geolocation) {
+      console.log("Navigator has geolocation");
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log("position and all that: ", position);
         this.setState({
           location:position,
           disableSubmit: false
-        })
+        });
 
         console.log(this.state.location);
-      });
+      },
+    (err) => {
+      console.log("error", err);
+    }, {enableHighAccuracy: true,
+    maximumAge: 0});
     } else {
       console.error("Browser does not support Geolocation");
     }
@@ -65,8 +71,9 @@ export default class FormDialog extends React.Component {
     });
   }
 
-  submitUserToServer = () => {
+  submitUserToServer = (e) => {
     console.log("add user accessed for " + this.state.userNameInputValue);
+    e.preventDefault();
     var userObject = {
       username: this.state.userNameInputValue,
       longitude: this.state.location.coords.longitude,
@@ -78,7 +85,7 @@ export default class FormDialog extends React.Component {
     const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
-    axios.post(addUser, userObject).then((res, err) => {
+    axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
       if(err) {console.error(err);}
         console.log("passed value prop: ", this.props.value);
         console.log("Add user server response (should be user id):", res.data);
@@ -100,12 +107,17 @@ export default class FormDialog extends React.Component {
         Button onClick={this.handleClickOpen}>
         Get Started!
         </Button>
+
+
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">ENTER USER NAME</DialogTitle>
+
+          <form onSubmit={this.handleClose && this.submitUserToServer}>
+
           <DialogContent>
             <TextField
               value={this.state.userNameInputValue}
@@ -117,21 +129,27 @@ export default class FormDialog extends React.Component {
               fullWidth
             />
           </DialogContent>
+
           <DialogActions>
             <Button
+              type="submit"
               variant="contained"
               color="primary"
               size="small"
               justify="center"
-              onClick={() => {
+              onClick={(e) => {
                 this.handleClose()
-                this.submitUserToServer()
+                this.submitUserToServer(e)
                 }}>
               Submit
             </Button><br/>
-
           </DialogActions>
+
+          </form>
+
         </Dialog>
+
+
         <Typography variant="p">
             {this.state.disableSubmit ?
                 <CircularProgress />

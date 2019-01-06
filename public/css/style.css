@@ -1,20 +1,30 @@
 html {
     overflow: scroll;
     overflow-x: hidden;
-    background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;
+    /*background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;*/
+    /*background: url(https://media.giphy.com/media/sNz7ODDP6lsRy/giphy.gif) no-repeat center center fixed;*/
+    background: url(https://media.giphy.com/media/1pmatQ3LcP5XFYxSWF/giphy.gif) no-repeat center center fixed;
+
     background-size: cover;
 }
 body {
     margin: 0 !important;
   	padding: 0 !important;
   	border: 0 !important;
+    height: 100vh;
+    background: rgba(0,0,0,.5) !important;
 }
 h1 {
   color: #3E51B5 !important;
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
-.white {
+
+.white, .white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white span, .white input, .white label, .white li {
+
   color: #fff !important;
+}
+.white fieldset {
+  border-color: #fff !important;
 }
 .challengeMap {
   width: auto !important;
@@ -27,6 +37,11 @@ h1 {
 .screen {
   padding: 5% 0;
   text-align: center;
+  color: #fff !important;
+  vertical-align: middle !important;
+}
+.screen h1, .screen h2, .screen h3, .screen h4, .screen h5, .screen h6, .screen p, .screen span {
+  color: #fff !important;
 }
 .padder {
   padding: 5% 0 !important;
@@ -38,9 +53,9 @@ h1 {
 .logo {
   width: 50%;
   max-width: 200px;
-  -webkit-animation:spin 4s linear infinite;
+  /*-webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;*/
     z-index: -100 !important;
 }
 h2 {
@@ -62,9 +77,13 @@ h2 {
   border-radius: 5px;
   height : 35vh;
   overflow:auto;
+  color: #fff !important;
 }
 /*chat badge*/
 .chat-badge span {
   position: relative !important;
   right: -15px !important;
+}
+[class^="MuiExpansionPanel-disabled"]{
+  color: #fff !important;
 }

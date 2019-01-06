@@ -15,8 +15,8 @@ class GameRoom extends Component {
   render() {
 
     return (
-      <div>
-        <Paper elevation={1}>
+      <div className="screen">
+
           <br />
           <Typography variant="h1" component="h3" align="center">
             GAME ROOM
@@ -28,7 +28,7 @@ class GameRoom extends Component {
                  </div>
                 )
             }</GameContext.Consumer>
-        </Paper>
+
       </div>
     );//end return
   }//end render

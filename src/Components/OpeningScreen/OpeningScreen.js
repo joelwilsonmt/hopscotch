@@ -39,7 +39,7 @@ class OpeningScreen extends React.Component {
           <Typography className="white" variant="h2">
             CIRCUIT BREAKER
           </Typography>
-          <img className="padder logo" src={WorldGif}/>
+          <img className="padder logo" src='https://www.quantil.com/resources/hp-globe.gif'/>
           <GameContext.Consumer>{
             (game) => ( //can rewrite this as (userProviderState) => () if that's more clear
               <div className="animated pulse infinite">

@@ -13,12 +13,15 @@ import ProofButton from './ProofButton';
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: "100%",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular
-  }
+  },
+  button: {
+    justifyContent: 'center'
+  },
 });
 
 class SimpleExpansionPanel extends React.Component{
@@ -26,7 +29,8 @@ class SimpleExpansionPanel extends React.Component{
     super(props);
     this.state = ({
       isWithinDistance: false,
-      disabled: false
+      disabled: false,
+      classWhite: ''
     })
   }
 
@@ -38,10 +42,15 @@ class SimpleExpansionPanel extends React.Component{
       });
     }
     console.log("Id users completed", this.props.value.id_users_completed);
-    console.log("Checking against user Id", this.props.user_id);
+    console.log("Checking against user Id", this.props.userId);
 
-    if (this.props.value.id_users_completed.includes(this.props.user_id)){
-    this.setState({disabled : true});
+  if (this.props.value.id_users_completed.includes(this.props.userId)){
+    this.setState(
+      {
+        disabled : true,
+        classWhite: 'white'
+      }
+    );
     }
   }
 
@@ -49,7 +58,7 @@ class SimpleExpansionPanel extends React.Component{
     let challenge = this.props.value;
   return (
     <div>
-      <ExpansionPanel disabled={this.state.disabled}>
+      <ExpansionPanel disabled={this.state.disabled} className={this.state.classWhite}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6">
 
@@ -61,7 +70,7 @@ class SimpleExpansionPanel extends React.Component{
 
 
           </Typography><br/>
-        <Typography variant="p">
+        <Typography>
             <strong>
             {
             (this.props.distance).toFixed(2)
@@ -75,6 +84,9 @@ class SimpleExpansionPanel extends React.Component{
         }
         </Typography>
         <Typography>
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
+        </Typography>
+        <Typography>
           {
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
@@ -84,8 +96,9 @@ class SimpleExpansionPanel extends React.Component{
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
-
-        <ProofButton value={this.props.value} order={this.props.order}/>
+         <div class="center">
+        <ProofButton value={this.props.value} order={this.props.order}  />
+        </div>
 
       </ExpansionPanel>
     </div>

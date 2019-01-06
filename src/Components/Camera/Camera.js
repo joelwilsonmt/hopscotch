@@ -5,12 +5,15 @@ import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
 import Dialog from '@material-ui/core/Dialog';
+import Grid from "@material-ui/core/Grid";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 require('dotenv').config();
+
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
@@ -25,7 +28,8 @@ export default class App extends Component {
       tab: 0,
       challengeCompleteOpen: false,
       challengeRejectedOpen: false,
-      disableSubmit: true
+      disableSubmit: true,
+      userWonCircuit: false
     };
     this.confirmPhoto.bind(this)
   }
@@ -72,7 +76,9 @@ export default class App extends Component {
     });
     this.resetCamera();
   }
-
+  handleDialogue = () => {
+    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+  }
 
   resetCamera = () => {
     this.setState({
@@ -102,7 +108,10 @@ export default class App extends Component {
         console.log("circuit complete!");
         //socket event disconnect all`
         this.props.socket.circuitComplete();
-        this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
+        this.setState({
+          userWonCircuit: true
+        })
+        //this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
       }
       else if(res.data.challengeComplete){
         //socket event update all (RECEIVE_WIN)
@@ -134,24 +143,54 @@ export default class App extends Component {
         <div>
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
+            <Dialog
+              open={this.state.userWonCircuit}
+              TransitionComponent={Transition}
+              keepMounted
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                {"Congrats! You broke the circuit!"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  Very well done!
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleDialogue} color="primary">
+                  Review Circuit
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            <div class="center">
             <Button
+              className="animated pulse infinite center"
+              justify="center"
               variant="contained"
               size="small"
               color="secondary"
               disabled={this.state.disableSubmit}
-              onClick={this.confirmPhoto}>
+              onClick={this.confirmPhoto}
+              >
               Submit
             </Button>
             <Button
+             justify="center"
               variant="contained"
               size="small"
               onClick={this.resetCamera}>
               Retake
             </Button>
+            </div>
           </div>
           <GameContext.Consumer>{
             (game) => (
+              <div class='center'>
               <Button
+                justify="center"
                 variant="contained"
                 size="small"
                 justify="center"
@@ -159,6 +198,7 @@ export default class App extends Component {
                 onClick={() => game.setView('')}>
                 Back to Challenges
               </Button>
+              </div>
           )}</GameContext.Consumer>
         <Dialog
           open={this.state.challengeCompleteOpen}
@@ -181,7 +221,7 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
-            <Button onClick={() => game.setView('Challenges')} color="primary">
+            <Button onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
               Back to Challenges
             </Button>
           </DialogActions>
@@ -224,7 +264,13 @@ export default class App extends Component {
     }
     else{
       return (
-        <div>
+
+        <div class="center">
+        <Typography className="white">
+          <h2>
+        {this.props.value.currentChallenge.full_challenge_text}
+        </h2>
+      </Typography>
           <Webcam
             audio={false}
             screenshotFormat="image/jpeg"
@@ -234,8 +280,10 @@ export default class App extends Component {
             height={300}
             videoConstraints={videoConstraints}
           />
-          <div>
+
+          <div class="center">
             <Button
+              className="animated pulse infinite center"
               variant="contained"
               size="small"
               color="secondary"
@@ -245,6 +293,7 @@ export default class App extends Component {
           </div>
           <GameContext.Consumer>{
             (game) => (
+              <div class="center">
               <Button
                 variant="contained"
                 size="small"
@@ -253,8 +302,10 @@ export default class App extends Component {
                 onClick={() => game.setView('')}>
                 Back to Challenges
               </Button>
+              </div>
           )}</GameContext.Consumer>
         </div>
+
       );
     }//closes else
   }

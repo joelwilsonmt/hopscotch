@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 // import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
 import MenuButton from "./MenuButton";
+import Grid from "@material-ui/core/Grid";
 import Avatar from "./Avatar";
 import {GameContext} from "../Contexts/GameContext";
 // import {RouterContext} from "../Contexts/RouterContext";
@@ -25,6 +26,7 @@ function MainAppBar(props) {
     </div>
   );
 }
+
 
 
 export default MainAppBar;

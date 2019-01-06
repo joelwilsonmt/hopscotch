@@ -12,12 +12,22 @@ import {GameContext} from "../Contexts/GameContext";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
+import Grid from "@material-ui/core/Grid";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 const haversine = require('haversine');
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 
 function TabContainer({ children, dir }) {
@@ -44,6 +54,7 @@ const styles = theme => ({
 class Challenges extends React.Component {
   constructor(props) {
     super();
+    this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
     this.updateCurrentUserLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -63,61 +74,66 @@ class Challenges extends React.Component {
         console.error("Browser does not support Geolocation");
       }
     };
-    this.socket = io(process.env.REACT_APP_BACK_END_SERVER);
-    this.socket.on('RECEIVE', data => {
-      var unread = this.state.unreadMessages;
-      addMessage(data);
-      if (data.username === this.state.username){
-        return;
-      }
-      if(this.state.value !== 'chat'){
-        unread++;
-      }
-      this.setState({
-        messageSnackBarOpen: true,
-        unreadMessages: unread
-      });
-    });//closes RECEIVE function
-    this.socket.on('RECEIVE_WIN', data => {
-      var unread = this.state.unreadMessages;
-      addMessage(data);
-      if(this.state.value !== 'chat'){
-        unread++;
-      }
-      console.log("updating game after receiving win");
-      this.props.value.updateGame(this.props.value.user._id);
-      this.setState({
-        messageSnackBarOpen: true,
-        unreadMessages: unread
-      });
-    });//closes RECEIVE_WIN function
 
-
-    const addMessage = data => {
-      this.setState({
-        messages: [...this.state.messages, data]
-      });
+/*---------------------------------chat stuff-------------------------------------------------*/
+const addMessage = data => {
+  this.setState({
+    messages: [...this.state.messages, data]
+  });
+};
+this.resetBadge = () => {
+  this.setState({
+    unreadMessages: 0
+  });
+}
+this.sendMessage = (e) => {
+  console.log("sending message to server");
+  e.preventDefault();
+  if(this.state.message === ''){
+    return;
+  }
+  this.socket.emit('SEND', {
+    room: this.props.value.circuit._id,
+    username: this.state.username,
+    message: this.state.message
+  });
+  this.setState({
+    message: ''
+  });
+};
+this.onFormChange = (e) => {
+        this.setState({
+          message: e
+        })
     };
-    this.resetBadge = () => {
-      this.setState({
-        unreadMessages: 0
-      });
-    }
-    this.sendMessage = (e) => {
-      console.log("sending message to server");
-      e.preventDefault();
-      if(this.state.message === ''){
-        return;
-      }
-      this.socket.emit('SEND', {
-        room: this.props.value.circuit._id,
-        username: this.state.username,
-        message: this.state.message
-      });
-      this.setState({
-        message: ''
-      });
-    };
+      /*--------------------------------socket win events---------------------------------*/
+      this.socket.on('RECEIVE', data => {
+        var unread = this.state.unreadMessages;
+        addMessage(data);
+        if (data.username === this.state.username){
+          return;
+        }
+        if(this.state.value !== 'chat'){
+          unread++;
+        }
+        this.setState({
+          messageSnackBarOpen: true,
+          unreadMessages: unread
+        });
+      });//closes RECEIVE function
+      this.socket.on('RECEIVE_WIN', data => {
+        var unread = this.state.unreadMessages;
+        addMessage(data);
+        if(this.state.value !== 'chat'){
+          unread++;
+        }
+        console.log("updating game after receiving win");
+        this.props.value.updateGame(this.props.value.user._id);
+        this.setState({
+          messageSnackBarOpen: true,
+          unreadMessages: unread
+        });
+      });//closes RECEIVE_WIN function
     this.sendWin = () => {
       console.log("sending win to server");
       this.socket.emit('CHALLENGE_COMPLETE', {
@@ -127,20 +143,23 @@ class Challenges extends React.Component {
 
     }
 
+
+/*-----------------------------------------------------------circuit complete-------------------------------------------*/
     this.circuitComplete = () => {
       this.socket.emit('CIRCUIT_COMPLETE', {
         room: this.props.value.circuit._id
       });
+      this.setState({
+        userWonCircuit: true
+      })
     }
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
-      this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+      this.setState({
+        userLostCircuit: true
+      })
     });//closes RECEIVE_WIN function
 
-    this.onFormChange = (e) => {
-        this.setState({
-          message: e
-        })
-    };
+  /*----------------------------------------------------final state declaration----------------------------------*/
     this.state = {
       messageSnackBarOpen: false,
       //chat stuff:
@@ -152,13 +171,13 @@ class Challenges extends React.Component {
       location: {
         coords: []
       },
-      updateCurrentUserLocation: this.updateCurrentUserLocation
+      updateCurrentUserLocation: this.updateCurrentUserLocation,
+      userLostCircuit: false
     }
   }
 
 
-  /*-------------------------------this function returns position with
-  [0] being the closest and [9] being the furthest--------------------------*/
+  /*-------------------------------this function returns position with [0] being the closest and [9] being the furthest--------------------------*/
   calcHaversine = (positions, userLocation) => {
       let distanceArray = [];
       let distanceOrder = [];
@@ -195,7 +214,47 @@ class Challenges extends React.Component {
 
       console.log("Order of challenges after haversine: ", distanceOrder);
       return distanceOrder;
+  }
+  /*---------------------------this function gets user location and calls the haversine
+  function above to set in state a new order to display the challenges-----------*/
+  orderChallengesByDistance = () => {
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({location:position})
+        console.log(this.state.location);
+        let positions = [];
+        let challenges = this.props.value.circuit.challenges;
+        for (var i = 0; i < challenges.length; i++) {
+          positions.push(challenges[i].location_gate.position);
+        }
+
+          let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
+          this.setState({
+            challengeOrder: challengeOrder
+          })
+          // console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+      },
+      (err) => {console.log("error", err);},
+      {//options
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      });
+    } else {
+      console.error("Browser does not support Geolocation");
     }
+  }
+/*-----------------------------------------utility functions---------------------------------------*/
+  closeSnackBar = (event, reason) => {
+    this.setState({ messageSnackBarOpen: false });
+  };
+  handleDialogue = () => {
+    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+  }
+
+
+  /*-----------------------------------------lifecycle functions---------------------------------------*/
   componentWillMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -223,33 +282,6 @@ class Challenges extends React.Component {
     //this.orderChallengesByDistance();
   }
   componentDidMount() {
-
-  }
-  /*---------------------------this function gets user location and calls the haversine
-  function above to set in state a new order to display the challenges-----------*/
-  orderChallengesByDistance = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position})
-
-        console.log(this.state.location);
-        let positions = [];
-        let challenges = this.props.value.circuit.challenges;
-        for (var i = 0; i < challenges.length; i++) {
-          positions.push(challenges[i].location_gate.position);
-        }
-
-          let challengeOrder = this.calcHaversine(positions, this.state.location.coords);
-          this.setState({
-            challengeOrder: challengeOrder
-          })
-          // console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
-      });
-    } else {
-      console.error("Browser does not support Geolocation");
-    }
-  }
-  componentDidMount() {
     //join the room via the socket instance living in Challenge's state
     //that means the socket (or methods that affect it) can be passed through props
     //to the chat room tab
@@ -259,6 +291,8 @@ class Challenges extends React.Component {
     //terminate the socket once the user leaves the challenge screen
     this.socket.disconnect();
   }
+
+  /*--------------------------------------tab switching stuff-------------------------------*/
   changeTab = (event, value) => {
     this.setState({ value });
   };
@@ -268,17 +302,11 @@ class Challenges extends React.Component {
   };
 
 
-  //for snackbar:
-  closeSnackBar = (event, reason) => {
-    this.setState({ messageSnackBarOpen: false });
-  };
+
 
   render() {
     const { classes, theme } = styles;
     const { value } = this.state;
-
-
-
 
     if (this.props.value.view === 'Camera'){
       return (
@@ -288,12 +316,35 @@ class Challenges extends React.Component {
               <Camera value={game} socket={this}/>
             )}
           </GameContext.Consumer>
+
         </div>
       );
     }
     else {
       return (
-          <div >
+          <div>
+            <Dialog
+              open={this.state.userLostCircuit}
+              TransitionComponent={Transition}
+              keepMounted
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                {"Sorry! You Were Too Slow!"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  Sorry you didn't break the circuit! Better luck next time!
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleDialogue} color="primary">
+                  Review Circuit
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <AppBar position="static" color="default">
               <Tabs
                 value={this.state.value}
@@ -312,13 +363,21 @@ class Challenges extends React.Component {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
-            {value === 'challenges' && <Paper>
+
+            <Grid item xs={12}>
+              <Typography variant="h4" className="white">
+              {this.state.username}
+              </Typography>
+            </Grid>
+            {value === 'challenges' && <div>
+
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
-                        user_id={this.props.value.user._id}
+                        userId={this.props.value.user._id}
                         distance={this.state.distanceArray[challenge]-1000}
                         updateDistance={this.state.updateCurrentUserLocation}
-                        key={i} listId={i} order={challenge}/>
+                        key={i} listId={i} order={challenge}
+                        />
               }) : <CircularProgress />}
               {/*<GameContext.Consumer>{
                   (game) => (
@@ -326,20 +385,21 @@ class Challenges extends React.Component {
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
+              <div className="center">
               <Button variant="contained"
                 size="small" justify="center"
                 color="primary"
                 onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </Paper>}
+              </div>
+              </div>
+            }
             {value === 'map' && <Map/>}
-            {value === 'chat' && <Paper>
-              <div>
+            {value === 'chat' &&
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
                 )}</GameContext.Consumer>
-              </div>
-            </Paper>}
+            }
             {(this.state.messages.length > 0) ?
         <Snackbar
           anchorOrigin={{
@@ -352,8 +412,8 @@ class Challenges extends React.Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">
-          <strong>{this.state.messages[this.state.messages.length-1].username}</strong>:   {this.state.messages[this.state.messages.length-1].message}</span>}
+          message={
+          <span id="message-id"><strong>{this.state.messages[this.state.messages.length-1].username}</strong>:   {this.state.messages[this.state.messages.length-1].message}</span>}
           action={[
             <IconButton
               key="close"
@@ -385,14 +445,14 @@ function Map(theme) {
 }
 function ChatF(props) {
   return (
-    <Paper>
-      <div>
+
+      <div className="screen">
         <GameContext.Consumer>{
             (game) => (
         <Chat chat={props.chat} value={game}/>
         )}</GameContext.Consumer>
       </div>
-    </Paper>
+
   );
 }
 

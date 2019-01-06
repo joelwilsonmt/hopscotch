@@ -48,7 +48,7 @@ class SimpleCard extends React.Component {
                   }
   }
   componentWillMount() {
-
+    this.props.value.clearCircuitState();
     //var userId = this.props.context.userId;
     var userId = this.props.value.user._id;
     var roomName = '';
@@ -122,7 +122,7 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <div className="screen">
+      <div>
         <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}

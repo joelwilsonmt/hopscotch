@@ -15,13 +15,13 @@ class ButtonSizes extends React.Component {
     super()
   }
   componentWillMount() {
-    console.log(this.props.value);
+    //console.log(this.props.value);
   }
   handleClick = () => {
     //clear current user circuit
     //delete circuit
     //change to screen
-    this.props.value.clearCurrentCircuitAndSetScreen(this.props.value.user._id, 'GameRoom');
+    this.props.value.setScreen('GameRoom');
   }
   render(){
   return (
