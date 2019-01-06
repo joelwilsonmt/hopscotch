@@ -250,7 +250,7 @@ this.onFormChange = (e) => {
     this.setState({ messageSnackBarOpen: false });
   };
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+    this.props.value.setScreen(this.props.value.user._id, 'CircuitReview');
   }
 
 
