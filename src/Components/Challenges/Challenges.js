@@ -361,7 +361,8 @@ this.onFormChange = (e) => {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
-            {value === 'challenges' && <Paper>
+            {value === 'challenges' &&
+              <div>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
                         userId={this.props.value.user._id}
@@ -376,11 +377,14 @@ this.onFormChange = (e) => {
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
+              <div className="center">
               <Button variant="contained"
                 size="small" justify="center"
                 color="primary"
                 onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </Paper>}
+              </div>
+              </div>
+            }
             {value === 'map' && <Map/>}
             {value === 'chat' &&
                 <GameContext.Consumer>{
