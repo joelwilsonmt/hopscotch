@@ -20,6 +20,9 @@ import Message from '@material-ui/icons/Message';
 
 import io from 'socket.io-client';
 
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 
 class Chat extends React.Component{
   constructor(props) {
@@ -33,18 +36,30 @@ class Chat extends React.Component{
     console.log("Chat Room Mounted, room #", this.props.value.circuit._id);
     this.props.chat.resetBadge();
   }
+
+  scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: "options-holder"
+    });
+  }
+
   render(){
     let user = this.props.value.user;
     let circuit = this.props.value.circuit;
+
   return (
     <div className="chat-window white">
+
       <Typography variant="h4">
         <strong>{user.username}</strong>{`'`}s Chat
       </Typography>
+
       <div className="chat-messages white" id="messages-container">
+
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
-      {this.props.chat.state.messages.map(function(message, i){
-         return (<ListItem key={i}>
+
+        {this.props.chat.state.messages.scrollToBottom(function(message, i){
+          return (<ListItem key={i}>
                       <ListItemIcon>
                         <Message color="primary"/>
                       </ListItemIcon>
