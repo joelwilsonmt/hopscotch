@@ -49,7 +49,7 @@ router.put('/', function (req, res) {
   var data = req.body;
   var challengeId = data.challengeId;
   var options = {new: true};
-  var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 40000);
+  var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 100);
   var pictureFile = data.screenshot;
   var wordToCheck = data.check_word;
   var base64Image = pictureFile.split("data:image/jpeg;base64,")[1];
