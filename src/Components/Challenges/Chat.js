@@ -23,6 +23,13 @@ import io from 'socket.io-client';
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
+/*
+https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+https://www.npmjs.com/package/react-scroll
+https://stackoverflow.com/questions/45719909/scroll-to-bottom-of-an-overflowing-div-in-react
+https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
+*/
+
 
 class Chat extends React.Component{
   constructor(props) {
