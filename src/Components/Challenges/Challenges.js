@@ -369,7 +369,7 @@ this.onFormChange = (e) => {
               {this.state.username}
               </Typography>
             </Grid>
-            {value === 'challenges' && <Paper>
+            {value === 'challenges' && <div>
 
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
