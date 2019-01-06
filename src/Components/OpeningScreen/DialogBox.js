@@ -65,8 +65,9 @@ export default class FormDialog extends React.Component {
     });
   }
 
-  submitUserToServer = () => {
+  submitUserToServer = (e) => {
     console.log("add user accessed for " + this.state.userNameInputValue);
+    e.preventDefault();
     var userObject = {
       username: this.state.userNameInputValue,
       longitude: this.state.location.coords.longitude,
@@ -100,12 +101,17 @@ export default class FormDialog extends React.Component {
         Button onClick={this.handleClickOpen}>
         Get Started!
         </Button>
+
+
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">ENTER USER NAME</DialogTitle>
+
+          <form onSubmit={this.handleClose && this.submitUserToServer}>
+
           <DialogContent>
             <TextField
               value={this.state.userNameInputValue}
@@ -117,8 +123,10 @@ export default class FormDialog extends React.Component {
               fullWidth
             />
           </DialogContent>
+
           <DialogActions>
             <Button
+              type="button"
               variant="contained"
               color="primary"
               size="small"
@@ -129,9 +137,13 @@ export default class FormDialog extends React.Component {
                 }}>
               Submit
             </Button><br/>
-
           </DialogActions>
+
+          </form>
+
         </Dialog>
+
+
         <Typography variant="p">
             {this.state.disableSubmit ?
                 <CircularProgress />
