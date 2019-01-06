@@ -75,32 +75,36 @@ class Challenges extends React.Component {
     };
 
 /*---------------------------------chat stuff-------------------------------------------------*/
-    const addMessage = data => {
-      this.setState({
-        messages: [...this.state.messages, data]
-      });
+const addMessage = data => {
+  this.setState({
+    messages: [...this.state.messages, data]
+  });
+};
+this.resetBadge = () => {
+  this.setState({
+    unreadMessages: 0
+  });
+}
+this.sendMessage = (e) => {
+  console.log("sending message to server");
+  e.preventDefault();
+  if(this.state.message === ''){
+    return;
+  }
+  this.socket.emit('SEND', {
+    room: this.props.value.circuit._id,
+    username: this.state.username,
+    message: this.state.message
+  });
+  this.setState({
+    message: ''
+  });
+};
+this.onFormChange = (e) => {
+        this.setState({
+          message: e
+        })
     };
-    this.resetBadge = () => {
-      this.setState({
-        unreadMessages: 0
-      });
-    }
-    this.sendMessage = (e) => {
-      console.log("sending message to server");
-      e.preventDefault();
-      if(this.state.message === ''){
-        return;
-      }
-      this.onFormChange = (e) => {
-          this.setState({
-            message: e
-          })
-      };
-      //for snackbar:
-
-
-
-
       /*--------------------------------socket win events---------------------------------*/
       this.socket.on('RECEIVE', data => {
         var unread = this.state.unreadMessages;
@@ -129,15 +133,6 @@ class Challenges extends React.Component {
           unreadMessages: unread
         });
       });//closes RECEIVE_WIN function
-      this.socket.emit('SEND', {
-        room: this.props.value.circuit._id,
-        username: this.state.username,
-        message: this.state.message
-      });
-      this.setState({
-        message: ''
-      });
-    };
     this.sendWin = () => {
       console.log("sending win to server");
       this.socket.emit('CHALLENGE_COMPLETE', {
