@@ -122,7 +122,7 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <div className="screen">
+      <div>
         <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}

@@ -382,14 +382,12 @@ this.onFormChange = (e) => {
                 onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
               </Paper>}
             {value === 'map' && <Map/>}
-            {value === 'chat' && <Paper>
-              <div>
+            {value === 'chat' &&
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
                 )}</GameContext.Consumer>
-              </div>
-            </Paper>}
+            }
             {(this.state.messages.length > 0) ?
         <Snackbar
           anchorOrigin={{
@@ -435,14 +433,14 @@ function Map(theme) {
 }
 function ChatF(props) {
   return (
-    <Paper>
-      <div>
+
+      <div className="screen">
         <GameContext.Consumer>{
             (game) => (
         <Chat chat={props.chat} value={game}/>
         )}</GameContext.Consumer>
       </div>
-    </Paper>
+
   );
 }
 

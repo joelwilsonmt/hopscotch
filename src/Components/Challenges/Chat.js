@@ -37,14 +37,11 @@ class Chat extends React.Component{
     let user = this.props.value.user;
     let circuit = this.props.value.circuit;
   return (
-    <div className="chat-window">
-      <Typography variant="h3">
+    <div className="chat-window white">
+      <Typography variant="h4">
         <strong>{user.username}</strong>{`'`}s Chat
       </Typography>
-      <Typography variant="h5">
-        <strong>Room: </strong>{circuit._id}
-      </Typography>
-      <div className="chat-messages" id="messages-container">
+      <div className="chat-messages white" id="messages-container">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
       {this.props.chat.state.messages.map(function(message, i){
          return (<ListItem key={i}>
@@ -68,12 +65,11 @@ class Chat extends React.Component{
           margin="normal"
           variant="outlined"
           fullWidth
+          className="white"
         /><br/>
       <Button variant="contained" size="medium" justify="center"
           color="primary" type="submit">Send</Button>
       </form>
-      <Button variant="contained" size="medium" justify="center"
-          color="primary" onClick={this.props.chat.sendWin}>Win Challenge Event</Button>
     </div>
     );
   }
