@@ -109,7 +109,7 @@ export default class FormDialog extends React.Component {
         >
           <DialogTitle id="form-dialog-title">ENTER USER NAME</DialogTitle>
 
-          <form onSubmit={this.handleClose && this.submitUserToServer}>
+          <form onSubmit={this.handleClose && this.submitUserToServer} noValidate autoComplete="off" >
 
           <DialogContent>
             <TextField
