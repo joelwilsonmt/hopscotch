@@ -12,6 +12,7 @@ import {GameContext} from "../Contexts/GameContext";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import io from 'socket.io-client';
 import Camera from "../Camera/Camera";
+import Grid from "@material-ui/core/Grid";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -288,6 +289,7 @@ class Challenges extends React.Component {
               <Camera value={game} socket={this}/>
             )}
           </GameContext.Consumer>
+
         </div>
       );
     }
@@ -312,6 +314,11 @@ class Challenges extends React.Component {
                 <Tab value="chat" label="CHAT" />}
               </Tabs>
             </AppBar>
+            <Grid item xs={12}>
+              <Typography variant="h4" className="white">
+              {this.state.username}
+              </Typography>
+            </Grid>
             {value === 'challenges' && <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
