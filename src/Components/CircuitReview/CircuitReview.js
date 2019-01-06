@@ -32,6 +32,12 @@ class CircuitReview extends React.Component {
   constructor () {
     super()
   }
+  componentWillUnmount() {
+    this.props.value.clearCircuitState();
+  }
+  componentWillMount() {
+    this.props.value.clearCurrentCircuit(this.props.value.user._id);
+  }
   render(){
     return (
       <div>

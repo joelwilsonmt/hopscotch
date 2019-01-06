@@ -13,6 +13,7 @@ import NoPage from "./Utilities/NoPage";
 import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Background from './Images/circuit4.jpg';
+import {GameContext} from "./Contexts/GameContext";
 
 const theme = createMuiTheme({
   palette: {
@@ -93,7 +94,9 @@ class App extends React.Component {
         <div>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
-            <CircuitReview/>
+              <GameContext.Consumer>{
+                  (game) => (<CircuitReview value={game}/>)
+          }</GameContext.Consumer>
           </MuiThemeProvider>
         </div>
       );
