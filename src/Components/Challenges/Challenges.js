@@ -222,10 +222,10 @@ class Challenges extends React.Component {
   /*---------------------------this function gets user location and calls the haversine
   function above to set in state a new order to display the challenges-----------*/
   orderChallengesByDistance = () => {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({location:position})
-
         console.log(this.state.location);
         let positions = [];
         let challenges = this.props.value.circuit.challenges;
@@ -238,6 +238,12 @@ class Challenges extends React.Component {
             challengeOrder: challengeOrder
           })
           // console.log("challengeOrder returned from Haversine calc: ", challengeOrder);
+      },
+      (err) => {console.log("error", err);},
+      {//options
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
       });
     } else {
       console.error("Browser does not support Geolocation");
