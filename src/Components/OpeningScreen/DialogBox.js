@@ -126,14 +126,14 @@ export default class FormDialog extends React.Component {
 
           <DialogActions>
             <Button
-              type="button"
+              type="submit"
               variant="contained"
               color="primary"
               size="small"
               justify="center"
-              onClick={() => {
+              onClick={(e) => {
                 this.handleClose()
-                this.submitUserToServer()
+                this.submitUserToServer(e)
                 }}>
               Submit
             </Button><br/>
