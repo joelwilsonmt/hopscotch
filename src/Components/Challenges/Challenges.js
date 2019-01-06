@@ -366,7 +366,7 @@ class Challenges extends React.Component {
             {value === 'challenges' && <Paper>
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
-                        user_id={this.props.value.user._id}
+                        userId={this.props.value.user._id}
                         distance={this.state.distanceArray[challenge]-1000}
                         updateDistance={this.state.updateCurrentUserLocation}
                         key={i} listId={i} order={challenge}/>

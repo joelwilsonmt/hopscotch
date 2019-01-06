@@ -210,7 +210,7 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
-            <Button onClick={() => game.setView('Challenges')} color="primary">
+            <Button onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
               Back to Challenges
             </Button>
           </DialogActions>

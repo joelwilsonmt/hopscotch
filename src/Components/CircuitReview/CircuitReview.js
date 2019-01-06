@@ -50,7 +50,7 @@ class CircuitReview extends React.Component {
               return <ListItem>
                     <ListItemText
                       primary={challenge.full_challenge_text}
-                      secondary={challenge.id_users_completed ? 'Number of users who completed this challenge: ' + challenge.id_users_completed.length : null}
+                      secondary={challenge.id_users_completed ? 'Number of users who completed this challenge: ' + challenge.id_users_completed.length-1 : null}
                     />
                 </ListItem>
             })
