@@ -41,9 +41,9 @@ class SimpleExpansionPanel extends React.Component{
       });
     }
     console.log("Id users completed", this.props.value.id_users_completed);
-    console.log("Checking against user Id", this.props.user_id);
+    console.log("Checking against user Id", this.props.userId);
 
-    if (this.props.value.id_users_completed.includes(this.props.user_id)){
+  if (this.props.value.id_users_completed.includes(this.props.userId)){
     this.setState({disabled : true});
     }
   }
@@ -76,6 +76,9 @@ class SimpleExpansionPanel extends React.Component{
           {
           challenge.location_gate.name
         }
+        </Typography>
+        <Typography>
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
         <Typography>
           {

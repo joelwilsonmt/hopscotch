@@ -32,28 +32,38 @@ class CircuitReview extends React.Component {
   constructor () {
     super()
   }
+  componentWillUnmount() {
+
+  }
+  componentWillMount() {
+    console.log("this props value will mount: ", this.props.value);
+    this.props.value.clearCurrentCircuit(this.props.value.user._id);
+  }
+  componentDidMount() {
+    console.log("this props value did mount: ", this.props.value);
+  }
   render(){
+    console.log("this props value render: ", this.props.value);
     return (
       <div>
       <Paper>
         <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
-    <List>
-      <GameContext.Consumer>{
-          (game) => (
-            game.circuit.challenges.map(function(challenge, i){
-              return <ListItem>
-                    <ListItemText
-                      primary={challenge.full_challenge_text}
-                      secondary={challenge.id_users_completed ? 'Number of users who completed this challenge: ' + challenge.id_users_completed.length : null}
-                    />
-                </ListItem>
-            })
-      )}</GameContext.Consumer>
-  </List>
-  <GameContext.Consumer>{
-      (game) => (
-        <CircuitReviewButtons value={game}/>
+        <List>
+          <GameContext.Consumer>{
+              (game) => (
+                game.circuit.challenges.map(function(challenge, i){
+                  return <ListItem>
+                        <ListItemText
+                          primary={challenge.full_challenge_text}
+                          secondary={`Number of users who completed this challenge: ${challenge.id_users_completed.length-1}`}/>
+                    </ListItem>
+                })
           )}</GameContext.Consumer>
+        </List>
+        <GameContext.Consumer>{
+            (game) => (
+              <CircuitReviewButtons value={game}/>
+        )}</GameContext.Consumer>
       </Paper>
       </div>
     );
