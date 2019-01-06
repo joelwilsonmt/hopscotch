@@ -30,6 +30,7 @@ class SimpleExpansionPanel extends React.Component{
     this.state = ({
       isWithinDistance: false,
       disabled: false,
+      classWhite: ''
     })
   }
 
@@ -44,7 +45,12 @@ class SimpleExpansionPanel extends React.Component{
     console.log("Checking against user Id", this.props.userId);
 
   if (this.props.value.id_users_completed.includes(this.props.userId)){
-    this.setState({disabled : true});
+    this.setState(
+      {
+        disabled : true,
+        classWhite: 'white'
+      }
+    );
     }
   }
 
@@ -52,7 +58,7 @@ class SimpleExpansionPanel extends React.Component{
     let challenge = this.props.value;
   return (
     <div>
-      <ExpansionPanel disabled={this.state.disabled}>
+      <ExpansionPanel disabled={this.state.disabled} className={this.state.classWhite}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6">
 
@@ -64,7 +70,7 @@ class SimpleExpansionPanel extends React.Component{
 
 
           </Typography><br/>
-        <Typography variant="p">
+        <Typography>
             <strong>
             {
             (this.props.distance).toFixed(2)
