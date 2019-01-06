@@ -25,7 +25,8 @@ export default class App extends Component {
       tab: 0,
       challengeCompleteOpen: false,
       challengeRejectedOpen: false,
-      disableSubmit: true
+      disableSubmit: true,
+      userWonCircuit: false
     };
     this.confirmPhoto.bind(this)
   }
@@ -72,7 +73,9 @@ export default class App extends Component {
     });
     this.resetCamera();
   }
-
+  handleDialogue = () => {
+    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+  }
 
   resetCamera = () => {
     this.setState({
@@ -102,7 +105,10 @@ export default class App extends Component {
         console.log("circuit complete!");
         //socket event disconnect all`
         this.props.socket.circuitComplete();
-        this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
+        this.setState({
+          userWonCircuit: true
+        })
+        //this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
       }
       else if(res.data.challengeComplete){
         //socket event update all (RECEIVE_WIN)
@@ -134,6 +140,29 @@ export default class App extends Component {
         <div>
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
+            <Dialog
+              open={this.state.userWonCircuit}
+              TransitionComponent={Transition}
+              keepMounted
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                {"Congrats! You broke the circuit!"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  Very well done!
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleDialogue} color="primary">
+                  Review Circuit
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+
             <Button
               variant="contained"
               size="small"
