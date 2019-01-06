@@ -84,3 +84,6 @@ h2 {
   position: relative !important;
   right: -15px !important;
 }
+[class^="MuiExpansionPanel-disabled"]{
+  color: #fff !important;
+}

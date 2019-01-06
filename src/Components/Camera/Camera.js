@@ -266,9 +266,11 @@ export default class App extends Component {
       return (
 
         <div class="center">
-        <h2 className="white">
+        <Typography className="white">
+          <h2>
         {this.props.value.currentChallenge.full_challenge_text}
         </h2>
+      </Typography>
           <Webcam
             audio={false}
             screenshotFormat="image/jpeg"

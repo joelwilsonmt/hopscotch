@@ -53,7 +53,7 @@ class CircuitReview extends React.Component {
                 game.circuit.challenges.map(function(challenge, i){
                   return <ListItem>
                         <ListItemText
-                          primary={`${i}) ${challenge.full_challenge_text}`}
+                          primary={`${i+1}) ${challenge.full_challenge_text}`}
                           secondary={`Number of users who completed this challenge: ${challenge.id_users_completed.length-1}`}/>
                     </ListItem>
                 })

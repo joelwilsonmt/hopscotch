@@ -32,14 +32,20 @@ export default class FormDialog extends React.Component {
   componentWillMount() {
     console.log("Getting user location");
     if (navigator.geolocation) {
+      console.log("Navigator has geolocation");
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log("position and all that: ", position);
         this.setState({
           location:position,
           disableSubmit: false
-        })
+        });
 
         console.log(this.state.location);
-      });
+      },
+    (err) => {
+      console.log("error", err);
+    }, {enableHighAccuracy: true,
+    maximumAge: 0});
     } else {
       console.error("Browser does not support Geolocation");
     }
@@ -79,7 +85,7 @@ export default class FormDialog extends React.Component {
     const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
-    axios.post(addUser, userObject).then((res, err) => {
+    axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
       if(err) {console.error(err);}
         console.log("passed value prop: ", this.props.value);
         console.log("Add user server response (should be user id):", res.data);

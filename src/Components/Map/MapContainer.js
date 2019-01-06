@@ -17,11 +17,23 @@ export class MapContainer extends React.Component {
     }
   };
   componentWillMount() {
+    console.log("Getting user location");
     if (navigator.geolocation) {
+      console.log("Navigator has geolocation");
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({location:position});
+        console.log("position and all that: ", position);
+        this.setState({
+          location:position,
+          disableSubmit: false
+        });
 
-      });
+        console.log(this.state.location);
+      },
+    (err) => {
+      console.log("error", err);
+    }, {enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0});
     } else {
       console.error("Browser does not support Geolocation");
     }
