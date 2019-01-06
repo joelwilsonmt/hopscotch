@@ -8,7 +8,7 @@ var latitudeArray = [46.862835, 46.91];
 /*-----------------------------Longitude---------------------------------*/
 
 
-var longitudeArray = [-114.1, -113.99];
+var longitudeArray = [-114.1, -113.8];
 
 var express = require('express');
 var router = express.Router();
