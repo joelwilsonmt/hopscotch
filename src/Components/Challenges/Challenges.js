@@ -355,7 +355,7 @@ this.onFormChange = (e) => {
                 textColor="primary"
                 fullWidth
               >
-                <Tab value="challenges" label="CHALLENGES"  />
+                <Tab value="challenges" label="CHALLENGES" />
                 <Tab value="map" label="MAP" />
                 {(this.state.unreadMessages > 0) ?
                 <Tab value="chat" label={
@@ -371,7 +371,15 @@ this.onFormChange = (e) => {
               {this.state.username}
               </Typography>
             </Grid>
+
             {value === 'challenges' && <div>
+
+            <div className="center">
+            <Button variant="contained"
+              size="small" justify="center"
+              color="primary"
+              onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+            </div>
 
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
@@ -387,12 +395,7 @@ this.onFormChange = (e) => {
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
-              <div className="center">
-              <Button variant="contained"
-                size="small" justify="center"
-                color="primary"
-                onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </div>
+
               </div>
             }
             {value === 'map' && <Map/>}
