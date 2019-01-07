@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
 import ExpansionPanels from "../Challenges/ExpansionPanels";
 import Typography from "@material-ui/core/Typography";
 import MainAppBar from "../Utilities/MainAppBar";
@@ -31,6 +32,9 @@ const styles = theme => ({
 class CircuitReview extends React.Component {
   constructor () {
     super()
+    this.state = {
+      willGrow: true
+    };
   }
   componentWillUnmount() {
 
@@ -45,6 +49,7 @@ class CircuitReview extends React.Component {
   render(){
     console.log("this props value render: ", this.props.value);
     return (
+      <Grow in={this.state.willGrow} timeout={1000}>
       <div class="screen white">
         <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
         <List>
@@ -64,6 +69,7 @@ class CircuitReview extends React.Component {
               <CircuitReviewButtons value={game}/>
         )}</GameContext.Consumer>
       </div>
+      </Grow>
     );
   }
 }

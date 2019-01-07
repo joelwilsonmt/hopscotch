@@ -1,4 +1,5 @@
 import React from "react";
+import Grow from '@material-ui/core/Grow';
 import GameRoom from "./GameRoom/GameRoom";
 import ChallengesWrapper from "./Challenges/ChallengesWrapper";
 // import Challenges from "./Challenges/Challenges";
@@ -42,11 +43,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       screen: this.props.value.screen,
+      willGrow: true
     }
   }
 
   componentDidMount(){
     //document.body.style.backgroundImage = `url(${Background})`;
+
   }
 
   render() {
@@ -68,11 +71,12 @@ class App extends React.Component {
             <GameRoom/>
           </MuiThemeProvider>
         </div>
+
       );
     }
     else if (this.props.value.screen === 'Challenges'){
       return (
-        <div>
+        <div Grow in={this.state.willGrow} timeout={1000}>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
             <ChallengesWrapper/>
@@ -82,12 +86,14 @@ class App extends React.Component {
     }
     else if (this.props.value.screen === 'Camera'){
       return (
+
         <div>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
             <Camera/>
           </MuiThemeProvider>
         </div>
+
       );
     }
     else if (this.props.value.screen === 'CircuitReview'){

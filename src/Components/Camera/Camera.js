@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import {GameContext} from "../Contexts/GameContext";
 import Dialog from '@material-ui/core/Dialog';
+import Grow from '@material-ui/core/Grow';
 import Grid from "@material-ui/core/Grid";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -29,7 +30,8 @@ export default class App extends Component {
       challengeCompleteOpen: false,
       challengeRejectedOpen: false,
       disableSubmit: true,
-      userWonCircuit: false
+      userWonCircuit: false,
+      willGrow: true
     };
     this.confirmPhoto.bind(this)
   }
@@ -165,6 +167,7 @@ export default class App extends Component {
               </DialogActions>
             </Dialog>
 
+
             <div class="center">
             <Button
               className="animated pulse infinite center"
@@ -186,6 +189,7 @@ export default class App extends Component {
             </Button>
             </div>
           </div>
+
           <GameContext.Consumer>{
             (game) => (
               <div class='center'>
@@ -260,10 +264,12 @@ export default class App extends Component {
           )}</GameContext.Consumer>
         </Dialog>
       </div>
+
       );
     }
     else{
       return (
+        <Grow in={this.state.willGrow} timeout={1000}>
 
         <div class="center">
         <Typography className="white">
@@ -305,6 +311,7 @@ export default class App extends Component {
               </div>
           )}</GameContext.Consumer>
         </div>
+        </Grow>
 
       );
     }//closes else
