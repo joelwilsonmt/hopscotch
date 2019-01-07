@@ -13,8 +13,7 @@ import ProofButton from './ProofButton';
 
 const styles = theme => ({
   root: {
-    width: "100%",
-    padding: '100px 100px',
+    width: "100%"
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -99,7 +98,7 @@ class SimpleExpansionPanel extends React.Component{
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
-         <div class="center" padding="100px">
+         <div class="center">
         <ProofButton value={this.props.value} order={this.props.order}  />
         </div>
 
