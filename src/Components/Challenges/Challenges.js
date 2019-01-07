@@ -151,12 +151,14 @@ this.onFormChange = (e) => {
       });
       this.setState({
         userWonCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     }
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
       this.setState({
         userLostCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
 
   /*----------------------------------------------------final state declaration----------------------------------*/

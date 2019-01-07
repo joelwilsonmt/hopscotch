@@ -77,7 +77,7 @@ export default class App extends Component {
     this.resetCamera();
   }
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+    this.props.value.setScreen('CircuitReview');
   }
 
   resetCamera = () => {
