@@ -151,14 +151,12 @@ this.onFormChange = (e) => {
       });
       this.setState({
         userWonCircuit: true
-      })
       });
       this.props.value.updateGame(this.props.value.user._id);
     }
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
       this.setState({
         userLostCircuit: true
-      })
       });
       this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
@@ -254,7 +252,6 @@ this.onFormChange = (e) => {
     this.setState({ messageSnackBarOpen: false });
   };
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
     this.props.value.setScreen('CircuitReview');
   }
 

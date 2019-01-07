@@ -87,7 +87,6 @@ router.post('/', function (req, res) {
             //   'yogurt'
             // ];
              var words = [
-               'thumbs up'
                'thumbs up',
                'fork',
                'document',

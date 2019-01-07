@@ -77,7 +77,6 @@ export default class App extends Component {
     this.resetCamera();
   }
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
     this.props.value.setScreen('CircuitReview');
   }
 
@@ -141,7 +140,6 @@ export default class App extends Component {
     let currentChallenge = this.props.value.currentChallenge;
     if(this.state.screenshotTaken){
       return(
-        <div class='center'>
         <div class="center">
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
@@ -277,7 +275,6 @@ export default class App extends Component {
             audio={false}
             screenshotFormat="image/jpeg"
             ref={node => this.webcam = node}
-            screenshotQuality={.9}
             screenshotQuality={.8}
             width={375}
             height={300}
