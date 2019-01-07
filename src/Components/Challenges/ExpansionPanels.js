@@ -94,12 +94,12 @@ class SimpleExpansionPanel extends React.Component{
         <Typography className="center">
           <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
-        <Typography>
+        <Typography className="center">
           {
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
-         <div class="center">
+         <div class="center" padding="100px">
         <ProofButton value={this.props.value} order={this.props.order}  />
         </div>
 
