@@ -14,13 +14,15 @@ import ProofButton from './ProofButton';
 const styles = theme => ({
   root: {
     width: "100%",
+    padding: '100px 100px',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular
   },
   button: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
 });
 
@@ -78,18 +80,19 @@ class SimpleExpansionPanel extends React.Component{
           </Typography>
 
         </ExpansionPanelSummary>
-        <Typography>
+        <Typography className="center">
           {
           challenge.location_gate.name
         }
         </Typography>
-        <Typography>
-          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
-        </Typography>
-        <Typography>
+
+        <Typography className="center">
           {
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
+        </Typography>
+        <Typography className="center">
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
         <Typography>
           {
