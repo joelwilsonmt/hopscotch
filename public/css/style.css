@@ -4,7 +4,7 @@ html {
     /*background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;*/
     /*background: url(https://media.giphy.com/media/sNz7ODDP6lsRy/giphy.gif) no-repeat center center fixed;*/
     background: url(https://media.giphy.com/media/1pmatQ3LcP5XFYxSWF/giphy.gif) no-repeat center center fixed;
-
+    height: 100%;
     background-size: cover;
 }
 body {
@@ -12,6 +12,7 @@ body {
   	padding: 0 !important;
   	border: 0 !important;
     height: 100%;
+    background-size: cover;
     background: rgba(0,0,0,.5) !important;
 }
 h1 {
@@ -43,7 +44,7 @@ h1 {
   color: #fff !important;
 }
 .padder {
-  padding: 5% 0 !important;
+  padding: 20px 0 !important;
 }
 .center {
   text-align: center !important;
@@ -110,8 +111,7 @@ h2 {
   box-shadow: none !important;
 }
 .expansion-panels .challenge-description {
-  background-color: rgba(0,0,0,.5);
-
+  padding: 10px;
 }
 .expansion-panels .challenge-description *{
   line-height: 2em;
