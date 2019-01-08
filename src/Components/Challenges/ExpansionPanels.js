@@ -98,7 +98,7 @@ class SimpleExpansionPanel extends React.Component{
         </Typography>
         <Typography className="center">
           {
-            (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
+            (this.props.distance < 15) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
 
