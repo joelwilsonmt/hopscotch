@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import CircularProgress from '@material-ui/core/CircularProgress';
 require('dotenv').config();
 
 
@@ -90,6 +91,9 @@ export default class App extends Component {
   }
 
   confirmPhoto = () => {
+    this.setState({
+      disableSubmit: true
+    });
     // console.log("data: ", req);
     console.log("current challenge index: ", this.props.value.currentChallengeIndex);
     let req = {
@@ -111,9 +115,8 @@ export default class App extends Component {
         //socket event disconnect all`
         this.props.socket.circuitComplete();
         this.setState({
-          userWonCircuit: true
-        })
-        //this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview')
+          userWonCircuit: true //opens a dialogue box directing user to next screen
+        });
       }
       else if(res.data.challengeComplete){
         //socket event update all (RECEIVE_WIN)
@@ -125,8 +128,9 @@ export default class App extends Component {
       }
       else {
         this.setState({
-          challengeRejectedOpen: true
-        })
+          challengeRejectedOpen: true,
+          disableSubmit: false
+        });
       }
     })
     .catch((err)=>{
@@ -178,7 +182,7 @@ export default class App extends Component {
               disabled={this.state.disableSubmit}
               onClick={this.confirmPhoto}
               >
-              Submit
+              {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Submit'}
             </Button>
             <Button
              justify="center"
