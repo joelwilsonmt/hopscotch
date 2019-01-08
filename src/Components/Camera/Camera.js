@@ -313,7 +313,7 @@ export default class App extends Component {
             videoConstraints={videoConstraints}
           />
 
-          <div class="center">
+        <div class="center padder">
             <Button
               className="animated pulse infinite center"
               variant="contained"

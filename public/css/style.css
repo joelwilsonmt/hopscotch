@@ -11,7 +11,7 @@ body {
     margin: 0 !important;
   	padding: 0 !important;
   	border: 0 !important;
-    height: 100vh;
+    height: 100%;
     background: rgba(0,0,0,.5) !important;
 }
 h1 {
@@ -20,7 +20,6 @@ h1 {
 }
 
 .white, .white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white span, .white input, .white label, .white li {
-
   color: #fff !important;
 }
 .white fieldset {
