@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
+import Grow from '@material-ui/core/Grow';
 import Typography from "@material-ui/core/Typography";
 import GameRoomCard from "./GameRoomCard";
 // import {UserContext} from "../Contexts/UserContext";
@@ -11,10 +12,14 @@ import {GameContext} from "../Contexts/GameContext";
 class GameRoom extends Component {
   constructor(props) {
     super();
+    this.state = {
+      willGrow: true
+    };
   }
   render() {
 
     return (
+      <Grow in={this.state.willGrow} timeout={1000}>
       <div className="screen">
 
           <br />
@@ -30,6 +35,7 @@ class GameRoom extends Component {
             }</GameContext.Consumer>
 
       </div>
+      </Grow>
     );//end return
   }//end render
 }//end GameRoom component

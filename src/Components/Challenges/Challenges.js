@@ -151,12 +151,14 @@ this.onFormChange = (e) => {
       });
       this.setState({
         userWonCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     }
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
       this.setState({
         userLostCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
 
   /*----------------------------------------------------final state declaration----------------------------------*/
@@ -250,7 +252,7 @@ this.onFormChange = (e) => {
     this.setState({ messageSnackBarOpen: false });
   };
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+    this.props.value.setScreen('CircuitReview');
   }
 
 
@@ -353,7 +355,7 @@ this.onFormChange = (e) => {
                 textColor="primary"
                 fullWidth
               >
-                <Tab value="challenges" label="CHALLENGES"  />
+                <Tab value="challenges" label="CHALLENGES" />
                 <Tab value="map" label="MAP" />
                 {(this.state.unreadMessages > 0) ?
                 <Tab value="chat" label={
@@ -369,7 +371,15 @@ this.onFormChange = (e) => {
               {this.state.username}
               </Typography>
             </Grid>
+
             {value === 'challenges' && <div>
+
+            <div className="center">
+            <Button variant="contained"
+              size="small" justify="center"
+              color="primary"
+              onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+            </div>
 
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
@@ -385,12 +395,7 @@ this.onFormChange = (e) => {
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
-              <div className="center">
-              <Button variant="contained"
-                size="small" justify="center"
-                color="primary"
-                onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </div>
+
               </div>
             }
             {value === 'map' && <Map/>}

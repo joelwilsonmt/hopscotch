@@ -47,7 +47,7 @@ class AlertDialogSlide extends React.Component {
           <DialogTitle id="alert-dialog-slide-title">
             {"That's A Great Picture!"}
           </DialogTitle>
-          <DialogContent>
+          <DialogContent className="center">
             <DialogContentText id="alert-dialog-slide-description">
               Picture and Location Confirmed!
               Well Played!

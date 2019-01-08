@@ -13,14 +13,15 @@ import ProofButton from './ProofButton';
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "100%"
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular
   },
   button: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
 });
 
@@ -78,27 +79,29 @@ class SimpleExpansionPanel extends React.Component{
           </Typography>
 
         </ExpansionPanelSummary>
-        <Typography>
+        <Typography className="center">
           {
           challenge.location_gate.name
         }
         </Typography>
-        <Typography>
-          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
-        </Typography>
-        <Typography>
+        <div class="center">
+       <ProofButton value={this.props.value} order={this.props.order}  />
+       </div>
+
+        <Typography className="center">
           {
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }
         </Typography>
-        <Typography>
+        <Typography className="center">
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
+        </Typography>
+        <Typography className="center">
           {
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
-         <div class="center">
-        <ProofButton value={this.props.value} order={this.props.order}  />
-        </div>
+
 
       </ExpansionPanel>
     </div>

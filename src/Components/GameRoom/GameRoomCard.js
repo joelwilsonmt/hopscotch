@@ -44,7 +44,8 @@ class SimpleCard extends React.Component {
     this.state = {
                   foundCircuit: '',
                   circuitFound: false,
-                  message: 'Searching for circuits...'
+                  message: 'Searching for circuits...',
+                  disableSubmit: false
                   }
   }
   componentWillMount() {
@@ -98,6 +99,9 @@ class SimpleCard extends React.Component {
       });
   }
   handleJoin(game) {
+    this.setState({
+      disableSubmit: true
+    });
     console.log("user id: ", game.user._id);
     var req = {
       userId: game.user._id,
@@ -123,7 +127,6 @@ class SimpleCard extends React.Component {
   render() {
     return (
       <div>
-        <CardContent>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
           </Typography>
@@ -138,23 +141,18 @@ class SimpleCard extends React.Component {
               <CircularProgress/>
             }
 
-        </CardContent>
-        <CardActions>
           {this.state.circuitFound ?
             <GameContext.Consumer>{
                 (game) => (
             <Button
               variant="contained"
-              size="small"
-              justify="center"
               color="primary"
               className="animated pulse infinite center"
-              onClick={() => this.handleJoin(game)}
-              >
-              Join Circuit
+              disabled={this.state.disableSubmit}
+              Button onClick={() => this.handleJoin(game)}>
+              {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Join Circuit'}
             </Button>
         )}</GameContext.Consumer>: ''}
-        </CardActions>
       </div>
     );
   }
