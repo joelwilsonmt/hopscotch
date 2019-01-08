@@ -375,12 +375,15 @@ this.onFormChange = (e) => {
             {value === 'challenges' && <div>
 
             <div className="center">
+              <div className="padder">
             <Button variant="contained"
               size="small" justify="center"
               color="primary"
+
               onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
             </div>
-
+            </div>
+            <div className="expansion-panels">
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
                         userId={this.props.value.user._id}
@@ -389,6 +392,7 @@ this.onFormChange = (e) => {
                         key={i} listId={i} order={challenge}
                         />
               }) : <CircularProgress />}
+              </div>
               {/*<GameContext.Consumer>{
                   (game) => (
                     game.circuit.challenges.map(function(challenge, i){
