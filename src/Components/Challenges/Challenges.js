@@ -24,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Webcam from 'react-webcam';
 const haversine = require('haversine');
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -154,6 +155,7 @@ this.onFormChange = (e) => {
       });
       this.props.value.updateGame(this.props.value.user._id);
     }
+
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
       this.setState({
         userLostCircuit: true
@@ -325,6 +327,7 @@ this.onFormChange = (e) => {
     else {
       return (
           <div>
+
             <Dialog
               open={this.state.userLostCircuit}
               TransitionComponent={Transition}
@@ -332,17 +335,31 @@ this.onFormChange = (e) => {
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
             >
+
               <DialogTitle id="alert-dialog-slide-title">
                 {"Sorry! You Were Too Slow!"}
               </DialogTitle>
+
               <DialogContent>
+
+
                 <DialogContentText id="alert-dialog-slide-description">
-                  Sorry you didn't break the circuit! Better luck next time!
+
+                  Sorry you did not break the circuit! Better luck next time!
+
                 </DialogContentText>
+
+                <div class="center">
+                  <img src={this.state.screenshot} alt='' />
+                </div>
+
               </DialogContent>
+
               <DialogActions>
                 <Button onClick={this.handleDialogue} color="primary">
+
                   Review Circuit
+
                 </Button>
               </DialogActions>
             </Dialog>
@@ -372,14 +389,15 @@ this.onFormChange = (e) => {
               </Typography>
             </Grid>
 
-            {value === 'challenges' && <div>
+            {value === 'challenges' &&
 
-            <div className="center">
-            <Button variant="contained"
-              size="small" justify="center"
-              color="primary"
-              onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-            </div>
+              <div>
+                <div className="center">
+                <Button variant="contained"
+                  size="small" justify="center"
+                  color="primary"
+                  onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+              </div>
 
               {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
                 return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
@@ -389,6 +407,7 @@ this.onFormChange = (e) => {
                         key={i} listId={i} order={challenge}
                         />
               }) : <CircularProgress />}
+
               {/*<GameContext.Consumer>{
                   (game) => (
                     game.circuit.challenges.map(function(challenge, i){
@@ -398,13 +417,16 @@ this.onFormChange = (e) => {
 
               </div>
             }
+
             {value === 'map' && <Map/>}
+
             {value === 'chat' &&
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
                 )}</GameContext.Consumer>
             }
+
             {(this.state.messages.length > 0) ?
         <Snackbar
           anchorOrigin={{
