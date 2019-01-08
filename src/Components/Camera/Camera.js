@@ -32,7 +32,8 @@ export default class App extends Component {
       challengeRejectedOpen: false,
       disableSubmit: true,
       userWonCircuit: false,
-      willGrow: true
+      willGrow: true,
+      message: ''
     };
     this.confirmPhoto.bind(this)
   }
@@ -110,6 +111,7 @@ export default class App extends Component {
     axios.put(process.env.REACT_APP_BACK_END_SERVER + 'submitChallenge', req)
     .then((res)=>{
       console.log(res);
+      //only one dialogue, no need to set message
       if(res.data.circuitComplete){
         console.log("circuit complete!");
         //socket event disconnect all`
@@ -118,19 +120,39 @@ export default class App extends Component {
           userWonCircuit: true //opens a dialogue box directing user to next screen
         });
       }
+      //also only one dialogue, no need to set message
       else if(res.data.challengeComplete){
         //socket event update all (RECEIVE_WIN)
         console.log("challenge complete!");
           this.setState({
-          challengeCompleteOpen: true
+          challengeCompleteOpen: true,
+          message: 'Nice job! We detected ' + this.props.value.currentChallenge.object_gate + ' in your picture, and you were within range of ' + this.props.value.currentChallenge.location_gate.name + '!'
         });
         this.props.socket.sendWin();
       }
+      //custom error messages in the challengeRejectedOpen dialogue
       else {
-        this.setState({
-          challengeRejectedOpen: true,
-          disableSubmit: false
-        });
+        if (res.data.objectGate){
+          this.setState({
+            challengeRejectedOpen: true,
+            message: 'We detected ' + this.props.value.currentChallenge.object_gate + ' in your picture, but your are not close enough!',
+            disableSubmit: false
+          });
+        }
+        else if (res.data.locationGate){
+          this.setState({
+            challengeRejectedOpen: true,
+            message: 'You are close enough, but we could not detect ' + this.props.value.currentChallenge.object_gate + ' in your picture.',
+            disableSubmit: false
+          });
+        }
+        else{
+          this.setState({
+            challengeRejectedOpen: true,
+            message: 'You are not close enough and we could not detect ' + this.props.value.currentChallenge.object_gate + ' in your picture.',
+            disableSubmit: false
+          });
+        }
       }
     })
     .catch((err)=>{
@@ -221,9 +243,7 @@ export default class App extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Picture and Location Confirmed!
-              Well Played!
-              Keep it Going!
+              {this.state.message}
             </DialogContentText>
           </DialogContent>
           <GameContext.Consumer>{
@@ -248,10 +268,7 @@ export default class App extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              We are sorry to say that something doesn't match up!
-              Make sure you have the correct item!
-              Make sure you are in the correct place!
-              Try taking the picture again.
+              {this.state.message}
             </DialogContentText>
           </DialogContent>
           <GameContext.Consumer>{
