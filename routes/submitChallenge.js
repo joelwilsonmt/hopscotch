@@ -49,8 +49,10 @@ router.put('/', function (req, res) {
   var data = req.body;
   var challengeId = data.challengeId;
   var options = {new: true};
+
   //var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "meter", 40000);
   //changed to miles to match front end miles display:
+
   var distanceWin = isWithinWinDistance(data.location_to_check, data.user_position, "mile", 15);
   var pictureFile = data.screenshot;
   var wordToCheck = data.check_word;

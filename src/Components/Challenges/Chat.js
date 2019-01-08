@@ -38,8 +38,8 @@ class Chat extends React.Component{
     let circuit = this.props.value.circuit;
   return (
     <div className="chat-window white">
-      <Typography variant="h4">
-        <strong>{user.username}</strong>{`'`}s Chat
+      <Typography className="center" variant="h4">
+        Trash Talk
       </Typography>
       <div className="chat-messages white" id="messages-container">
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
