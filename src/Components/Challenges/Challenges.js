@@ -367,7 +367,7 @@ this.onFormChange = (e) => {
             </AppBar>
 
             <Grid item xs={12}>
-              <Typography variant="h4" className="white">
+              <Typography variant="h4" className="white center">
               {this.state.username}
               </Typography>
             </Grid>

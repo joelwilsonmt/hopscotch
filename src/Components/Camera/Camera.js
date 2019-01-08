@@ -169,6 +169,11 @@ export default class App extends Component {
     if(this.state.screenshotTaken){
       return(
         <div class="center">
+          <Typography className="white">
+            <h2>
+          {this.props.value.currentChallenge.full_challenge_text}
+          </h2>
+        </Typography>
         {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
           <div>
             <Dialog
