@@ -367,7 +367,7 @@ this.onFormChange = (e) => {
             </AppBar>
 
             <Grid item xs={12}>
-              <Typography variant="h4" className="white center">
+              <Typography variant="h4" className="white center padder">
               {this.state.username}
               </Typography>
             </Grid>
@@ -375,6 +375,9 @@ this.onFormChange = (e) => {
             {value === 'challenges' && <div>
 
             <div className="center">
+              <Typography className="center white" variant="h4">
+                Challenges
+              </Typography>
               <div className="padder">
             <Button variant="contained"
               size="small" justify="center"
@@ -413,10 +416,10 @@ this.onFormChange = (e) => {
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'left',
+            horizontal: 'center',
           }}
           open={this.state.messageSnackBarOpen}
-          autoHideDuration={6000}
+          autoHideDuration={2000}
           onClose={this.closeSnackBar}
           ContentProps={{
             'aria-describedby': 'message-id',

@@ -91,6 +91,9 @@ h2 {
 [class^="MuiExpansionPanel-disabled"]{
   color: #fff !important;
 }
+#message-id {
+  font-size: 10px;
+}
 
 /******--------------------dark theme expansion panels?---------------------*/
 .expansion-panels .MuiPaper-root-10 {
@@ -102,5 +105,15 @@ h2 {
 }
 .expansion-panels .MuiSvgIcon-root-430 {
   border: 1px solid #fff;
-  border-radius: 100px;
+  border-radius: 100px !important;
+}
+.MuiButton-contained-188 {
+  box-shadow: none !important;
+}
+.expansion-panels .challenge-description {
+  background-color: rgba(0,0,0,.5);
+
+}
+.expansion-panels .challenge-description *{
+  line-height: 2em;
 }

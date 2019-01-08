@@ -70,25 +70,27 @@ class SimpleExpansionPanel extends React.Component{
             <strong>{(this.props.distance).toFixed(2)}</strong> miles away
           </Typography>
         </ExpansionPanelSummary>
-        <Typography className="center">
+        <div class="center padder challenge-description">
+        <Typography>
           {
           challenge.location_gate.name
           }
         </Typography>
-        <div class="center">
+        <div className="padder">
        <ProofButton value={this.props.value} order={this.props.order}  />
        </div>
-        <Typography className="center">{
+        <Typography >{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }</Typography>
-        <Typography className="center">
+        <Typography >
           <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
-        <Typography className="center">
+        <Typography >
           {
             (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
+      </div>
       </ExpansionPanel>
     );
   }
