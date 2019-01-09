@@ -378,7 +378,7 @@ this.onFormChange = (e) => {
                 textColor="primary"
                 fullWidth
               >
-                <Tab value="challenges" label="CHALLENGES" />
+                <Tab value="challenges" label="SQUARES" />
                 <Tab value="map" label="MAP" />
                 {(this.state.unreadMessages > 0) ?
                 <Tab value="chat" label={
@@ -399,14 +399,14 @@ this.onFormChange = (e) => {
               <div>
             <div className="center">
               <Typography className="center white" variant="h4">
-                Challenges
+                Squares
               </Typography>
               <div className="padder">
             <Button variant="contained"
               size="small" justify="center"
               color="primary"
 
-              onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+              onClick={this.orderChallengesByDistance}>Refresh Squares</Button>
             </div>
             </div>
             <div className="expansion-panels">
@@ -481,12 +481,12 @@ this.onFormChange = (e) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Sorry you didn't break the circuit! Better luck next time!
+              Sorry you couldn't hop quickly enough! Better luck next time!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleDialogue} color="primary">
-              Review Circuit
+              Review Squares
             </Button>
           </DialogActions>
         </Dialog>

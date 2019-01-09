@@ -191,13 +191,13 @@ export default class App extends Component {
               >
 
                     <DialogTitle id="alert-dialog-slide-title">
-                        {"Congrats! You broke the circuit!"}
+                        {"Congrats! You finished the hops scotch first!"}
                     </DialogTitle>
 
                     <DialogContent>
 
                         <DialogContentText id="alert-dialog-slide-description">
-                          Very well done!
+                          Now give me your keys, you sloshed sack of shite!
                         </DialogContentText>
 
                         <div class="center">
@@ -208,7 +208,7 @@ export default class App extends Component {
 
                     <DialogActions>
                         <Button onClick={this.handleDialogue} color="primary">
-                          Review Circuit
+                          Review Squares
                         </Button>
                       </DialogActions>
 
@@ -250,7 +250,7 @@ export default class App extends Component {
                 justify="center"
                 color="primary"
                 onClick={() => game.setView('')}>
-                Back to Challenges
+                Back to Squares
               </Button>
               </div>
           )}</GameContext.Consumer>
@@ -274,7 +274,7 @@ export default class App extends Component {
             (game) => (
           <DialogActions>
             <Button onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
-              Back to Challenges
+              Back to Squares
             </Button>
           </DialogActions>
         )}</GameContext.Consumer>

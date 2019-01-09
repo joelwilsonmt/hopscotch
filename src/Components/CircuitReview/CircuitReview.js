@@ -51,7 +51,7 @@ class CircuitReview extends React.Component {
     return (
       <Grow in={this.state.willGrow} timeout={1000}>
       <div class="screen white">
-        <Typography variant="h5" align="center">CIRCUIT REVIEW</Typography>
+        <Typography variant="h5" align="center">WHAT YOU JUST DID</Typography>
         <List>
           <GameContext.Consumer>{
               (game) => (
@@ -59,7 +59,7 @@ class CircuitReview extends React.Component {
                   return <ListItem>
                         <ListItemText
                           primary={`${i+1}) ${challenge.full_challenge_text}`}
-                          secondary={`Number of users who completed this challenge: ${challenge.id_users_completed.length-1}`}/>
+                          secondary={`Number of drinkers who hopped this square: ${challenge.id_users_completed.length-1}`}/>
                     </ListItem>
                 })
           )}</GameContext.Consumer>

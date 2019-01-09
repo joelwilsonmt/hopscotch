@@ -83,11 +83,11 @@ class SimpleExpansionPanel extends React.Component{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }</Typography>
         <Typography >
-          <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
+          <strong>{this.props.value.id_users_completed.length-1}</strong> users have hopped this square
         </Typography>
         <Typography >
           {
-            (this.props.distance < 15) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
+            (this.props.distance < 15) ? 'You can take a selfie!' : 'You can take a picture, but it wont count'
           }
         </Typography>
       </div>

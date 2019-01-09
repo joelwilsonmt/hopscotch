@@ -37,7 +37,7 @@ class OpeningScreen extends React.Component {
        <Grow in={this.state.willGrow} timeout={1000}>
         <div className="screen">
           <Typography className="white" variant="h2">
-            CIRCUIT BREAKER
+            HOPS SCOTCH
           </Typography>
           <img className="padder logo" src='https://www.quantil.com/resources/hp-globe.gif'/>
           <GameContext.Consumer>{
