@@ -59,7 +59,8 @@ export default class FormDialog extends React.Component {
 
   handleClose = () => {
     this.setState({
-      open: false
+      open: false,
+      openSorry: false
     });
   };
 
@@ -93,13 +94,22 @@ export default class FormDialog extends React.Component {
     const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
-    axios.post(addUser, userObject).then((res, err) => {
+    axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
       if(err) {console.error(err);}
-        console.log("passed value prop: ", this.props.value);
-        console.log("Add user server response (should be user id):", res.data);
+        console.log("adduser response:", res);
+        if(res.data.findUser) {
+          this.props.value.updateUserAndSetScreen(res.data.userId, 'GameRoom');
+        }
+        else {
+          console.log("no user boundary");
+          this.setState({
+            open: false,
+            openSorry: true
+          })
+        }
         //this.props.value.updateUser(res.data);
         //this.props.value.setScreen('GameRoom');
-        this.props.value.updateUserAndSetScreen(res.data, 'GameRoom');
+
     });/*.then(() => {
     });*/
   }
@@ -117,7 +127,30 @@ export default class FormDialog extends React.Component {
         {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Get Started!'}
         </Button>
 
-
+        <Dialog
+          open={this.state.openSorry}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">SORRY</DialogTitle>
+          <DialogContent>
+            Sorry you are not within the playable boundary right now. Please come closer to us.
+          </DialogContent>
+          <DialogActions>
+            <Button
+              type="submit"
+              variant="contained"
+              className="animated pulse infinite center"
+              color="primary"
+              size="small"
+              justify="center"
+              onClick={(e) => {
+                this.handleClose()
+                }}>
+              Shucks I'll Come Back When I'm In Downtown Missoula :(
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

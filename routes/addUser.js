@@ -88,7 +88,12 @@ router.post('/', function (req, res) {
               res.sendStatus(400);
             }
         console.log("Sending user id back to client");
-        res.send(user._id);
+        res.status(200).send(
+          {
+            userId: user._id,
+            findUser: true
+          }
+          );
     });
     //res.sendStatus(200);
 });
