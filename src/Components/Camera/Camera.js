@@ -54,7 +54,6 @@ export default class App extends Component {
     (err) => {
       console.log("error", err);
     }, {enableHighAccuracy: true,
-    timeout: 5000,
     maximumAge: 0});
     } else {
       console.error("Browser does not support Geolocation");
@@ -202,6 +201,13 @@ export default class App extends Component {
 
                         <div class="center image-wrapper">
                           <img src={this.state.screenshot} alt='' />
+                            <div class="overlay">
+                              <div class="overlay-text">
+                                <Typography variant="h4" className="white">
+                                  Winner!
+                              </Typography>
+                              </div>
+                            </div>
                         </div>
 
                     </DialogContent>
