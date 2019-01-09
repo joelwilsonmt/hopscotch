@@ -18,7 +18,7 @@ function MainAppBar(props) {
       <AppBar position="static">
         <Toolbar>
         <Typography className="white title" variant="h5" color="inherit">
-            Circuit Breaker
+            Hops Scotch
           </Typography>
           <Avatar />
         </Toolbar>

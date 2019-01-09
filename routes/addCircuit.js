@@ -5,7 +5,7 @@ var Circuit = require('../models/circuit');
 var User = require('../models/user'); //included to be able to search users
 const haversine = require('haversine');
 var dotenv = require('dotenv').config();
-var shuffle = require('shuffle-array');
+
 /*
 on Client side:
 check to see if there are available circuits in the area,
@@ -97,9 +97,9 @@ router.post('/', function (req, res) {
               };
           }
           console.log("sets challenges length before shuffle: ", sets_challenges.length);
-          var passChallenges = shuffle(sets_challenges);
-          passChallenges = passChallenges.slice(0, 5);
-          console.log("shuffled challenge 0: ", passChallenges[0]);
+          // var passChallenges = shuffle(sets_challenges);
+          var passChallenges = passChallenges.slice(0, 3);
+          console.log("shuffled challenge 0: ", passChallenges[0]); 
             //create the new circuit
             new Circuit({
               circuit_boundaries: circuitBoundaries,
