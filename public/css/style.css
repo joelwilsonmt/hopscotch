@@ -4,15 +4,22 @@ html {
     /*background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;*/
     /*background: url(https://media.giphy.com/media/sNz7ODDP6lsRy/giphy.gif) no-repeat center center fixed;*/
     background: url(https://media.giphy.com/media/1pmatQ3LcP5XFYxSWF/giphy.gif) no-repeat center center fixed;
-
+    height: 100%;
     background-size: cover;
 }
 body {
     margin: 0 !important;
   	padding: 0 !important;
   	border: 0 !important;
-    height: 100vh;
+    min-height: 100%;
+    background-size: cover;
     background: rgba(0,0,0,.5) !important;
+}
+#root {
+  min-height: 100%;
+}
+.MuiButton-contained-188 {
+  box-shadow: none !important;
 }
 h1 {
   color: #3E51B5 !important;
@@ -20,7 +27,6 @@ h1 {
 }
 
 .white, .white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white span, .white input, .white label, .white li {
-
   color: #fff !important;
 }
 .white fieldset {
@@ -44,7 +50,7 @@ h1 {
   color: #fff !important;
 }
 .padder {
-  padding: 5% 0 !important;
+  padding: 20px 0 !important;
 }
 .center {
   text-align: center !important;
@@ -64,6 +70,9 @@ h2 {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+.chat-window {
+  padding: 0 10px;
+}
 .chat-window li {
   list-style-type: none;
 }
@@ -75,9 +84,11 @@ h2 {
   margin: auto;
   border: 1px solid #aaa;
   border-radius: 5px;
-  height : 35vh;
-  overflow:auto;
+  height : 45vh;
+  overflow: auto;
   color: #fff !important;
+  background-color: rgba(0,0,0,.5);
+
 }
 /*chat badge*/
 .chat-badge span {
@@ -87,3 +98,38 @@ h2 {
 [class^="MuiExpansionPanel-disabled"]{
   color: #fff !important;
 }
+#message-id {
+  font-size: 10px;
+}
+
+/******--------------------dark theme expansion panels?---------------------*/
+.expansion-panels .MuiPaper-root-10 {
+  background-color: transparent !important;
+  box-shadow: 0px 1px 3px 0px rgba(255, 255, 255, 0.2), 0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 2px 1px -1px rgba(255, 255, 255, 0.12)
+}
+.expansion-panels .MuiPaper-root-10 *{
+  color: #fff !important;
+}
+.expansion-panels .MuiSvgIcon-root-430 {
+  border: 1px solid #fff;
+  border-radius: 100px !important;
+}
+.MuiButton-contained-188 {
+  box-shadow: none !important;
+}
+.expansion-panels .challenge-description {
+  padding: 10px;
+}
+.expansion-panels .challenge-description *{
+  line-height: 2em;
+}
+
+::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(255,255,255,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
