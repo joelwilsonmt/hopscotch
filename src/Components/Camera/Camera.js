@@ -205,11 +205,7 @@ export default class App extends Component {
                         <div class="center image-wrapper">
                           <img src={this.state.screenshot} alt='' />
                             <div class="overlay">
-                              <div class="overlay-text">
-                                <Typography variant="h4" className="white">
-                                  Winner!
-                              </Typography>
-                              </div>
+                            
                             </div>
                         </div>
 

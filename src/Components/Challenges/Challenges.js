@@ -348,11 +348,6 @@ this.onFormChange = (e) => {
                 <div class="center image-wrapper">
                   <img src={this.state.winningImage} alt='' />
                     <div class="overlay">
-                      <div class="overlay-text">
-                        <Typography variant="h4" className="white">
-                          Winner!
-                      </Typography>
-                      </div>
                     </div>
                 </div>
               </DialogContent>
