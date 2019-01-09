@@ -349,13 +349,11 @@ this.onFormChange = (e) => {
 
                 <DialogContentText id="alert-dialog-slide-description">
 
-                  Sorry you did not break the circuit! Better luck next time!
+                  Sorry you did not break the circuit! Better luck next time! Here's a quick look at the winning picture:
 
                 </DialogContentText>
-                <div class="center">
+                <div class="center image-wrapper">
                   <img
-                  width={375}
-                  height={300}
                   src={this.state.winningImage} alt='' />
                 </div>
 
@@ -469,27 +467,6 @@ this.onFormChange = (e) => {
             </IconButton>,
           ]}
         />: ''}
-        <Dialog
-          open={this.state.userLostCircuit}
-          TransitionComponent={Transition}
-          keepMounted
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="alert-dialog-slide-title">
-            {"Sorry! You Were Too Slow!"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Sorry you didn't break the circuit! Better luck next time!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleDialogue} color="primary">
-              Review Circuit
-            </Button>
-          </DialogActions>
-        </Dialog>
 
           </div>
       );
