@@ -353,7 +353,10 @@ this.onFormChange = (e) => {
 
                 </DialogContentText>
                 <div class="center">
-                  <img src={this.state.winningImage} alt='' />
+                  <img
+                  width={375}
+                  height={300}
+                  src={this.state.winningImage} alt='' />
                 </div>
 
               </DialogContent>
@@ -393,7 +396,7 @@ this.onFormChange = (e) => {
             </Grid>
 
             {value === 'challenges' &&
-
+              <div>
             <div className="center">
               <Typography className="center white" variant="h4">
                 Challenges

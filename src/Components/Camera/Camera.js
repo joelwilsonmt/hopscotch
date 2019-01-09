@@ -174,7 +174,11 @@ export default class App extends Component {
           {this.props.value.currentChallenge.full_challenge_text}
           </h2>
         </Typography>
-        {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
+        {this.state.screenshot ?
+        <img
+        width={375}
+        height={300}
+        src={this.state.screenshot} alt='' /> : null}
 
           <div>
 
