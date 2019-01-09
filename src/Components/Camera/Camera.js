@@ -197,10 +197,10 @@ export default class App extends Component {
                     <DialogContent>
 
                         <DialogContentText id="alert-dialog-slide-description">
-                          Very well done!
+                          Very well done! Here's your winning photo:
                         </DialogContentText>
 
-                        <div class="center">
+                        <div class="center image-wrapper">
                           <img src={this.state.screenshot} alt='' />
                         </div>
 

@@ -139,3 +139,6 @@ h2 {
   padding-left: 10%;
   width: 50% !important;
 }
+.image-wrapper img {
+  width: 100% !important;
+}
