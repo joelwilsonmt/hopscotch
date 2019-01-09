@@ -58,9 +58,8 @@ componentDidUpdate() {
 
   return (
     <div className="chat-window white">
-
-      <Typography variant="h4">
-        <strong>{user.username}</strong>{`'`}s Chat
+      <Typography className="center" variant="h4">
+        Trash Talk
       </Typography>
 
       <div className="chat-messages white" id="messages-container">

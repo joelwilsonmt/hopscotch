@@ -151,12 +151,14 @@ this.onFormChange = (e) => {
       });
       this.setState({
         userWonCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     }
     this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
       this.setState({
         userLostCircuit: true
-      })
+      });
+      this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
 
   /*----------------------------------------------------final state declaration----------------------------------*/
@@ -218,7 +220,9 @@ this.onFormChange = (e) => {
   /*---------------------------this function gets user location and calls the haversine
   function above to set in state a new order to display the challenges-----------*/
   orderChallengesByDistance = () => {
-
+    this.setState({
+      challengeOrder: false
+    })
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({location:position})
@@ -250,7 +254,7 @@ this.onFormChange = (e) => {
     this.setState({ messageSnackBarOpen: false });
   };
   handleDialogue = () => {
-    this.props.value.updateGameAndSetScreen(this.props.value.user._id, 'CircuitReview');
+    this.props.value.setScreen('CircuitReview');
   }
 
 
@@ -323,27 +327,6 @@ this.onFormChange = (e) => {
     else {
       return (
           <div>
-            <Dialog
-              open={this.state.userLostCircuit}
-              TransitionComponent={Transition}
-              keepMounted
-              aria-labelledby="alert-dialog-slide-title"
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle id="alert-dialog-slide-title">
-                {"Sorry! You Were Too Slow!"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  Sorry you didn't break the circuit! Better luck next time!
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleDialogue} color="primary">
-                  Review Circuit
-                </Button>
-              </DialogActions>
-            </Dialog>
 
             <AppBar position="static" color="default">
               <Tabs
@@ -353,7 +336,7 @@ this.onFormChange = (e) => {
                 textColor="primary"
                 fullWidth
               >
-                <Tab value="challenges" label="CHALLENGES"  />
+                <Tab value="challenges" label="CHALLENGES" />
                 <Tab value="map" label="MAP" />
                 {(this.state.unreadMessages > 0) ?
                 <Tab value="chat" label={
@@ -365,32 +348,48 @@ this.onFormChange = (e) => {
             </AppBar>
 
             <Grid item xs={12}>
-              <Typography variant="h4" className="white">
+              <Typography variant="h4" className="white center padder">
               {this.state.username}
               </Typography>
             </Grid>
+
             {value === 'challenges' && <div>
 
-              {this.state.challengeOrder ? this.state.challengeOrder.map((challenge, i) => {
-                return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
-                        userId={this.props.value.user._id}
-                        distance={this.state.distanceArray[challenge]-1000}
-                        updateDistance={this.state.updateCurrentUserLocation}
-                        key={i} listId={i} order={challenge}
-                        />
-              }) : <CircularProgress />}
+            <div className="center">
+              <Typography className="center white" variant="h4">
+                Challenges
+              </Typography>
+              <div className="padder">
+            <Button variant="contained"
+              size="small" justify="center"
+              color="primary"
+
+              onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
+            </div>
+            </div>
+            <div className="expansion-panels">
+              {this.state.challengeOrder
+                ?
+                this.state.challengeOrder.map((challenge, i) => {
+                  return <ExpansionPanels value={this.props.value.circuit.challenges[challenge]}
+                            userId={this.props.value.user._id}
+                            distance={this.state.distanceArray[challenge]-1000}
+                            updateDistance={this.state.updateCurrentUserLocation}
+                            key={i} listId={i} order={challenge}
+                            />
+                        })
+                    :
+                    <div className="center padder">
+                      <CircularProgress className="white"/>
+                    </div>}
+              </div>
               {/*<GameContext.Consumer>{
                   (game) => (
                     game.circuit.challenges.map(function(challenge, i){
                       return <ExpansionPanels value={challenge} key={i} listId={i} />
                     })
               )}</GameContext.Consumer>*/}
-              <div className="center">
-              <Button variant="contained"
-                size="small" justify="center"
-                color="primary"
-                onClick={this.orderChallengesByDistance}>Refresh Challenges</Button>
-              </div>
+
               </div>
             }
             {value === 'map' && <Map/>}
@@ -404,10 +403,10 @@ this.onFormChange = (e) => {
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'left',
+            horizontal: 'center',
           }}
           open={this.state.messageSnackBarOpen}
-          autoHideDuration={6000}
+          autoHideDuration={2000}
           onClose={this.closeSnackBar}
           ContentProps={{
             'aria-describedby': 'message-id',
@@ -425,6 +424,27 @@ this.onFormChange = (e) => {
             </IconButton>,
           ]}
         />: ''}
+        <Dialog
+          open={this.state.userLostCircuit}
+          TransitionComponent={Transition}
+          keepMounted
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Sorry! You Were Too Slow!"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Sorry you didn't break the circuit! Better luck next time!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleDialogue} color="primary">
+              Review Circuit
+            </Button>
+          </DialogActions>
+        </Dialog>
 
           </div>
       );

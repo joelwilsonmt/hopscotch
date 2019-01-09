@@ -13,14 +13,15 @@ import ProofButton from './ProofButton';
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "100%"
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular
   },
   button: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
 });
 
@@ -30,7 +31,8 @@ class SimpleExpansionPanel extends React.Component{
     this.state = ({
       isWithinDistance: false,
       disabled: false,
-      classWhite: ''
+      classWhite: '',
+      dark: ''
     })
   }
 
@@ -57,51 +59,39 @@ class SimpleExpansionPanel extends React.Component{
   render(){
     let challenge = this.props.value;
   return (
-    <div>
-      <ExpansionPanel disabled={this.state.disabled} className={this.state.classWhite}>
+      <ExpansionPanel disabled={this.state.disabled} className="white">
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">
-
+          <Typography className="white" variant="h6">
             {
-
-            (this.props.listId+1) + ") " + this.props.value.full_challenge_text
+              (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
-
-
-
-          </Typography><br/>
-        <Typography>
-            <strong>
-            {
-            (this.props.distance).toFixed(2)
-          }</strong> miles away
           </Typography>
-
+          <Typography>
+            <strong>{(this.props.distance).toFixed(2)}</strong> miles away
+          </Typography>
         </ExpansionPanelSummary>
+        <div class="center padder challenge-description">
         <Typography>
           {
           challenge.location_gate.name
-        }
+          }
         </Typography>
-        <Typography>
+        <div className="padder">
+       <ProofButton value={this.props.value} order={this.props.order}  />
+       </div>
+        <Typography >{
+          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
+          }</Typography>
+        <Typography >
           <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
-        <Typography>
+        <Typography >
           {
-          this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
+            (this.props.distance < 15) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
           }
         </Typography>
-        <Typography>
-          {
-            (this.props.distance < 2) ? 'You can take a selfie!' : 'You can take a picture, but it wont work'
-          }
-        </Typography>
-         <div class="center">
-        <ProofButton value={this.props.value} order={this.props.order}  />
-        </div>
-
+      </div>
       </ExpansionPanel>
-    </div>
     );
   }
 }

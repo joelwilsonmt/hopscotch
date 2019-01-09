@@ -4,18 +4,22 @@ import Challenges from "./Challenges";
 
 
 
+
 class ChallengesWrapper extends React.Component {
   constructor(props) {
     super();
+
   }
 
   render() {
     return (
+
       <GameContext.Consumer>{
         (game) => (
           <Challenges value={game}/>
         )
       }</GameContext.Consumer>
+
     );
   }
 }

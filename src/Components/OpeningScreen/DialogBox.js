@@ -23,7 +23,8 @@ export default class FormDialog extends React.Component {
       userNameInputValue: '',
       idSearch: '',
       _id: '',
-      disableSubmit: true
+      disableSubmit: true,
+      circularProgress: true
     };
   }
   // getUserLocation = () => {
@@ -37,7 +38,8 @@ export default class FormDialog extends React.Component {
         console.log("position and all that: ", position);
         this.setState({
           location:position,
-          disableSubmit: false
+          disableSubmit: false,
+          circularProgress: false
         });
 
         console.log(this.state.location);
@@ -56,7 +58,9 @@ export default class FormDialog extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false
+    });
   };
 
   updateUserNameInputValue = (e) => {
@@ -74,6 +78,10 @@ export default class FormDialog extends React.Component {
   submitUserToServer = (e) => {
     console.log("add user accessed for " + this.state.userNameInputValue);
     e.preventDefault();
+    //to disable the 'add user button' so we don't get multiple add users:
+    this.setState({
+        disableSubmit: true
+    });
     var userObject = {
       username: this.state.userNameInputValue,
       longitude: this.state.location.coords.longitude,
@@ -85,7 +93,7 @@ export default class FormDialog extends React.Component {
     const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
     //must use fat arrow function in callback to bind FormDialog's this
     //to inside the function itself:
-    axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
+    axios.post(addUser, userObject).then((res, err) => {
       if(err) {console.error(err);}
         console.log("passed value prop: ", this.props.value);
         console.log("Add user server response (should be user id):", res.data);
@@ -100,11 +108,13 @@ export default class FormDialog extends React.Component {
     return (
       <div>
 
-      <Button variant="contained"
+      <Button
+        variant="contained"
         color="primary"
+        className="animated pulse infinite center"
         disabled={this.state.disableSubmit}
         Button onClick={this.handleClickOpen}>
-        Get Started!
+        {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Get Started!'}
         </Button>
 
 
@@ -133,6 +143,7 @@ export default class FormDialog extends React.Component {
             <Button
               type="submit"
               variant="contained"
+              className="animated pulse infinite center"
               color="primary"
               size="small"
               justify="center"
@@ -143,18 +154,11 @@ export default class FormDialog extends React.Component {
               Submit
             </Button><br/>
           </DialogActions>
-
           </form>
-
         </Dialog>
 
 
-        <Typography variant="p">
-            {this.state.disableSubmit ?
-                <CircularProgress />
-                : ''
-            }
-        </Typography>
+
       </div>
     );
   }
