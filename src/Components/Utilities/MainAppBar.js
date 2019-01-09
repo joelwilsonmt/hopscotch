@@ -17,7 +17,7 @@ function MainAppBar(props) {
     <div>
       <AppBar position="static">
         <Toolbar>
-        <Typography variant="h5" color="inherit">
+        <Typography className="white title" variant="h5" color="inherit">
             Hops Scotch
           </Typography>
           <Avatar />
