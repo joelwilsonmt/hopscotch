@@ -17,11 +17,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Message from '@material-ui/icons/Message';
-
 import io from 'socket.io-client';
-
-import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 /*
 https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
@@ -44,11 +40,17 @@ class Chat extends React.Component{
     this.props.chat.resetBadge();
   }
 
-  scrollToBottom() {
-    animateScroll.scrollToBottom({
-      containerId: "options-holder"
-    });
-  }
+scrollToBottom = () => {
+  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+}
+
+componentDidMount() {
+  this.scrollToBottom();
+}
+
+componentDidUpdate() {
+  this.scrollToBottom();
+}
 
   render(){
     let user = this.props.value.user;
@@ -65,7 +67,7 @@ class Chat extends React.Component{
 
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
 
-        {this.props.chat.state.messages.scrollToBottom(function(message, i){
+        {this.props.chat.state.messages.map(function(message, i){
           return (<ListItem key={i}>
                       <ListItemIcon>
                         <Message color="primary"/>
@@ -75,6 +77,8 @@ class Chat extends React.Component{
                         </ListItemText>
                     </ListItem>)
        })}
+       <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}></div>
        </div>
 
 
