@@ -30,7 +30,7 @@ export default class App extends Component {
       tab: 0,
       challengeCompleteOpen: false,
       challengeRejectedOpen: false,
-      disableSubmit: true,
+      disableSubmit: false,
       userWonCircuit: false,
       willGrow: true,
       message: ''
