@@ -146,9 +146,10 @@ this.onFormChange = (e) => {
 
 
 /*-----------------------------------------------------------circuit complete-------------------------------------------*/
-    this.circuitComplete = () => {
+    this.circuitComplete = (image) => {
       this.socket.emit('CIRCUIT_COMPLETE', {
-        room: this.props.value.circuit._id
+        room: this.props.value.circuit._id,
+        image: image
       });
       this.setState({
         userWonCircuit: true
@@ -156,9 +157,10 @@ this.onFormChange = (e) => {
       this.props.value.updateGame(this.props.value.user._id);
     }
 
-    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
+    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', data => {
       this.setState({
-        userLostCircuit: true
+        userLostCircuit: true,
+        winningImage: data.image
       });
       this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
@@ -348,9 +350,8 @@ this.onFormChange = (e) => {
                   Sorry you did not break the circuit! Better luck next time!
 
                 </DialogContentText>
-
                 <div class="center">
-                  <img src={this.state.screenshot} alt='' />
+                  <img src={this.state.winningImage} alt='' />
                 </div>
 
               </DialogContent>

@@ -72,7 +72,9 @@ io.on('connection', function(client){
   });
 
   client.on('CIRCUIT_COMPLETE', function(data){
-    io.to(data.room).emit('RECEIVE_CIRCUIT_COMPLETE');
+    io.to(data.room).emit('RECEIVE_CIRCUIT_COMPLETE', {
+      image: data.image
+    });
   });
 
 
