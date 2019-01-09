@@ -81,7 +81,9 @@ router.post('/', function (req, res) {
     for (var i = 0; i < bbounds.length; i++){
       if (isNaN(bbounds[i])){
         console.log("user outside boundary!!!");
-        res.status(401).send('Cannot Find User');
+        res.status(200).send(
+          {findUser: false}
+        );
         return;
       }
     }
