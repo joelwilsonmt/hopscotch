@@ -60,7 +60,8 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({
       open: false,
-      openSorry: false
+      openSorry: false,
+      openEmpty: false
     });
   };
 
@@ -83,35 +84,45 @@ export default class FormDialog extends React.Component {
     this.setState({
         disableSubmit: true
     });
-    var userObject = {
-      username: this.state.userNameInputValue,
-      longitude: this.state.location.coords.longitude,
-      latitude: this.state.location.coords.latitude
-    };
-    const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
-    const addUserMissoulaDowntown = process.env.REACT_APP_BACK_END_SERVER + 'addUserMissoulaDowntown';
-    const addUserMTCS = process.env.REACT_APP_BACK_END_SERVER + 'addUserMTCS';
-    const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
-    //must use fat arrow function in callback to bind FormDialog's this
-    //to inside the function itself:
-    axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
-      if(err) {console.error(err);}
-        console.log("adduser response:", res);
-        if(res.data.findUser) {
-          this.props.value.updateUserAndSetScreen(res.data.userId, 'GameRoom');
-        }
-        else {
-          console.log("no user boundary");
-          this.setState({
-            open: false,
-            openSorry: true
-          })
-        }
-        //this.props.value.updateUser(res.data);
-        //this.props.value.setScreen('GameRoom');
+    if (this.state.userNameInputValue === '') {
+      console.log("username empty");
+      this.setState({
+        openEmpty: true,
+        open: false,
+        disableSubmit: false
+      });
+    }
+    else {
+      var userObject = {
+        username: this.state.userNameInputValue,
+        longitude: this.state.location.coords.longitude,
+        latitude: this.state.location.coords.latitude
+      };
+      const addUser = process.env.REACT_APP_BACK_END_SERVER + 'addUser';
+      const addUserMissoulaDowntown = process.env.REACT_APP_BACK_END_SERVER + 'addUserMissoulaDowntown';
+      const addUserMTCS = process.env.REACT_APP_BACK_END_SERVER + 'addUserMTCS';
+      const addUserGeckoDesigns = process.env.REACT_APP_BACK_END_SERVER + 'addUserGeckoDesigns';
+      //must use fat arrow function in callback to bind FormDialog's this
+      //to inside the function itself:
+      axios.post(addUserMissoulaDowntown, userObject).then((res, err) => {
+        if(err) {console.error(err);}
+          console.log("adduser response:", res);
+          if(res.data.findUser) {
+            this.props.value.updateUserAndSetScreen(res.data.userId, 'GameRoom');
+          }
+          else {
+            console.log("no user boundary");
+            this.setState({
+              open: false,
+              openSorry: true
+            })
+          }
+          //this.props.value.updateUser(res.data);
+          //this.props.value.setScreen('GameRoom');
 
-    });/*.then(() => {
-    });*/
+      });/*.then(() => {
+      });*/
+    }
   }
 
   render() {
@@ -126,7 +137,32 @@ export default class FormDialog extends React.Component {
         Button onClick={this.handleClickOpen}>
         {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Get Started!'}
         </Button>
-
+        <Dialog
+          open={this.state.openEmpty}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">ERROR</DialogTitle>
+          <DialogContent>
+            <Typography>
+              Username cannot be empty. Please try again.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              type="submit"
+              variant="contained"
+              className="animated pulse infinite center"
+              color="primary"
+              size="small"
+              justify="center"
+              onClick={(e) => {
+                this.handleClose()
+                }}>
+              Try again
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Dialog
           open={this.state.openSorry}
           onClose={this.handleClose}
@@ -134,7 +170,9 @@ export default class FormDialog extends React.Component {
         >
           <DialogTitle id="form-dialog-title">SORRY</DialogTitle>
           <DialogContent>
-            Sorry you are not within the playable boundary right now. Please come closer to us.
+            <Typography>
+              Sorry you are not within the playable boundary right now. Please come closer to us.
+            </Typography>
           </DialogContent>
           <DialogActions>
             <Button
