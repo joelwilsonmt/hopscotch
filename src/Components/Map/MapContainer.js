@@ -58,7 +58,7 @@ export class MapContainer extends React.Component {
     const style = {
       flex: 1,
       width: '100vw',
-      height: '60vh',
+      height: '75vh',
       'marginLeft': 'auto',
       'marginRight': 'auto'
     }
