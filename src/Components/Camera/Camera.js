@@ -115,7 +115,7 @@ export default class App extends Component {
       if(res.data.circuitComplete){
         console.log("circuit complete!");
         //socket event disconnect all`
-        this.props.socket.circuitComplete();
+        this.props.socket.circuitComplete(this.state.screenshot);
         this.setState({
           userWonCircuit: true //opens a dialogue box directing user to next screen
         });
@@ -174,51 +174,70 @@ export default class App extends Component {
           {this.props.value.currentChallenge.full_challenge_text}
           </h2>
         </Typography>
-        {this.state.screenshot ? <img src={this.state.screenshot} alt='' /> : null}
+        {this.state.screenshot ?
+        <img
+        width={375}
+        height={300}
+        src={this.state.screenshot} alt='' /> : null}
+
           <div>
-            <Dialog
-              open={this.state.userWonCircuit}
-              TransitionComponent={Transition}
-              keepMounted
-              aria-labelledby="alert-dialog-slide-title"
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle id="alert-dialog-slide-title">
-                {"Congrats! You broke the circuit!"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  Very well done!
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleDialogue} color="primary">
-                  Review Circuit
-                </Button>
-              </DialogActions>
-            </Dialog>
 
-
-            <div class="center">
-            <Button
-              className="animated pulse infinite center"
-              justify="center"
-              variant="contained"
-              size="small"
-              color="secondary"
-              disabled={this.state.disableSubmit}
-              onClick={this.confirmPhoto}
+              <Dialog
+                open={this.state.userWonCircuit}
+                TransitionComponent={Transition}
+                keepMounted
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
               >
-              {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Submit'}
-            </Button>
-            <Button
-             justify="center"
-              variant="contained"
-              size="small"
-              onClick={this.resetCamera}>
-              Retake
-            </Button>
-            </div>
+
+                    <DialogTitle id="alert-dialog-slide-title">
+                        {"Congrats! You broke the circuit!"}
+                    </DialogTitle>
+
+                    <DialogContent>
+
+                        <DialogContentText id="alert-dialog-slide-description">
+                          Very well done!
+                        </DialogContentText>
+
+                        <div class="center">
+                          <img src={this.state.screenshot} alt='' />
+                        </div>
+
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={this.handleDialogue} color="primary">
+                          Review Circuit
+                        </Button>
+                      </DialogActions>
+
+              </Dialog>
+
+              <div class="center">
+
+                    <Button
+                      className="animated pulse infinite center"
+                      justify="center"
+                      variant="contained"
+                      size="small"
+                      color="secondary"
+                      disabled={this.state.disableSubmit}
+                      onClick={this.confirmPhoto}
+                      >
+                      {this.state.disableSubmit ? <CircularProgress  size={16}/> : 'Submit'}
+                    </Button>
+
+                    <Button
+                     justify="center"
+                      variant="contained"
+                      size="small"
+                      onClick={this.resetCamera}>
+                      Retake
+                    </Button>
+
+              </div>
+
           </div>
 
           <GameContext.Consumer>{

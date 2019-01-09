@@ -4,18 +4,19 @@ html {
     /*background:  url(https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif) no-repeat center center fixed;*/
     /*background: url(https://media.giphy.com/media/sNz7ODDP6lsRy/giphy.gif) no-repeat center center fixed;*/
     background: url(https://media.giphy.com/media/1pmatQ3LcP5XFYxSWF/giphy.gif) no-repeat center center fixed;
-
+    height: 100%;
     background-size: cover;
 }
 body {
     margin: 0 !important;
   	padding: 0 !important;
   	border: 0 !important;
-    height: 100%;
+    min-height: 100%;
+    background-size: cover;
     background: rgba(0,0,0,.5) !important;
 }
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 .MuiButton-contained-188 {
   box-shadow: none !important;
@@ -49,7 +50,7 @@ h1 {
   color: #fff !important;
 }
 .padder {
-  padding: 5% 0 !important;
+  padding: 20px 0 !important;
 }
 .center {
   text-align: center !important;
@@ -84,9 +85,10 @@ h2 {
   border: 1px solid #aaa;
   border-radius: 5px;
   height : 45vh;
-  overflow:auto;
+  overflow: auto;
   color: #fff !important;
   background-color: rgba(0,0,0,.5);
+
 }
 /*chat badge*/
 .chat-badge span {
@@ -116,9 +118,18 @@ h2 {
   box-shadow: none !important;
 }
 .expansion-panels .challenge-description {
-  background-color: rgba(0,0,0,.5);
-
+  padding: 10px;
 }
 .expansion-panels .challenge-description *{
   line-height: 2em;
 }
+
+::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(255,255,255,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }

@@ -87,6 +87,7 @@ export class MapContainer extends React.Component {
             key={11}
             title = {"Your Location"}
             name = {"Your Location"}
+            className="your-location"
             position = {
               {
                 lat:this.state.location.coords.latitude,
@@ -94,7 +95,8 @@ export class MapContainer extends React.Component {
               }
             }
             icon={{
-              url: "https://media.giphy.com/media/5Mrn3s7rQRvPO/giphy.gif"
+              url: "https://media.giphy.com/media/znPmkQy6WnT20/giphy.gif",
+              scaledSize: new this.props.google.maps.Size(50,50)
             }}
           />
 

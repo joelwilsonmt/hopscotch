@@ -17,8 +17,14 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Message from '@material-ui/icons/Message';
-
 import io from 'socket.io-client';
+
+/*
+https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+https://www.npmjs.com/package/react-scroll
+https://stackoverflow.com/questions/45719909/scroll-to-bottom-of-an-overflowing-div-in-react
+https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
+*/
 
 
 class Chat extends React.Component{
@@ -33,18 +39,35 @@ class Chat extends React.Component{
     console.log("Chat Room Mounted, room #", this.props.value.circuit._id);
     this.props.chat.resetBadge();
   }
+
+scrollToBottom = () => {
+  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+}
+
+componentDidMount() {
+  this.scrollToBottom();
+}
+
+componentDidUpdate() {
+  this.scrollToBottom();
+}
+
   render(){
     let user = this.props.value.user;
     let circuit = this.props.value.circuit;
+
   return (
     <div className="chat-window white">
       <Typography className="center" variant="h4">
         Trash Talk
       </Typography>
+
       <div className="chat-messages white" id="messages-container">
+
         {(this.props.chat.state.messages.length > 0) ? '' : <li>No Messages</li>}
-      {this.props.chat.state.messages.map(function(message, i){
-         return (<ListItem key={i}>
+
+        {this.props.chat.state.messages.map(function(message, i){
+          return (<ListItem key={i}>
                       <ListItemIcon>
                         <Message color="primary"/>
                       </ListItemIcon>
@@ -53,6 +76,8 @@ class Chat extends React.Component{
                         </ListItemText>
                     </ListItem>)
        })}
+       <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}></div>
        </div>
 
 

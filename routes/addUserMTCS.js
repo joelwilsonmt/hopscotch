@@ -75,6 +75,13 @@ router.post('/', function (req, res) {
     console.log("added: " + data.username);
     console.log("New user location, longitude: "+ data.longitude+ ", latitude: " + data.latitude);
     var bbounds = returnBB(data.longitude, data.latitude);
+    for (var i = 0; i < bbounds.length; i++){
+      if (isNaN(bbounds[i])){
+        console.log("user outside boundary!!!");
+        res.status(401).send('Cannot Find User');
+        return;
+      }
+    }
     console.log("BBounds returned: " + bbounds);
     new User({
       username:data.username,
@@ -92,7 +99,12 @@ router.post('/', function (req, res) {
               res.sendStatus(400);
             }
         console.log("Sending user id back to client");
-        res.send(user._id);
+        res.status(200).send(
+          {
+            userId: user._id,
+            findUser: true
+          }
+          );
     });
     //res.sendStatus(200);
 });
