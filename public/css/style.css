@@ -85,7 +85,8 @@ h2 {
   border: 1px solid #aaa;
   border-radius: 5px;
   height : 45vh;
-  overflow: auto;
+  overflow: scroll;
+  overflow-x: hidden;
   color: #fff !important;
   background-color: rgba(0,0,0,.5);
 
@@ -124,12 +125,12 @@ h2 {
   line-height: 2em;
 }
 
-::-webkit-scrollbar {
+.chat-messages::-webkit-scrollbar {
       -webkit-appearance: none;
       width: 7px;
-  }
-  ::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background-color: rgba(255,255,255,.5);
-      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-  }
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(255,255,255,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
