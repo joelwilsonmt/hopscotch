@@ -24,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Webcam from 'react-webcam';
 const haversine = require('haversine');
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -145,18 +146,21 @@ this.onFormChange = (e) => {
 
 
 /*-----------------------------------------------------------circuit complete-------------------------------------------*/
-    this.circuitComplete = () => {
+    this.circuitComplete = (image) => {
       this.socket.emit('CIRCUIT_COMPLETE', {
-        room: this.props.value.circuit._id
+        room: this.props.value.circuit._id,
+        image: image
       });
       this.setState({
         userWonCircuit: true
       });
       this.props.value.updateGame(this.props.value.user._id);
     }
-    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', () => {
+
+    this.socket.on('RECEIVE_CIRCUIT_COMPLETE', data => {
       this.setState({
-        userLostCircuit: true
+        userLostCircuit: true,
+        winningImage: data.image
       });
       this.props.value.updateGame(this.props.value.user._id);
     });//closes RECEIVE_WIN function
@@ -328,6 +332,41 @@ this.onFormChange = (e) => {
       return (
           <div>
 
+            <Dialog
+              open={this.state.userLostCircuit}
+              TransitionComponent={Transition}
+              keepMounted
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+
+              <DialogTitle id="alert-dialog-slide-title">
+                {"Sorry! You Were Too Slow!"}
+              </DialogTitle>
+
+              <DialogContent>
+
+
+                <DialogContentText id="alert-dialog-slide-description">
+
+                  Sorry you did not break the circuit! Better luck next time!
+
+                </DialogContentText>
+                <div class="center">
+                  <img src={this.state.winningImage} alt='' />
+                </div>
+
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={this.handleDialogue} color="primary">
+
+                  Review Circuit
+
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <AppBar position="static" color="default">
               <Tabs
                 value={this.state.value}
@@ -353,7 +392,7 @@ this.onFormChange = (e) => {
               </Typography>
             </Grid>
 
-            {value === 'challenges' && <div>
+            {value === 'challenges' &&
 
             <div className="center">
               <Typography className="center white" variant="h4">
@@ -392,13 +431,16 @@ this.onFormChange = (e) => {
 
               </div>
             }
+
             {value === 'map' && <Map/>}
+
             {value === 'chat' &&
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
                 )}</GameContext.Consumer>
             }
+
             {(this.state.messages.length > 0) ?
         <Snackbar
           anchorOrigin={{
