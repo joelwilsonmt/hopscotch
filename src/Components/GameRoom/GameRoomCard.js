@@ -126,7 +126,7 @@ class SimpleCard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='padder'>
           <Typography variant="h6" component="h2" align="center">
             {this.state.message}
           </Typography>
@@ -134,7 +134,7 @@ class SimpleCard extends React.Component {
             {
               this.state.foundCircuit.challenges
               ?
-              <div>
+              <div className='padder'>
               <Typography variant="h6" align="center">Circuit Found with  {this.state.foundCircuit.challenges.length} Challenges</Typography>
               </div>
               :

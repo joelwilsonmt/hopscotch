@@ -6,6 +6,8 @@ import {GameContext} from "../Contexts/GameContext";
 //sonic gif: https://media.giphy.com/media/5Mrn3s7rQRvPO/giphy.gif
 //pikachu: https://images.newschoolers.com/images/17/00/68/70/05/687005_50w_50h_zc.gif
 
+//beer stickers https://appadvice.com/game/app/beer-emoji-stickers/1228781193
+
 export class MapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -95,8 +97,8 @@ export class MapContainer extends React.Component {
               }
             }
             icon={{
-              url: "https://media.giphy.com/media/znPmkQy6WnT20/giphy.gif",
-              scaledSize: new this.props.google.maps.Size(50,50)
+              url: "https://appstickers-cdn.appadvice.com/1228781193/822105646/589fd42340d873e911efed5297e7678e-4.gif",
+              scaledSize: new this.props.google.maps.Size(65,65)
             }}
           />
 

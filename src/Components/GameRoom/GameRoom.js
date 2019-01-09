@@ -23,7 +23,7 @@ class GameRoom extends Component {
       <div className="screen">
 
           <br />
-          <Typography variant="h1" component="h3" align="center">
+          <Typography className="white title" variant="h1" component="h3" align="center">
             GAME ROOM
           </Typography>
           <GameContext.Consumer>{

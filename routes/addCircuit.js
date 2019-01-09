@@ -83,7 +83,7 @@ router.post('/', function (req, res) {
                  'glass'
                ];
               var objectGate = words[Math.floor(Math.random()*words.length)];
-              var fullText = 'Hop to ' + places[i].title + ' take a selfie with your empty glass.';
+              var fullText = 'Hop to ' + places[i].title + ' and take a selfie with your empty glass.';
               sets_challenges[i] = {
                 location_gate:{
                   position: places[i].position,
