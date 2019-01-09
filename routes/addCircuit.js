@@ -98,7 +98,7 @@ router.post('/', function (req, res) {
           }
           console.log("sets challenges length before shuffle: ", sets_challenges.length);
           var passChallenges = shuffle(sets_challenges);
-          passChallenges = passChallenges.slice(0, 10);
+          passChallenges = passChallenges.slice(0, 5);
           console.log("shuffled challenge 0: ", passChallenges[0]);
             //create the new circuit
             new Circuit({

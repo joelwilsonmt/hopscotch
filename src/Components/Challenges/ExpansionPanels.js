@@ -82,7 +82,7 @@ class SimpleExpansionPanel extends React.Component{
         <Typography >{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }</Typography>
-        <Typography >
+        <Typography className='padder'>
           <strong>{this.props.value.id_users_completed.length-1}</strong> users have completed this challenge
         </Typography>
         <Typography >
