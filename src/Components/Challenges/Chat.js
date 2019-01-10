@@ -58,8 +58,13 @@ componentDidUpdate() {
 
   return (
     <div className="chat-window white">
+<<<<<<< HEAD
       <Typography className="center" variant="h4">
         Stuff You'll Regret Saying Later
+=======
+      <Typography className="center padder" variant="h4">
+        Trash Talk
+>>>>>>> Development
       </Typography>
 
       <div className="chat-messages white" id="messages-container">

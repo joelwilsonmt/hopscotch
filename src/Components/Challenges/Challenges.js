@@ -338,7 +338,7 @@ this.onFormChange = (e) => {
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle id="alert-dialog-slide-title">
+              <DialogTitle className='center' id="alert-dialog-slide-title">
                 {"Sorry! You Were Too Slow!"}
               </DialogTitle>
               <DialogContent>
@@ -346,18 +346,16 @@ this.onFormChange = (e) => {
                   Sorry you did not break the circuit! Better luck next time! Here's a quick look at the winning picture:
                 </DialogContentText>
                 <div class="center image-wrapper">
-                  <img src={this.state.winningImage} alt='' />
+                  <img className="image" src={this.state.winningImage} alt='' />
                     <div class="overlay">
-                      <div class="overlay-text">
-                        <Typography variant="h4" className="white">
-                          Winner!
-                      </Typography>
-                      </div>
                     </div>
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.handleDialogue} color="primary">
+                <Button
+                  onClick={this.handleDialogue}
+                  color="primary"
+                  variant="contained">
                   Review Circuit
                 </Button>
               </DialogActions>
@@ -386,14 +384,14 @@ this.onFormChange = (e) => {
 
             {value === 'challenges' &&
               <div>
-                <Grid item xs={12}>
-                  <Typography variant="h4" className="white center padder">
-                  {this.state.username}
-                  </Typography>
-                </Grid>
             <div className="center">
+<<<<<<< HEAD
               <Typography className="center white" variant="h4">
                 SQUARES TO HOP
+=======
+              <Typography className="center white padder" variant="h4">
+                Challenges
+>>>>>>> Development
               </Typography>
               <div className="padder">
             <Button variant="contained"
@@ -432,15 +430,10 @@ this.onFormChange = (e) => {
             {value === 'map' && <Map/>}
 
             {value === 'chat' &&
-              <div><Grid item xs={12}>
-                <Typography variant="h4" className="white center padder">
-                {this.state.username}
-                </Typography>
-              </Grid>
                 <GameContext.Consumer>{
                     (game) => (
                 <Chat chat={this} value={game}/>
-                )}</GameContext.Consumer></div>
+                )}</GameContext.Consumer>
             }
 
             {(this.state.messages.length > 0) ?

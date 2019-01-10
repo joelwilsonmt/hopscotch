@@ -176,8 +176,8 @@ export default class App extends Component {
         </Typography>
         {this.state.screenshot ?
         <img
-
-        height={300}
+        className="image"
+        height={250}
         src={this.state.screenshot} alt='' /> : null}
 
           <div>
@@ -190,43 +190,56 @@ export default class App extends Component {
                 aria-describedby="alert-dialog-slide-description"
               >
 
+<<<<<<< HEAD
                     <DialogTitle id="alert-dialog-slide-title">
                         {"Congrats! You finished the hops scotch first!"}
+=======
+                    <DialogTitle className='center' id="alert-dialog-slide-title">
+                        {"Congrats! You broke the circuit!"}
+>>>>>>> Development
                     </DialogTitle>
 
                     <DialogContent>
 
-                        <DialogContentText id="alert-dialog-slide-description">
+                        <DialogContentText id="alert-dialog-slide-description" className="center">
 
+<<<<<<< HEAD
                           Now give me your keys, you sloshed sack of shite!
+=======
+                          Your winning photo:
+>>>>>>> Development
 
                         </DialogContentText>
 
                         <div class="center image-wrapper">
-                          <img src={this.state.screenshot} alt='' />
+                          <img className="image" src={this.state.screenshot} alt='' />
                             <div class="overlay">
-                              <div class="overlay-text">
-                                <Typography variant="h4" className="white">
-                                  Winner!
-                              </Typography>
-                              </div>
+
                             </div>
                         </div>
 
                     </DialogContent>
 
                     <DialogActions>
+<<<<<<< HEAD
                         <Button onClick={this.handleDialogue} color="primary">
                           Review Squares
+=======
+                        <Button
+                          onClick={this.handleDialogue}
+                          color="primary"
+                          variant="contained">
+                          Review Circuit
+>>>>>>> Development
                         </Button>
                       </DialogActions>
 
               </Dialog>
 
-              <div class="center">
+              <div class="center padder">
 
                     <Button
-                      className="animated pulse infinite center"
+                      className="animated pulse infinite center bump-right"
                       justify="center"
                       variant="contained"
                       size="small"
@@ -239,7 +252,7 @@ export default class App extends Component {
 
                     <Button
                      justify="center"
-                      variant="contained"
+                      className="white"
                       size="small"
                       onClick={this.resetCamera}>
                       Retake
@@ -254,7 +267,6 @@ export default class App extends Component {
               <div class='center'>
               <Button
                 justify="center"
-                variant="contained"
                 size="small"
                 justify="center"
                 color="primary"
@@ -282,8 +294,14 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
+<<<<<<< HEAD
             <Button onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
               Back to Squares
+=======
+            <Button variant="contained"
+              onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
+              Back to Challenges
+>>>>>>> Development
             </Button>
           </DialogActions>
         )}</GameContext.Consumer>
@@ -307,7 +325,7 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button variant="contained" onClick={this.handleClose} color="primary">
               Try Again
             </Button>
             <Button onClick={() => game.setView('Challenges')} color="primary">
@@ -336,8 +354,9 @@ export default class App extends Component {
             screenshotFormat="image/jpeg"
             ref={node => this.webcam = node}
             screenshotQuality={.8}
-            width={375}
-            height={300}
+            width={350}
+            height={250}
+            className="camera"
             videoConstraints={videoConstraints}
           />
 
@@ -355,10 +374,10 @@ export default class App extends Component {
             (game) => (
               <div class="center">
               <Button
-                variant="contained"
                 size="small"
                 justify="center"
                 color="primary"
+                className="white"
                 onClick={() => game.setView('')}>
                 Back to Challenges
               </Button>

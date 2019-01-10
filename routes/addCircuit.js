@@ -64,6 +64,7 @@ router.post('/', function (req, res) {
           }
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
+<<<<<<< HEAD
 
           var challengeLimit = 20; //set to number of challenges you want...
           for(var i = 0; i < challengeLimit; i++) {
@@ -97,6 +98,52 @@ router.post('/', function (req, res) {
                 full_challenge_text: fullText,
                 id_users_completed: ''
               };
+=======
+          var challengeLimit = 3; //set to number of challenges you want...
+          if (places.length < challengeLimit){
+            challengeLimit = places.length;
+          }
+          for(var i = 0; i < challengeLimit; i++) {
+            // var words = [
+            //   'art',
+            //   'beer bottle',
+            //   'can',
+            //   'document',
+            //   'drawing',
+            //   'fork',
+            //   'frisbee',
+            //   'glass',
+            //   'guitar',
+            //   'knife',
+            //   'marker',
+            //   'mobile phone',
+            //   'orange',
+            //   'pizza',
+            //   'plant',
+            //   'scissors',
+            //   'spoon',
+            //   'tool',
+            //   'thumbs up',
+            //   'yogurt'
+            // ];
+             var words = [
+               'thumbs up', 'banana', 'fork', 'can', 'cup', 'frisbee', 'plant', 'pizza', 'smile',
+               'mobile phone'
+             ];
+            var objectGate = words[Math.floor(Math.random()*words.length)];
+            var fullText = 'Take a ' + objectGate + ' to ' + places[i].title + ' and take a selfie with it.';
+            sets_challenges[i] = {
+              location_gate:{
+                position: places[i].position,
+                name: places[i].title,
+                address: places[i].vicinity,
+                category: places[i].category.id
+                },
+              object_gate: objectGate,
+              full_challenge_text: fullText,
+              id_users_completed: ''
+            };
+>>>>>>> Development
           }
           console.log("sets challenges length before shuffle: ", sets_challenges.length);
           // var passChallenges = shuffle(sets_challenges);
