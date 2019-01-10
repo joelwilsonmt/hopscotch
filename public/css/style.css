@@ -199,7 +199,7 @@ div[class^='MuiDialog-paper'] button[class^='MuiButtonBase-root'], div[class*=' 
 
 .image {
   border: 1px solid #fff !important;
-  border-radius: 10px !important;
+  border-radius: 5px !important;
 }
 /*fixing the camera buttons inline*/
 .bump-right {
