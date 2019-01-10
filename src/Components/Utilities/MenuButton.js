@@ -7,28 +7,26 @@ import {GameContext} from "../Contexts/GameContext";
 import ContactUs from "../ContactUs/ContactUs";
 
 class SimpleMenu extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      disableSubmit: false
-    }
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+  routeContact = () => {
+    this.props.value.setScreen('ContactUs');
   }
-     handleClick = () => {
-     this.setState({
-      disableSubmit: true
-
-    })
-}
-
-
-    // }
-
-
   render() {
+    const { anchorEl } = this.state;
     return (
       <div>
         <IconButton
-
+          aria-owns={anchorEl ? "simple-menu" : undefined}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -36,22 +34,17 @@ class SimpleMenu extends React.Component {
         </IconButton>
         <Menu
           id="simple-menu"
-
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
           onClose={this.handleClose}
-        ><GameContext.Consumer>{
-            (game) => (
+        >
           <MenuItem onClick={
             (event) => {
               this.handleClose();
-              game.setView('ContactUs')
+              this.routeContact();
             }}>
-            CONTACT US
+            CONTACT THE DEVELOPERS
           </MenuItem>
-        )
-        }</GameContext.Consumer>
-
-
-
         </Menu>
       </div>
     );
