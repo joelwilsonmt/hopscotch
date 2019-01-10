@@ -5,6 +5,7 @@ import ChallengesWrapper from "./Challenges/ChallengesWrapper";
 // import Challenges from "./Challenges/Challenges";
 // import Map from "./Map/Map";
 import Camera from "./Camera/Camera";
+import ContactUs from "./ContactUs/ContactUs";
 import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
 import MainAppBar from "./Utilities/MainAppBar";
@@ -91,6 +92,18 @@ class App extends React.Component {
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
             <Camera/>
+          </MuiThemeProvider>
+        </div>
+
+      );
+    }
+    else if (this.props.value.screen === 'ContactUs'){
+      return (
+
+        <div>
+          <MuiThemeProvider theme={theme}>
+            <MainAppBar/>
+            <ContactUs/>
           </MuiThemeProvider>
         </div>
 
