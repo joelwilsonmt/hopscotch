@@ -1,3 +1,4 @@
+import React from 'react';
 import Grow from '@material-ui/core/Grow';
 import ExpansionPanels from "../Challenges/ExpansionPanels";
 import Typography from "@material-ui/core/Typography";

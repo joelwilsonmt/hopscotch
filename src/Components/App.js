@@ -10,6 +10,7 @@ import CircuitReview from "./CircuitReview/CircuitReview";
 import OpeningScreen from "./OpeningScreen/OpeningScreen";
 import MainAppBar from "./Utilities/MainAppBar";
 import NoPage from "./Utilities/NoPage";
+import ContactUsButton from "./ContactUs/ContactUsButton";
 // import GameProvider from "./Contexts/GameContext";
 // import {GameContext} from "./Contexts/GameContext";
 import {createMuiTheme} from '@material-ui/core/styles';
@@ -114,6 +115,7 @@ class App extends React.Component {
         <div>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
+            <ContactUsButton/>
               <GameContext.Consumer>{
                   (game) => (<CircuitReview value={game}/>)
           }</GameContext.Consumer>
