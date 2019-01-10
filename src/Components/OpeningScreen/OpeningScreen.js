@@ -89,13 +89,14 @@ class OpeningScreen extends React.Component {
             )
           }</GameContext.Consumer>
           <Dialog
+            className="trans"
             open={this.state.introWindowOpen}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
             <DialogTitle className="center" id="form-dialog-title">RULES</DialogTitle>
             <DialogContent>
-              <Typography>
+              <Typography className="center">
                 {this.state.messages[this.state.slide].message}
               </Typography>
             </DialogContent>
