@@ -193,3 +193,6 @@ div[class^='MuiDialog-paper'], div[class*=' MuiDialog-paper']  {
 div[class^='MuiDialog-paper'] *, div[class*=' MuiDialog-paper'] *{
   color: #fff !important;
 }
+div[class^='MuiDialog-paper'] button[class^='MuiButtonBase-root'], div[class*=' MuiDialog-paper'] {
+  color: red !important;
+}
