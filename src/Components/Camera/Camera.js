@@ -203,7 +203,7 @@ export default class App extends Component {
                         </DialogContentText>
 
                         <div class="center image-wrapper">
-                          <img clasName="image" src={this.state.screenshot} alt='' />
+                          <img className="image" src={this.state.screenshot} alt='' />
                             <div class="overlay">
 
                             </div>
