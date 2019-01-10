@@ -196,3 +196,12 @@ div[class^='MuiDialog-paper'] *, div[class*=' MuiDialog-paper'] *{
 div[class^='MuiDialog-paper'] button[class^='MuiButtonBase-root'], div[class*=' MuiDialog-paper'] {
   color: red !important;
 }
+
+.image {
+  border: 1px solid #fff !important;
+  border-radius: 10px !important;
+}
+/*fixing the camera buttons inline*/
+.bump-right {
+  margin-right: 25px !important;
+}
