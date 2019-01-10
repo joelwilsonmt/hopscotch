@@ -196,7 +196,7 @@ export default class App extends Component {
 
                     <DialogContent>
 
-                        <DialogContentText id="alert-dialog-slide-description">
+                        <DialogContentText id="alert-dialog-slide-description" className="center">
 
                           Your winning photo:
 
