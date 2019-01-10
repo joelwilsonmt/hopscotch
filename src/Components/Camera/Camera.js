@@ -306,7 +306,7 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button variant="contained" onClick={this.handleClose} color="primary">
               Try Again
             </Button>
             <Button onClick={() => game.setView('Challenges')} color="primary">
