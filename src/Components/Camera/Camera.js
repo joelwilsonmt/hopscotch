@@ -307,7 +307,7 @@ export default class App extends Component {
               Try Again
             </Button>
             <Button onClick={() => game.setView('Challenges')} color="primary">
-              Back to Challenges
+              Back to Squares
             </Button>
 
           </DialogActions>
