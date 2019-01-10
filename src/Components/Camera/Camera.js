@@ -198,7 +198,7 @@ export default class App extends Component {
 
                         <DialogContentText id="alert-dialog-slide-description">
 
-                          Very well done! Your winning photo:
+                          Your winning photo:
 
                         </DialogContentText>
 
