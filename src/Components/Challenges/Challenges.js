@@ -338,7 +338,7 @@ this.onFormChange = (e) => {
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle id="alert-dialog-slide-title">
+              <DialogTitle className='center' id="alert-dialog-slide-title">
                 {"Sorry! You Were Too Slow!"}
               </DialogTitle>
               <DialogContent>

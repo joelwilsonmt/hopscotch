@@ -190,7 +190,7 @@ export default class App extends Component {
                 aria-describedby="alert-dialog-slide-description"
               >
 
-                    <DialogTitle id="alert-dialog-slide-title">
+                    <DialogTitle className='center' id="alert-dialog-slide-title">
                         {"Congrats! You broke the circuit!"}
                     </DialogTitle>
 
@@ -205,7 +205,7 @@ export default class App extends Component {
                         <div class="center image-wrapper">
                           <img src={this.state.screenshot} alt='' />
                             <div class="overlay">
-                            
+
                             </div>
                         </div>
 
