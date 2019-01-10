@@ -61,7 +61,6 @@ class ContactUs extends React.Component {
                   primary={'Joel Wilson'}
                   secondary={'joel.wilson.mt@gmail.com'}/>
           </ListItem>
-                })
         </List>
         <GameContext.Consumer>{
             (game) => (
