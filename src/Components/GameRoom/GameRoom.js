@@ -24,7 +24,7 @@ class GameRoom extends Component {
 
           <br />
 
-          <Typography className="white title" variant="h2" component="h3" align="center">
+          <Typography className="white title" variant="h3" component="h3" align="center">
             CONGRATS ON MAKING IT THIS FAR NOW PAY ATTENTION
           </Typography>
           <GameContext.Consumer>{

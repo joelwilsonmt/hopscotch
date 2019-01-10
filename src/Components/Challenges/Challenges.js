@@ -393,7 +393,7 @@ this.onFormChange = (e) => {
                 </Grid>
             <div className="center">
               <Typography className="center white" variant="h4">
-                Squares
+                SQUARES TO HOP
               </Typography>
               <div className="padder">
             <Button variant="contained"
