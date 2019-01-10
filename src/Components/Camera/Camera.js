@@ -357,7 +357,7 @@ export default class App extends Component {
                 color="primary"
                 className="white"
                 onClick={() => game.setView('')}>
-                Back to Challenges
+                Back to Squares
               </Button>
               </div>
           )}</GameContext.Consumer>
