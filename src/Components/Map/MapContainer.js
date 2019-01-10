@@ -66,6 +66,7 @@ export class MapContainer extends React.Component {
     }
     const styles = [
     {
+
         "featureType": "water",
         "elementType": "geometry",
         "stylers": [
@@ -116,10 +117,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "on"
+
             }
         ]
     },
     {
+
         "featureType": "road",
         "elementType": "geometry",
         "stylers": [
@@ -134,10 +137,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "on"
+
             }
         ]
     },
     {
+
         "featureType": "road.highway",
         "elementType": "geometry",
         "stylers": [
@@ -152,10 +157,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "simplified"
+
             }
         ]
     },
     {
+
         "featureType": "road.arterial",
         "elementType": "geometry",
         "stylers": [
@@ -170,10 +177,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "simplified"
+
             }
         ]
     },
     {
+
         "featureType": "road.local",
         "elementType": "geometry",
         "stylers": [
@@ -188,11 +197,13 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "on"
+
             }
         ]
     },
     {
         "featureType": "poi",
+
         "elementType": "geometry",
         "stylers": [
             {
@@ -206,10 +217,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "on"
+
             }
         ]
     },
     {
+
         "featureType": "poi.park",
         "elementType": "all",
         "stylers": [
@@ -278,10 +291,12 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "off"
+
             }
         ]
     },
     {
+
         "featureType": "administrative.locality",
         "elementType": "labels",
         "stylers": [
@@ -350,6 +365,7 @@ export class MapContainer extends React.Component {
             },
             {
                 "visibility": "on"
+
             }
         ]
     }
@@ -363,7 +379,9 @@ export class MapContainer extends React.Component {
         item
         xs = { 12 }
         style = { style }
+
         styles = {styles}
+
         google = { this.props.google }
         onClick = { this.onMapClicked }
         zoom = { 12 }

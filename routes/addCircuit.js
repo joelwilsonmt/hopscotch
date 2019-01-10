@@ -64,6 +64,7 @@ router.post('/', function (req, res) {
           }
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
+
           var challengeLimit = 20; //set to number of challenges you want...
           for(var i = 0; i < challengeLimit; i++) {
             if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
@@ -75,6 +76,7 @@ router.post('/', function (req, res) {
               console.log(i + ") passed");
             }
           }
+
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }

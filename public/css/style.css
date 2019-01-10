@@ -99,7 +99,8 @@ body {
   border: 1px solid #aaa;
   border-radius: 5px;
   height : 45vh;
-  overflow: auto;
+  overflow: scroll;
+  overflow-x: hidden;
   color: #fff !important;
   background-color: rgba(0,0,0,.5);
 
@@ -150,7 +151,7 @@ body {
 }
 
 
-.distance-badge {
-  padding-left: 10%;
-  width: 50% !important;
+
+
 }
+
