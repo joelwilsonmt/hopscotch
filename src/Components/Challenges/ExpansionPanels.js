@@ -61,17 +61,17 @@ class SimpleExpansionPanel extends React.Component{
   return (
       <ExpansionPanel disabled={this.state.disabled} className="white">
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className="white center" variant="h6">
+          <Typography className="white center" variant="p">
             {
               (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
           </Typography>
-          <Typography className='distance-badge center'>
+          <Typography className='distance-badge center' variant="p">
             <strong>{(this.props.distance).toFixed(2)}</strong> miles away
           </Typography>
         </ExpansionPanelSummary>
         <div class="center padder challenge-description">
-        <Typography variant="h3">
+        <Typography variant="h6">
           {
           challenge.location_gate.name
           }
@@ -79,17 +79,17 @@ class SimpleExpansionPanel extends React.Component{
         <div className="padder">
        <ProofButton value={this.props.value} order={this.props.order}  />
        </div>
-        <Typography >{
+        <Typography variant="p" >{
           this.props.value.location_gate.address.replace(/<br\s*\/?>/gi, '. ')
           }</Typography>
 
-        <Typography className='padder'>
+        <Typography className='padder' variant="h6">
           <strong>{this.props.value.id_users_completed.length-1}</strong> users have hopped this square
 
         </Typography>
-        <Typography >
+        <Typography variant="p">
           {
-            (this.props.distance < 15) ? 'You can take a selfie!' : 'You can take a picture, but it wont count'
+            (this.props.distance < .1) ? 'You are in range! You can take a selfie with your finished drink!' : 'You are out of range. You can take a picture, but it wont count toward the hops scotch'
           }
         </Typography>
       </div>

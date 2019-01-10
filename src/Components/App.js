@@ -111,7 +111,6 @@ class App extends React.Component {
         <div>
           <MuiThemeProvider theme={theme}>
             <MainAppBar/>
-            <ContactUsButton/>
               <GameContext.Consumer>{
                   (game) => (<CircuitReview value={game}/>)
           }</GameContext.Consumer>

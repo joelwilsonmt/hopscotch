@@ -190,24 +190,16 @@ export default class App extends Component {
                 aria-describedby="alert-dialog-slide-description"
               >
 
-<<<<<<< HEAD
                     <DialogTitle id="alert-dialog-slide-title">
                         {"Congrats! You finished the hops scotch first!"}
-=======
-                    <DialogTitle className='center' id="alert-dialog-slide-title">
-                        {"Congrats! You broke the circuit!"}
->>>>>>> Development
                     </DialogTitle>
 
                     <DialogContent>
 
                         <DialogContentText id="alert-dialog-slide-description" className="center">
 
-<<<<<<< HEAD
+
                           Now give me your keys, you sloshed sack of shite!
-=======
-                          Your winning photo:
->>>>>>> Development
 
                         </DialogContentText>
 
@@ -221,16 +213,8 @@ export default class App extends Component {
                     </DialogContent>
 
                     <DialogActions>
-<<<<<<< HEAD
                         <Button onClick={this.handleDialogue} color="primary">
                           Review Squares
-=======
-                        <Button
-                          onClick={this.handleDialogue}
-                          color="primary"
-                          variant="contained">
-                          Review Circuit
->>>>>>> Development
                         </Button>
                       </DialogActions>
 
@@ -294,14 +278,8 @@ export default class App extends Component {
           <GameContext.Consumer>{
             (game) => (
           <DialogActions>
-<<<<<<< HEAD
-            <Button onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
+            <Button variant="contained" onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
               Back to Squares
-=======
-            <Button variant="contained"
-              onClick={() => game.updateGameAndSetView(game.user._id, 'Challenges')} color="primary">
-              Back to Challenges
->>>>>>> Development
             </Button>
           </DialogActions>
         )}</GameContext.Consumer>

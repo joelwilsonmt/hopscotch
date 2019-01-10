@@ -385,13 +385,8 @@ this.onFormChange = (e) => {
             {value === 'challenges' &&
               <div>
             <div className="center">
-<<<<<<< HEAD
-              <Typography className="center white" variant="h4">
-                SQUARES TO HOP
-=======
               <Typography className="center white padder" variant="h4">
-                Challenges
->>>>>>> Development
+                SQUARES TO HOP
               </Typography>
               <div className="padder">
             <Button variant="contained"

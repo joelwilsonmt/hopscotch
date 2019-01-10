@@ -37,11 +37,11 @@ class OpeningScreen extends React.Component {
       introWindowOpen: true,
       slide: 0,
       messages: [
-        {message: 'CircuitBreaker is an interactive game where you take selfies with objects in certain places',
+        {message: 'Hopscotch is a bar crawl game where you have your favorite drink at downtown bars',
         buttonText: 'Next'},
-        {message: 'You must go to each location and take a selfie with whatever object it says',
+        {message: 'Go to each bar (square) in a Hopscotch and take a picture with your empty glass there',
         buttonText: 'Next'},
-        {message: 'Complete all the challenges to break the circuit!',
+        {message: 'Visit all the squares to win the Hopscotch!',
         buttonText: 'Close'}
       ]
     };

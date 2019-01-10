@@ -1,9 +1,11 @@
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One');
 @import url('https://fonts.googleapis.com/css?family=Signika+Negative');
 
-
+h1,h2,h3,h4,h5,h6, p {
+  font-size: .8em;
+}
 h1,h2,h3,h4,h5,h6, div {
+
   font-family: 'Fredoka One', cursive !important;
   letter-spacing: 0.075em !important;
 }
@@ -14,23 +16,6 @@ p, li, span, input, label {
 p {
     font-size: 1.5em !important;
 }
-=======
-@import url('https://fonts.googleapis.com/css?family=Aldrich');
-@import url('https://fonts.googleapis.com/css?family=Exo+2');
-
-h1 h1,h2,h3,h4,h5,h6, div {
-  font-family: 'Aldrich', sans-serif !important;
-  letter-spacing: 0.05em !important;
-  color: #FFF !important;
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
-}
-p, li, span, input, label {
-  font-family: 'Exo 2', sans-serif !important;
-  letter-spacing: 0.1em !important;
-  word-spacing: 0.01em !important;
-}
-
->>>>>>> Development
 html {
     overflow: scroll;
     overflow-x: hidden;
@@ -55,15 +40,12 @@ body {
 .MuiButton-contained-188 {
   box-shadow: none !important;
 }
-<<<<<<< HEAD
 .title, button span {
   text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
 .MuiTabs-root-374 button span {
   text-shadow: none !important;
 }
-=======
->>>>>>> Development
 
 .white, .white h1, .white h2, .white h3, .white h4, .white h5, .white h6, .white p, .white span, .white input, .white label, .white li {
   color: #fff !important;
@@ -171,13 +153,6 @@ body {
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
-<<<<<<< HEAD
-
-
-
-}
-
-=======
 .distance-badge {
   padding-left: 10%;
   width: 50% !important;
@@ -201,9 +176,9 @@ body {
   transition: .5s ease;*/
   background-color: rgba(0,0,0,0.25);
   background-repeat: no-repeat;
-   background-size: 30%;
+   background-size: 50%;
    /*https://pixelspeechbubble.com/*/
-   background-image: url(https://i.pixelspeechbubble.com/la3cnF2l/pixel-speech-bubble.gif);
+   background-image: url(https://i.pixelspeechbubble.com/XIB82yGt/pixel-speech-bubble.gif);
 }
 .overlay-text {
   color: white;
@@ -217,15 +192,6 @@ body {
   text-align: center;
 }
 
-/*-----------------transparent dialogues--------------------------*/
-div[class^='MuiDialog-paper'], div[class*=' MuiDialog-paper'] {
-  background: rgba(0,0,0,.9) !important;
-  border: 1px solid #aaa;
-}
-div[class^='MuiDialog-paper'] *, div[class*=' MuiDialog-paper'] *{
-  color: #fff !important;
-}
-
 .image {
   border: 1px solid #fff !important;
   border-radius: 5px !important;
@@ -234,11 +200,3 @@ div[class^='MuiDialog-paper'] *, div[class*=' MuiDialog-paper'] *{
 .bump-right {
   margin-right: 25px !important;
 }
-.map-wrapper * {
-  color: #000 !important;
-}
-div[class^='MuiExpansionPanelSummary-expandIcon'] span *, div[class*=' MuiExpansionPanelSummary-expandIcon'] span * {
-  border: 1px solid #fff !important;
-  border-radius: 100px !important;
-}
->>>>>>> Development
