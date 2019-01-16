@@ -16,7 +16,7 @@ CircuitSchema  = mongoose.Schema(
         full_challenge_text: String
       }]
     },
-    { collection: 'circuits' });
+    { collection: 'hopscotches' });
 var Circuit = mongoose.model('Circuit', CircuitSchema);
 
 module.exports = Circuit;

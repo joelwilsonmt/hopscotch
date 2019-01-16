@@ -127,17 +127,13 @@ class SimpleCard extends React.Component {
   render() {
     return (
       <div className='padder'>
-          <Typography variant="h6" component="h2" align="center">
-            {this.state.message}
-          </Typography>
-
             {
               this.state.foundCircuit.challenges
               ?
               <div className='padder'>
-              <Typography variant="h6" align="center">Hops
-              Scotch Found with  {this.state.foundCircuit.challenges.length} Squares</Typography>
-
+                <Typography variant="h6" component="h2" align="center">
+                  {this.state.message}
+                </Typography>
               </div>
               :
               <CircularProgress/>
