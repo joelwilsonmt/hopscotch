@@ -59,9 +59,9 @@ class SimpleExpansionPanel extends React.Component{
   render(){
     let challenge = this.props.value;
   return (
-      <ExpansionPanel disabled={this.state.disabled} className="white">
+      <ExpansionPanel disabled={this.state.disabled} >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className="white center" variant="p">
+          <Typography className="center" variant="p">
             {
               (this.props.listId+1) + ") " + this.props.value.full_challenge_text
             }
