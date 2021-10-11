@@ -47,8 +47,7 @@ router.post('/', function (req, res) {
                           ];
       var cat = apiCategories[Math.floor(Math.random()*apiCategories.length)];
       var q = /*'pub'*/ /*'tavern'*/ /*'night-club'*/ 'beer-drink';
-      var api = process.env.HERE_API+ apiBoundingBox +'&cat='+cat;
-      var searchAPI = process.env.HERE_API_SEARCH + apiBoundingBox +'&q='+q;
+      var searchAPI = process.env.HERE_API_SEARCH + '&in=' + apiBoundingBox +'&q='+q;
       //maybe do a 'pub crawl' version of this? Photo yourself in the bar with your drink (can Rekognition see full/empty glasses? yes), drink it and move on to the next bar
 
       console.log("findbyId finished, Here API call starting w/ bounds...", apiBoundingBox);
