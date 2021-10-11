@@ -64,7 +64,10 @@ router.post('/', function (req, res) {
           console.log("Places found: " + places.length);
           //which is longer, 10 or place.length...
 
-          var challengeLimit = 20; //set to number of challenges you want...
+          var challengeLimit = 10; //set to number of challenges you want...
+          if (places.length < challengeLimit){
+            challengeLimit = places.length;
+          }
           for(var i = 0; i < challengeLimit; i++) {
             if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
               console.log("category wine or liquor found, returning");
@@ -75,11 +78,7 @@ router.post('/', function (req, res) {
               console.log(i + ") passed");
             }
           }
-
-          if (places.length < challengeLimit){
-            challengeLimit = places.length;
-          }
-            for(var i = 0; i < challengeLimit; i++) {
+          for(var i = 0; i < challengeLimit; i++) {
                var words = [
                  'glass'
                ];
