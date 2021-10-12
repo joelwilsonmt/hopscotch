@@ -68,16 +68,16 @@ router.post('/', function (req, res) {
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
-          for(var i = 0; i < challengeLimit; i++) {
-            if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
-              console.log("category wine or liquor found, returning");
-              places.splice(i,1);
-              challengeLimit--;
-            }
-            else {
-              console.log(i + ") passed");
-            }
-          }
+          // for(var i = 0; i < challengeLimit; i++) {
+          //   if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
+          //     console.log("category wine or liquor found, returning");
+          //     places.splice(i,1);
+          //     challengeLimit--;
+          //   }
+          //   else {
+          //     console.log(i + ") passed");
+          //   }
+          // }
           for(var i = 0; i < challengeLimit; i++) {
                var words = [
                  'glass'
@@ -97,12 +97,12 @@ router.post('/', function (req, res) {
               };
           }
           console.log("sets challenges length before shuffle: ", sets_challenges.length);
-          var passChallenges = shuffle(sets_challenges);
+          // var passChallenges = shuffle(sets_challenges);
           // var passChallenges = sets_challenges.slice(0, 1);
             //create the new circuit
             new Circuit({
               circuit_boundaries: circuitBoundaries,
-              challenges: passChallenges,//sets_challenges,
+              challenges: sets_challenges,//sets_challenges,
               date_created: new Date(),
             }).save(function (err, circuit) {
               if(err){console.log(err);}
