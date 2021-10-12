@@ -68,16 +68,16 @@ router.post('/', function (req, res) {
           if (places.length < challengeLimit){
             challengeLimit = places.length;
           }
-          for(var i = 0; i < challengeLimit; i++) {
-            if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
-              console.log("category wine or liquor found, returning");
-              places.splice(i,1);
-              challengeLimit--;
-            }
-            else {
-              console.log(i + ") passed");
-            }
-          }
+          // for(var i = 0; i < challengeLimit; i++) {
+          //   if(places[i].category.id == 'wine-and-liquor' ||  places[i].category.id == 'shop'){
+          //     console.log("category wine or liquor found, returning");
+          //     places.splice(i,1);
+          //     challengeLimit--;
+          //   }
+          //   else {
+          //     console.log(i + ") passed");
+          //   }
+          // }
           for(var i = 0; i < challengeLimit; i++) {
                var words = [
                  'glass'
